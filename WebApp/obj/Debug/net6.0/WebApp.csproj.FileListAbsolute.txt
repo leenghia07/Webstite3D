@@ -1,0 +1,52 @@
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\bin\Debug\net6.0\appsettings.Development.json
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\bin\Debug\net6.0\appsettings.json
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\bin\Debug\net6.0\WebApp.staticwebassets.runtime.json
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\bin\Debug\net6.0\WebApp.exe
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\bin\Debug\net6.0\WebApp.deps.json
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\bin\Debug\net6.0\WebApp.runtimeconfig.json
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\bin\Debug\net6.0\WebApp.dll
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\bin\Debug\net6.0\WebApp.pdb
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.csproj.AssemblyReference.cache
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.AssemblyInfoInputs.cache
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.AssemblyInfo.cs
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.csproj.CoreCompileInputs.cache
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.MvcApplicationPartsAssemblyInfo.cache
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.RazorAssemblyInfo.cache
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.RazorAssemblyInfo.cs
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\staticwebassets.build.json
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\staticwebassets.development.json
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\scopedcss\bundle\WebApp.styles.css
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\scopedcss\projectbundle\WebApp.bundle.scp.css
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.dll
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\refint\WebApp.dll
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.pdb
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.genruntimeconfig.cache
+D:\Đồ án tốt nghiệp\Webstite3D\WebApp\obj\Debug\net6.0\ref\WebApp.dll
+D:\git\Webstite3D\WebApp\bin\Debug\net6.0\appsettings.Development.json
+D:\git\Webstite3D\WebApp\bin\Debug\net6.0\appsettings.json
+D:\git\Webstite3D\WebApp\bin\Debug\net6.0\WebApp.staticwebassets.runtime.json
+D:\git\Webstite3D\WebApp\bin\Debug\net6.0\WebApp.exe
+D:\git\Webstite3D\WebApp\bin\Debug\net6.0\WebApp.deps.json
+D:\git\Webstite3D\WebApp\bin\Debug\net6.0\WebApp.runtimeconfig.json
+D:\git\Webstite3D\WebApp\bin\Debug\net6.0\WebApp.dll
+D:\git\Webstite3D\WebApp\bin\Debug\net6.0\WebApp.pdb
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.csproj.AssemblyReference.cache
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.AssemblyInfoInputs.cache
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.AssemblyInfo.cs
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.csproj.CoreCompileInputs.cache
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.MvcApplicationPartsAssemblyInfo.cache
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.RazorAssemblyInfo.cache
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.RazorAssemblyInfo.cs
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\staticwebassets.build.json
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\staticwebassets.development.json
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\scopedcss\bundle\WebApp.styles.css
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\scopedcss\projectbundle\WebApp.bundle.scp.css
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.dll
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\refint\WebApp.dll
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.pdb
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.genruntimeconfig.cache
+D:\git\Webstite3D\WebApp\obj\Debug\net6.0\ref\WebApp.dll
