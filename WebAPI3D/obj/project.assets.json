@@ -213,11 +213,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Đồ án tốt nghiệp\\Webstite3D\\WebAPI3D\\WebAPI3D.csproj",
+      "projectUniqueName": "D:\\git\\Webstite3D\\WebAPI3D\\WebAPI3D.csproj",
       "projectName": "WebAPI3D",
-      "projectPath": "D:\\Đồ án tốt nghiệp\\Webstite3D\\WebAPI3D\\WebAPI3D.csproj",
+      "projectPath": "D:\\git\\Webstite3D\\WebAPI3D\\WebAPI3D.csproj",
       "packagesPath": "C:\\Users\\lee nghia\\.nuget\\packages\\",
-      "outputPath": "D:\\Đồ án tốt nghiệp\\Webstite3D\\WebAPI3D\\obj\\",
+      "outputPath": "D:\\git\\Webstite3D\\WebAPI3D\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lee nghia\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "76CkjwkWzLpOtLEyePBPcuIVHPQzx/2c2u69FsfsHnq1bLhB9OgDkLqbTvD6WTZ7j/9I4J/03KwY74/KIckOBw==",
+  "dgSpecHash": "zM4E+bgaGx2pgVjNmdBdHurkVWbzapndXehQwqroADehbrCB6KQlxkEwXz3AOTqRDQdR7fGQHXXzScNUf9nH/w==",
   "success": true,
-  "projectFilePath": "D:\\Đồ án tốt nghiệp\\Webstite3D\\WebAPI3D\\WebAPI3D.csproj",
+  "projectFilePath": "D:\\git\\Webstite3D\\WebAPI3D\\WebAPI3D.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lee nghia\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\lee nghia\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
