@@ -1,4 +1,18 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using WebApp.Areas.Identity.Data;
+using WebApp.Data;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'UserDataContextConnection' not found.");
+
+builder.Services.AddDbContext<UserDataContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddDbContext<MuseumDataContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<UserDataContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -17,7 +31,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();;
+app.MapRazorPages();
 app.UseAuthorization();
 
 app.MapControllerRoute(
