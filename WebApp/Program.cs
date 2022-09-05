@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Areas.Identity.Data;
@@ -16,7 +17,13 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddControllersWithViews()
+                .AddRazorPagesOptions(
+                options =>
+                {
+                    options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "/Login");
+                    options.Conventions.AddAreaPageRoute("Identity", "/Account/Register", "/Register");
+                });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,8 +42,13 @@ app.UseAuthentication();;
 app.MapRazorPages();
 app.UseAuthorization();
 
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+// app.MapAreaControllerRoute(
+//             name: "demo",
+//             areaName: "Identity",
+//             pattern: "Login/{controller=Home}/{action=Index}/{id?}");
 app.Run();

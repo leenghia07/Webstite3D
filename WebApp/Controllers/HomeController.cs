@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -17,7 +19,11 @@ namespace WebApp.Controllers
         {
             return View();
         }
-
+        public IActionResult ErrorPage()
+        {
+            ViewData["Message"] = "Bạn không có quyền truy cập,hãy đăng nhập tài khoản";
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

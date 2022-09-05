@@ -2,10 +2,84 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Đăng nhập";
 }
+<head>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	
+</head>
+    <body style="background-color: #7B68EE;">
+        <div class="container-fluid vh-50 mt-2" >
+            <div class="" style="margin-top: 15px;">
+                <div class="rounded d-flex justify-content-center">
+                    <div class="col-lg-5 shadow-lg p-5 bg-light" style="border-radius: 10px;">
+                        <div class="text-center" style="margin-bottom: 70px;">
+                            <img src="~/Images/cntt_ico_n.png"  style="height: 100px;width: 100px;" alt="">
+                            <h3 class="text-primary" style="margin-top: 40px;">@ViewData["Title"]</h3>
+                        </div>
+                      <form id="account" method="post">
+                            <div class="p-4">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-primary"><i
+                                        class="bi bi-person-plus-fill text-white"></i></span>
+                                         <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="Nhập tên tài khoản" aria-required="true" />
+                                       @* <label asp-for="Input.Email" class="form-label"></label>*@
+                                       
+                                </div>
+                                 <div class="input-group  ml-5 mt-2" >
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                 </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-primary"><i
+                                            class="bi bi-key-fill text-white"></i></span>
+                                           <input asp-for="Input.Password" id="password" class="form-control" autocomplete="current-password" placeholder="Nhập mật khẩu" aria-required="true" />
+                                            @* <label asp-for="Input.Password" class="form-label"></label> *@
+                                    <span class="input-group-text" style="cursor: pointer" onclick="password_show_hide();">
+                                        <i class="fas fa-eye" id="show_eye"></i>
+                                        <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                                        </span>
+                                </div>
+                                 <div class="input-group  ml-5 mt-2" >
+                                          <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                 </div>
+								<div class="input-group  ml-5 mt-4 mb-1" >
+									 <label asp-for="Input.RememberMe" class="form-label">
+                                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                    </label>
+                                </div>
+                                 <div asp-validation-summary="ModelOnly" class="text-danger input-group  ml-5 mt-2"></div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        
+    </body>
+<script>
+  function password_show_hide() {
+  var x = document.getElementById("password");
+  var show_eye = document.getElementById("show_eye");
+  var hide_eye = document.getElementById("hide_eye");
+  hide_eye.classList.remove("d-none");
+  if (x.type === "password") {
+    x.type = "text";
+    show_eye.style.display = "none";
+    hide_eye.style.display = "block";
+  } else {
+    x.type = "password";
+    show_eye.style.display = "block";
+    hide_eye.style.display = "none";
+  }
+}
+</script>
 
-<h1>@ViewData["Title"]</h1>
+@*<h1>@ViewData["Title"]</h1>
 <div class="row">
     <div class="col-md-4">
         <section>
@@ -78,7 +152,7 @@
             }
         </section>
     </div>
-</div>
+</div>*@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
