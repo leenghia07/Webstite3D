@@ -5,9 +5,9 @@ using WebApp.Areas.Identity.Data;
 
 namespace WebApp.Areas.Identity.Data;
 
-public class UserDataContext : IdentityDbContext<ApplicationUser>
+public class UserDatacontext : IdentityDbContext<ApplicationUser>
 {
-    public UserDataContext(DbContextOptions<UserDataContext> options)
+    public UserDatacontext(DbContextOptions<UserDatacontext> options)
         : base(options)
     {
     }

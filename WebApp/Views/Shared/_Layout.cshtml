@@ -14,11 +14,9 @@
 <body>
      <div id="main-wrapper">
 
-        <!--**********************************
-            Nav header start
-        ***********************************-->
+        <!-- Nav header start-->
         <div class="nav-header">
-            <a href="#" class="brand-logo">
+            <a href="/" class="brand-logo">
                 <img class="logo-abbr mr-2" src="~/images/cntt_ico_n.png" alt="">
                 <span class="brand-title w-auto my-auto mx-0 text-nowrap"> DHQN </span>
             </a>
@@ -29,13 +27,9 @@
                 </div>
             </div>
         </div>
-        <!--**********************************
-            Nav header end
-        ***********************************-->
+        <!--Nav header end-->
 
-        <!--**********************************
-            Header start
-        ***********************************-->
+        <!--Header start-->
         <div class="header">
             <div class="header-content">
                 <nav class="navbar navbar-expand">
@@ -120,36 +114,17 @@
                 </nav>
             </div>
         </div>
-        <!--**********************************
-            Header end ti-comment-alt
-        ***********************************-->
+        <!-- Header end -->
 
-        <!--**********************************
-            Sidebar start
-        ***********************************-->
+        <!--Sidebar start-->
         <div class="quixnav">
              <div class="quixnav-scroll">
-                <ul class="metismenu" id="menu">
-                    <li class="nav-label first">Main Menu</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="#">Dashboard 1</a></li>
-                            <li><a href="#">Dashboard 2</a></li>
-                        </ul>
-                    </li>
-                    
-                </ul>
+                <partial name="_menu" />      
             </div>
-           @* <partial name="_menu" /> *@
         </div>
-        <!--**********************************
-            Sidebar end
-        ***********************************-->
+        <!--Sidebar end-->
 
-        <!--**********************************
-            Content body start
-        ***********************************-->
+        <!--Content body start-->
         <div class="content-body">
             <!-- row -->
             <div class="container-fluid m-1">
@@ -158,28 +133,16 @@
                 </main>
             </div>
         </div>
-        <!--**********************************
-            Content body end
-        ***********************************-->
+        <!--Content body end-->
 
 
-        <!--**********************************
-            Footer start
-        ***********************************-->
+        <!--Footer start-->
         <div class="footer">
           <partial name="_footer" />
         </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
+        <!--Footer end-->
 
-        <!--**********************************
-           Support ticket button start
-        ***********************************-->
 
-        <!--**********************************
-           Support ticket button end
-        ***********************************-->
 
 
     </div>
