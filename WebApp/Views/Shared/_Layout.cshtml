@@ -7,7 +7,8 @@
     @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
      <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApp.styles.css" asp-append-version="true" />     *@
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="icon" href="~/images/cntt_ico_n.png" type="image/x-icon" />
     <link href="~/template/css/style.css" rel="stylesheet" />
 </head>
@@ -125,9 +126,10 @@
         <!--Sidebar end-->
 
         <!--Content body start-->
-        <div class="content-body">
+        <div class="content-body" style="margin-top:-30px;">
             <!-- row -->
-            <div class="container-fluid m-1">
+           @* <div class="container-fluid m-1">*@
+            <div class="m-2">
                  <main role="main" class="m-2">
                     @RenderBody() 
                 </main>
@@ -154,6 +156,41 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @*Datatable*@
+    <script src="~/template/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/template/js/plugins-init/datatables.init.js"></script>
+        <script>
+        $('.table').DataTable({
+            ordering: false,
+            pagingType: 'full_numbers',
+            lengthMenu: [[5, 10, 25, 50, -1], [5,10, 25, 50, "Tất cả"]],
+            "language": {
+                "decimal": "",
+                "emptyTable": "Không có dữ liệu",
+                "info": "Hiển thị từ _START_ đến _END_ trong _TOTAL_ hàng",
+                "infoEmpty": "Không có dữ liệu",
+                "infoFiltered": "(Tìm từ _MAX_ hàng)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Hiển thị _MENU_ ",
+                "loadingRecords": "Loading...",
+                "processing": "Processing...",
+                "search": "Tìm kiếm",
+                "zeroRecords": "Không tìm thấy kết quả",
+                "paginate": {
+                    "first": "",
+                    "last": "",
+                    "next": "Sau",
+                    "previous": "Trước"
+                },
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                }
+            }
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
