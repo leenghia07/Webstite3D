@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "Aspose.3D/22.9.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Drawing.Common": "5.0.0"
+        },
+        "compile": {
+          "lib/net60/Aspose.3D.dll": {}
+        },
+        "runtime": {
+          "lib/net60/Aspose.3D.dll": {}
+        }
+      },
       "EntityFramework/6.4.4": {
         "type": "package",
         "dependencies": {
@@ -3312,6 +3324,32 @@
     }
   },
   "libraries": {
+    "Aspose.3D/22.9.0": {
+      "sha512": "lwEnGTBDRBDUA5ZdrEsKOSFzh4tWvHdccZmuinxs9Wk6oaDjFLlg8FYvsROGMeMr6u6OaBcJf4DhHhD/+nqpZA==",
+      "type": "package",
+      "path": "aspose.3d/22.9.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Licenses/Aspose_End-User-License-Agreement.txt",
+        "Licenses/thirdpartylicense.Aspose.3D.for.NET.pdf",
+        "aspose.3d.22.9.0.nupkg.sha512",
+        "aspose.3d.nuspec",
+        "icon.png",
+        "lib/net46/Aspose.3D.dll",
+        "lib/net46/Aspose.3D.xml",
+        "lib/net50/Aspose.3D.dll",
+        "lib/net50/Aspose.3D.xml",
+        "lib/net60/Aspose.3D.dll",
+        "lib/net60/Aspose.3D.xml",
+        "lib/netcoreapp31/Aspose.3D.dll",
+        "lib/netcoreapp31/Aspose.3D.xml",
+        "lib/netstandard20/Aspose.3D.dll",
+        "lib/netstandard20/Aspose.3D.xml",
+        "lib/netstandard21/Aspose.3D.dll",
+        "lib/netstandard21/Aspose.3D.xml"
+      ]
+    },
     "EntityFramework/6.4.4": {
       "sha512": "yj1+/4tci7Panu3jKDHYizxwVm0Jvm7b7m057b5h4u8NUHGCR8WIWirBTw+8EptRffwftIWPBeIRGNKD1ewEMQ==",
       "type": "package",
@@ -10307,6 +10345,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Aspose.3D >= 22.9.0",
       "EntityFramework >= 6.4.4",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.8",
       "Microsoft.AspNetCore.Identity.UI >= 6.0.8",
@@ -10360,6 +10399,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "Aspose.3D": {
+            "target": "Package",
+            "version": "[22.9.0, )"
+          },
           "EntityFramework": {
             "target": "Package",
             "version": "[6.4.4, )"

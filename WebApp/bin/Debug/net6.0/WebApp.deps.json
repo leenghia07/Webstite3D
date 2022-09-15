@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "WebApp/1.0.0": {
         "dependencies": {
+          "Aspose.3D": "22.9.0",
           "EntityFramework": "6.4.4",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.8",
           "Microsoft.AspNetCore.Identity.UI": "6.0.8",
@@ -23,6 +24,17 @@
         },
         "runtime": {
           "WebApp.dll": {}
+        }
+      },
+      "Aspose.3D/22.9.0": {
+        "dependencies": {
+          "System.Drawing.Common": "6.0.0"
+        },
+        "runtime": {
+          "lib/net60/Aspose.3D.dll": {
+            "assemblyVersion": "22.9.0.0",
+            "fileVersion": "22.9.0.0"
+          }
         }
       },
       "EntityFramework/6.4.4": {
@@ -2423,6 +2435,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Aspose.3D/22.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lwEnGTBDRBDUA5ZdrEsKOSFzh4tWvHdccZmuinxs9Wk6oaDjFLlg8FYvsROGMeMr6u6OaBcJf4DhHhD/+nqpZA==",
+      "path": "aspose.3d/22.9.0",
+      "hashPath": "aspose.3d.22.9.0.nupkg.sha512"
     },
     "EntityFramework/6.4.4": {
       "type": "package",

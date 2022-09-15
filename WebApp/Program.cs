@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Data;
 using WebApp.Areas.Identity.Data;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.FileProviders;
+
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'UserDataContextConnection' not found.");
 
@@ -15,6 +18,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddDbContext<MuseumDataContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddDirectoryBrowser();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews()
@@ -24,6 +28,14 @@ builder.Services.AddControllersWithViews()
                     options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "/Login");
                     options.Conventions.AddAreaPageRoute("Identity", "/Account/Register", "/Register");
                 });
+
+StaticFileOptions options = new StaticFileOptions 
+    { 
+        ContentTypeProvider = new FileExtensionContentTypeProvider()
+    };
+((FileExtensionContentTypeProvider)options.ContentTypeProvider)
+    .Mappings.Add(new KeyValuePair<string, string>(".glb", "model/gltf-buffer"));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,12 +45,15 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.UseStaticFiles(options);
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseDefaultFiles();
+
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication();
+
 app.MapRazorPages();
 app.UseAuthorization();
 

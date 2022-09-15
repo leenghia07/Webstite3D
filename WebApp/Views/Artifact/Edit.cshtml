@@ -1,0 +1,79 @@
+﻿@model WebApp.Models.ViewModel.VMArtifact
+@{
+    var Artifact = Model.Artifact;
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row page-titles shadow-lg mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div style="display:flex;">
+                    <h3> Sửa thông tin hiện vật</h3>
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Artifact" asp-action="Index">Hiện vật</a></li>
+                    <li class="breadcrumb-item active"><a asp-controller="Artifact" asp-action="">Sửa</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+   <div class="col-lg-12">
+        <div class="card shadow-lg">
+            <div class="card-content m-2">
+                <form asp-action="UpdateArtifact" enctype="multipart/form-data">
+                   <h2 class="text-center mt-2">Sửa thông tin hiện vật</h2>
+                    <div class="form-row">
+                        <div class="col-md-12 ">
+                           <span asp-validation-for="@Artifact"></span>
+                        </div>
+                    </div>
+                   <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label >Tên hiện vật</label>
+                            <input asp-for="@Artifact.NameArtifact" class="form-control" placeholder="Tên hiện vật" required>
+                        </div>
+                    </div>
+                      <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="@Artifact.Museum"></label>
+                            <select class="form-control" required>
+                                <option>--- Chọn bảo tàng ---</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Artifact.TypeOfArtifact"></label>
+                             <select class="form-control" required>
+                                <option>--- Chọn loại hiện vật ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="@Artifact.Image"></label>
+                            <input type="file" asp-for="@Artifact.Image" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label  asp-for="@Artifact.File3D"></label>
+                            <input type="file" class="form-control"  asp-for="@Artifact.File3D"  required>
+                        </div>
+                    </div>
+                     <div class="form-row">
+                        <div class="col-lg-12">
+                            <label class="textColor" asp-for="@Artifact.Description"></label>
+                            <textarea asp-for="@Artifact.Description" class="summernote textColor"></textarea>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <button class="btn btn-primary mt-5 mb-5 w-15">Sửa hiện vật</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

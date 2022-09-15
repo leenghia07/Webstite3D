@@ -1,0 +1,159 @@
+﻿@model WebApp.Models.ViewModel.VMArtifact
+@{
+    var Artifact = Model.Artifact;
+}
+<script src="~/js/three.js"></script>
+<script src="~/js/three.min.js"></script>
+<script src="~/js/OrbitControls.js"></script>
+<script src="~/js/stats.module.js"></script>
+@*<script src="~/js/DirectionalLightShadow.js"></script>*@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
+<script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://82mou.github.io/threejs/js/OrbitControls.js"></script>
+<script src="https://unpkg.com/browse/three@0.91.0/src/lights/DirectionalLightShadow.js"></script>
+@*<script src="https://cdn.rawgit.com/mrdoob/three.js/r92/examples/js/loaders/GLTFLoader.js"></script>*@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row page-titles shadow-lg mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div style="display:flex;">
+                    <h3> Thông tin chi tiết hiện vật</h3>
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Artifact" asp-action="Index">Hiện vật</a></li>
+                    <li class="breadcrumb-item active"><a asp-controller="Artifact" asp-action="Detail">Chi tiết</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card shadow-lg">
+                    <div class="row mt-3">
+                        <div class="col-lg-10">
+                            <h3 class="text-center ml-5">Chi tiết</h3>
+                        </div>
+                         <div class="col-lg-1">
+                            <div class="dropdown dropdown-action">
+                                <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
+                                <div class="dropdown-menu dropdown-menu-center">
+                                    <a class="btn btn-primary w-70 ml-4" asp-controller="Artifact" asp-action="Edit" asp-route-id="@Artifact.Id"  style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Cập nhập thông tin</a>   
+                                    <a class="btn btn-info w-70 ml-4 mt-2" asp-controller="Editor" asp-action="Index" asp-route-id="@Artifact.Id"   style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Chỉnh sửa hình 3D</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body m-2">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img  src="/images/@Artifact.Image" class="shadow-lg" height="100" width="100" />
+                            </div>
+                           
+                            <div class="col-lg-6">
+                                <div class="row mt-3">
+                                    <h4>Hiện vật: Chén</h4>
+                                    <input id="FileLoad" type="hidden" value="/File3D/@Artifact.File3D"></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="row ">
+                                <i class="mdi mdi-map-marker " style="font-size:20px;color: #da5e5e;"></i>
+                                <h4 class="my-auto">Địa chỉ:</h4>
+                                <p class="textColor blockquote">Hiện đang trưng bài tại @Artifact.Museum.MuseumName.</p>
+                            </div>
+                            <div class="row mt-1">
+                                <i class="mdi mdi-checkbox-blank-circle-outline" style="font-size:20px;color: #da5e5e"></i>
+                                <h4 class="my-auto ml-1" > Mô tả:</h4>
+                                <div class="textColor blockquote">
+                                    @Artifact.Description
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div id="FPS" class="row"></div>
+                <div id="Load3D" class="row mt-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //   Canvas: Phần tử HTML canvas, cái này giống như 1 bức tranh (hay cái màn chiếu) trống, và threejs sẽ vẽ vời lên đây.
+    var FileLoad = $('#FileLoad').val();
+    console.log(FileLoad);
+    var myCanvas = document.getElementById("Load3D")
+    var showFPS = document.getElementById("FPS")
+    
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    var width =window.innerWidth;
+    //var height =window.innerHeight;
+  //  var width =800;
+    var height =600;
+    var stats=new Stats();
+
+    showFPS.appendChild(stats.dom)
+    // hiển thị hình ảnh input(camera,scence).
+    var renderer = new THREE.WebGLRenderer();
+     renderer.setSize(width ,height);
+   
+    myCanvas.appendChild(renderer.domElement); 
+    const controls = new THREE.OrbitControls(camera,renderer.domElement);
+                       
+    window.addEventListener('resize',function () {
+        renderer.setSize(width,height);
+        camera.aspect = width/height;
+        camera.updateProjectionMatrix();
+    })
+    
+      const loader = new THREE.GLTFLoader();
+        loader.load(
+            FileLoad,
+            function(gltf) {  
+                    var model = gltf.scene;
+                    model.position.set( -1.5 , -1.2 , 0 );
+                    scene.add( model);
+                    console.log(gltf)
+                },
+                function ( xhr ) {
+                    console.log( ( xhr.loaded / xhr.total * 100 )+"% loaded" )
+                },
+                function ( error ) {
+                    console.log( 'An error happened' );
+                }
+            );
+       
+        const light = new THREE.DirectionalLight( 0xffffff, 1 );
+        light.position.set( 0.357 , 3.008 , 0 ); //(x,y,z) default; light shining from top
+       // light.castShadow = true; // default false
+        light.intensity = 2.2;
+        scene.add( light );
+
+        const light1 = new THREE.DirectionalLight( 0xffffff, 1 );
+        light1.position.set( -0.5 , -1.2 , 0.034 );
+        light1.intensity = 2;
+        scene.add( light1 );
+
+       renderer.outputEncoding = THREE.sRGBEncoding;
+       scene.background = new THREE.Color();
+        
+        // phóng màn hình
+       camera.position.z = 8;
+
+      var render = function () {
+            //controls.update();
+            requestAnimationFrame( render );
+            stats.update()
+            controls.update()
+            renderer.render(scene, camera);
+       };
+      render();
+  
+</script>

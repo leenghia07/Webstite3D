@@ -1,4 +1,9 @@
-﻿<div class="row">
+﻿@model WebApp.Models.ViewModel.VMAccount
+@{
+    var Accounts = Model.Accounts;
+    int Stt = 0;
+}
+<div class="row">
     <div class="col-lg-12">
         <div class=" row page-titles shadow-lg mx-0">
             <div class="col-sm-6 p-md-0">
@@ -16,7 +21,7 @@
                 <div class="card shadow-lg">
                     <div class="card-body">
                         <table class="table table-striped table-bordered">
-                            <thead class="text-center text-nowrap thead-light">
+                            <thead class="text-center text-nowrap">
                                 <tr>
                                     <td class="w-5">
                                         STT
@@ -42,37 +47,43 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-center">
-                                        1
-                                    </td>
-                                    <td class="text-center">
-                                        2
-                                    </td>
-                                    <td class="text-left">
-                                        3
-                                    </td>
-                                    <td class="text-center">
-                                        09-10-2000
-                                    </td>
-                                    <td class="text-left">
-                                        5
-                                    </td>
-                                    <td class="text-left">
-                                        6
-                                    </td>
-                                    <td class="text-center">
-                                       <div class="dropdown dropdown-action">
-                                            <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-center">
-                                                <a class="btn btn-success w-70 ml-4" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa</a>                              
-                                                <form>
-                                                    <button class="btn btn-danger w-70 mt-2 ml-4"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
-                                                </form>
+
+                                @foreach (var item in Accounts)
+                                {
+                                    @*var Name=item.*@
+                                    Stt++;
+                                    <tr>
+                                        <td class="text-center">
+                                            @Stt++
+                                        </td>
+                                        <td class="text-center">
+                                            hinh anh
+                                        </td>
+                                        <td class="text-left">
+                                            ho ten
+                                        </td>
+                                        <td class="text-center">
+                                            09-10-2000
+                                        </td>
+                                        <td class="text-left">
+                                            @item.Email
+                                        </td>
+                                        <td class="text-left">
+                                            @item.PhoneNumber
+                                        </td>
+                                        <td class="text-center">
+                                           <div class="dropdown dropdown-action">
+                                                <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-center">
+                                                    <a class="btn btn-success w-70 ml-4" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa</a>                              
+                                                    <form>
+                                                        <button class="btn btn-danger w-70 mt-2 ml-4"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "c9lyOyl63I3snZsaej76sgdFMi4y9wRONTZk/wGJN2zDlMFL6gLV3xneKDDAHo9gB7suT8UDsjMskMybvUDJtA==",
+  "dgSpecHash": "Brj8OqPPGpVO2MSITQR9jlaG+HkWO9dPb2kbEXRAY9DBnrqueDxEqPWaqq+WhFyacJGFzjI3LVcyL86imLzAdA==",
   "success": true,
   "projectFilePath": "D:\\git\\Webstite3D\\WebApp\\WebApp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\lee nghia\\.nuget\\packages\\aspose.3d\\22.9.0\\aspose.3d.22.9.0.nupkg.sha512",
     "C:\\Users\\lee nghia\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\lee nghia\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\lee nghia\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

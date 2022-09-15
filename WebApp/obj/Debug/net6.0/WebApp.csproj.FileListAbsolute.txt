@@ -304,3 +304,4 @@ D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Emb
 D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.MvcApplicationPartsAssemblyInfo.cs
+D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Aspose.3D.dll
