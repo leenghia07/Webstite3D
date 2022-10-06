@@ -6,7 +6,7 @@ import { History as _History } from './History.js';
 import { Strings } from './Strings.js';
 import { Storage as _Storage } from './Storage.js';
 import { Selector } from './Viewport.Selector.js';
-
+import {GLTFExporter} from '/threejs/examples/jsm/exporters/GLTFExporter.js';
 var _DEFAULT_CAMERA = new THREE.PerspectiveCamera( 50, 1, 0.01, 1000 );
 _DEFAULT_CAMERA.name = 'Camera';
 _DEFAULT_CAMERA.position.set( 0, 5, 10 );
@@ -534,9 +534,7 @@ Editor.prototype = {
 		this.signals.viewportCameraChanged.dispatch();
 
 	},
-
-	//
-
+	
 	select: function ( object ) {
 
 		this.selector.select( object );
@@ -669,9 +667,7 @@ Editor.prototype = {
 		}
 
 		//
-
 		return {
-
 			metadata: {},
 			project: {
 				shadows: this.config.getKey( 'project/renderer/shadows' ),
@@ -684,18 +680,26 @@ Editor.prototype = {
 			camera: this.camera.toJSON(),
 			scene: this.scene.toJSON(),
 			scripts: this.scripts,
-			history: this.history.toJSON()
-
+			history: this.history.toJSON(),
 		};
 
 	},
+	objectByName: function ( name ) {
 
+		return this.scene.getObjectByName(name);
+
+	},
 	objectByUuid: function ( uuid ) {
+
+		return this.scene.getObjectByProperty( 'uuid', uuid );
+
+	},
+/*	objectByUuid: function ( uuid ) {
 
 		return this.scene.getObjectByProperty( 'uuid', uuid, true );
 
 	},
-
+*/
 	execute: function ( cmd, optionalName ) {
 
 		this.history.execute( cmd, optionalName );

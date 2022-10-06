@@ -12,21 +12,16 @@ namespace WebApp.Controllers
         {
             _context = context;
         }
-
-        /*  public async Task<IActionResult> Index(Guid id)
-          {
-              var DetailArtifact = new VMArtifact();
-              DetailArtifact.Artifact = await _context.Aritifact.FindAsync(id);
-
-              return Redirect("~/threejs/editor/index.html");
-          }*/
-        public async Task<IActionResult> Index(Guid id)
+        public async Task<IActionResult> Index()
         {
-            /*var DetailArtifact = new VMArtifact();
+            return View();
+        }
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var DetailArtifact = new VMArtifact();
             DetailArtifact.Artifact = await _context.Aritifact.FindAsync(id);
 
-            return View(DetailArtifact);*/
-            return View();
+            return View(DetailArtifact);
         }
     }
 }

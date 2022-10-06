@@ -22,9 +22,14 @@ namespace WebApp.Controllers
             return View(typeArtifactVM);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Detail(Guid Id)
         {
-            return View();
+            var vmArtifact = new VMArtifact();
+            vmArtifact.Artifacts = _context.Aritifact.Where(x => x.TypeOfArtifactId.Equals(Id))
+                                                     .Include(i => i.Museum)
+                                                     .Include(i => i.TypeOfArtifact)
+                                                     .ToList();
+            return View(vmArtifact);
         }
         [HttpPost]
         public async Task<IActionResult> Create(TypeOfArtifact typeofartifact)
@@ -33,13 +38,14 @@ namespace WebApp.Controllers
             {
                 _context.Add(typeofartifact);
                 await _context.SaveChangesAsync();
+                ViewData["success"]= "Thêm thành công";
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                ModelState.AddModelError("", "Thêm không thành công");
+                ViewData["error"]= "Thêm thất bại";
             }
-            return View();
+            return View(typeofartifact);
         }
         [HttpPost]
         public async Task<IActionResult> Update(TypeOfArtifact typeofartifact)
@@ -48,6 +54,7 @@ namespace WebApp.Controllers
             {
                 _context.Update(typeofartifact);
                 await _context.SaveChangesAsync();
+                ViewData["success"] = "Cập nhập thông tin thành công";
                 return RedirectToAction(nameof(Index));
             }
             return View();
@@ -58,6 +65,7 @@ namespace WebApp.Controllers
             var TypeOfArtifact = await _context.TypeOfArtifact.FindAsync(id);
             _context.Remove(TypeOfArtifact);
             await _context.SaveChangesAsync();
+            ViewData["success"] = "Xóa thành công";
             return RedirectToAction(nameof(Index));
         }
     }

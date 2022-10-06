@@ -1,5 +1,103 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WebApp.Models.ViewModel.VMArtifact
+@using System.Text.RegularExpressions;
 @{
+    var Artifacts = Model.Artifacts;
+    int Stt = 0;
+    int count = Model.Artifacts.Count();
 }
+ <style>
+     .an {
+    display: block;
+  	display: -webkit-box;
+  	line-height: 1.9;
+  	-webkit-line-clamp: 3;  /* số dòng hiển thị */
+  	-webkit-box-orient: vertical;
+  	overflow: hidden;
+  	/* text-overflow: ellipsis; */
+}
+</style>
+<div class=" row page-titles shadow-lg mx-0">
+    <div class="col-sm-4">
+        <h3>Danh sách  nhân viên </h3>
+    </div>
+    <div class="col-sm-6">
+        <h4>Tổng hiện vật: @count</h4>
+    </div>
+    <div class="col-sm-2 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="TypeOfArtifact" asp-action="Index">Loại hiện vật</a></li>
+            <li class="breadcrumb-item active"><a href="">Chi tiết</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <table class="table table-striped table-bordered w-auto">
+                    <thead class="text-center text-nowrap"  style="background-color:#dbd8d8">
+                        <tr>
+                            <td class="w-5">
+                                STT
+                            </td>
+                            <td class="w-5">
+                                Hình ảnh
+                            </td>
+                            <td class="w-20">
+                                Hiện vật
+                            </td>
+                            <td class="w-20">
+                                Loại hiện vật
+                            </td>
+                            <td class="w-25">
+                                Mô tả
+                            </td>
+                            <td class="w-5">
+
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Artifacts)
+                        {
+                            Stt++;
+                        <tr>
+                            <td class="text-center">
+                                @Stt
+                            </td>
+                            <td class="text-center">
+                                <img src="/images/@item.Image" height="100" width="100">
+                            </td>
+                            <td class="text-center">
+                                <a asp-controller="Artifact" asp-action="Detail" asp-route-id="@item.Id" style="color:blue">@item.NameArtifact</a>
+                            </td>
+                            <td class="text-center">
+                                @item.TypeOfArtifact.NameTypeArtifact
+                            </td>
+                            <td class="text-left">
+                                <div class="an">
+                                    @{
+                                        String result = Regex.Replace(item.Description, @"<[^>]*>", String.Empty);
+                                    }
+                                    @result
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="dropdown dropdown-action">
+                                    <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-center">
+                                        <a class="btn btn-success w-70 ml-4" asp-controller="Artifact" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa</a>                              
+                                        <form asp-controller="Artifact" asp-action="Delete" asp-route-id="@item.Id">
+                                            <button class="btn btn-danger w-70 mt-2 ml-4"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

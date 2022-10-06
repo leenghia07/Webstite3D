@@ -1,33 +1,26 @@
 ﻿@model WebApp.Models.ViewModel.VMMuseum
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+   
     var Museums = Model.Museums;
     var Museum = Model.Museum;
 }
-
-@*@if(ViewBag.message)
+@if(ViewData["Error"] != null)
 {
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="alert alert-danger solid alert-right-icon alert-dismissible fade show">
-                <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
-                </button>
-                <strong>@ViewBag.message</strong>
-            </div>
-        </div>
-    </div>
+    <div class="alert mb-3 alert-danger solid alert-dismissible fade show">
+        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+        </button>
+        <strong>@ViewData["Error"]</strong>
+    </div>   
 }
-@if(ViewBag.messageError)
+@if(ViewData["success"] != null)
 {
-    <div class="row">
-    <div class="col-lg-12">
-        <div class="alert mb-3 alert-danger solid alert-dismissible fade show">
-            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span></button>
-            <strong>@ViewBag.messageError</strong>
-        </div>
-    </div>
-</div>
-}*@
+    <div class="alert mb-3 alert-primary solid alert-right-icon alert-dismissible fade show">
+        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+        </button>
+        <strong>@ViewData["success"]</strong>
+    </div>  
+}
+
 <div class="row">
     <div class="col-lg-12">
         <div class=" row page-titles shadow-lg mx-0">
@@ -71,8 +64,8 @@
             <div class="col-lg-8">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <table class="table table-striped table-bordered">
-                            <thead class="text-center text-nowrap thead-light">
+                        <table class="table table-striped table-bordered w-auto">
+                            <thead class="text-center text-nowrap"  style="background-color:#dbd8d8">
                                 <tr>
                                     <td class="w-5">
                                         STT
@@ -92,34 +85,26 @@
                                 @{
                                     int Stt = 0;
                                 }
-                                @foreach (var item in Museums)
+                                @foreach (var itemMuseum in Museums)
                                 {
-                                    Museum = item;
+                                    Museum = itemMuseum;
                                     Stt++; 
-                                    @if(item == null)
-                                    {
-                                        <tr >
-                                            <td class="text-center">
-                                                <span>Không có dữ liệu</span>
-                                            </td>
-                                        </tr>
-                                    }
                                     <tr>
                                         <td class="text-center">
                                             @Stt
                                         </td>
                                         <td class="text-left">
-                                            @item.MuseumName
+                                            <a asp-controller="Museum" asp-action="Detail" asp-route-id="@itemMuseum.Id" style="color:blue">@itemMuseum.MuseumName</a>
                                         </td>
                                         <td class="text-left">
-                                            @item.Address
+                                            @itemMuseum.Address
                                         </td>
                                         <td class="text-center">
                                            <div class="dropdown dropdown-action">
                                                 <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
                                                 <div class="dropdown-menu dropdown-menu-center">
-                                                    <button  data-toggle="modal" data-target="#modalEdit-@item.Id" class="btn btn-success w-70 ml-4"><i class="fa fa-pencil m-r-5"></i> Sửa</button>                                 
-                                                    <form asp-action="Delete" asp-route-id="@item.Id" >
+                                                    <button  data-toggle="modal" data-target="#modalEdit-@itemMuseum.Id" class="btn btn-success w-70 ml-4"><i class="fa fa-pencil m-r-5"></i> Sửa</button>                                 
+                                                    <form asp-action="Delete" asp-route-id="@itemMuseum.Id" >
                                                         <button class="btn btn-danger w-70 mt-2 ml-4"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
                                                     </form>
                                                 </div>
@@ -128,7 +113,7 @@
                                     </tr>
                                     @*Start model bảo tàng*@
                                     <div class="w-50 d-flex justify-content-end">
-                                        <div class="modal fade" id="modalEdit-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modalEdit-@itemMuseum.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
                                                 <form asp-action="Update">
                                                      <div class="modal-content p-3" style="width: 550px;">

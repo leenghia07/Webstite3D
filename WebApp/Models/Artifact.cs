@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using WebApp.Models;
 namespace WebApp.Models
 {
@@ -6,12 +7,17 @@ namespace WebApp.Models
     {
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Chưa chọn bảo tàng")]
+        public Guid MuseumId { get; set; }
+        [ForeignKey("MuseumId")]
         [Display(Name = "Bảo tàng")]
         public virtual Museum Museum { get; set; }
-        [Required(ErrorMessage = "Chưa chọn loại hiện vật")]
+        public Guid TypeOfArtifactId { get; set; }
+
+        /*[Required(ErrorMessage = "Chưa chọn loại hiện vật")]*/
         [Display(Name = "Loại bảo hiện vật")]
+        [ForeignKey("TypeOfArtifactId")]
         public virtual TypeOfArtifact TypeOfArtifact { get; set; }
-        [Required(ErrorMessage = "Chưa nhập tên hiện vật")]
+        /*[Required(ErrorMessage = "Chưa nhập tên hiện vật")]*/
         [Display(Name = "Tên hiện vật")]
         public string NameArtifact { get; set; }
         [Display(Name = "File ảnh")]

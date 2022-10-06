@@ -1,6 +1,24 @@
 ﻿@model WebApp.Models.ViewModel.VMArtifact
 @{
     var Artifact = Model.Artifact;
+    var TypeOfArtifacts = Model.TypeOfArtifacts;    
+    var Museums = Model.Museums;  
+}
+@if(ViewData["Error"] != null)
+{
+    <div class="alert mb-3 alert-danger solid alert-dismissible fade show">
+        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+        </button>
+        <strong>@ViewData["Error"]</strong>
+    </div>   
+}
+@if(ViewData["success"] != null)
+{
+    <div class="alert mb-3 alert-primary solid alert-right-icon alert-dismissible fade show">
+        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+        </button>
+        <strong>@ViewData["success"]</strong>
+    </div>  
 }
 <div class="row">
     <div class="col-lg-12">
@@ -20,53 +38,76 @@
     </div>
    <div class="col-lg-12">
         <div class="card shadow-lg">
-            <div class="card-content m-2">
                 <form asp-action="UpdateArtifact" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="@Artifact.Id" />
                    <h2 class="text-center mt-2">Sửa thông tin hiện vật</h2>
-                    <div class="form-row">
-                        <div class="col-md-12 ">
-                           <span asp-validation-for="@Artifact"></span>
+                   <div class="m-3">
+                       <div class="form-row">
+                            <div class="col-md-12 ">
+                               @*<span asp-validation-for="@Artifact"></span>*@
+                            </div>
+                       </div>
+                       <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label class="textColor" asp-for="@Artifact.NameArtifact"></label>
+                                <input asp-for="@Artifact.NameArtifact" class="form-control" placeholder="Tên hiện vật" required>
+                            </div>
                         </div>
-                    </div>
-                   <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label >Tên hiện vật</label>
-                            <input asp-for="@Artifact.NameArtifact" class="form-control" placeholder="Tên hiện vật" required>
-                        </div>
-                    </div>
-                      <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="@Artifact.Museum"></label>
-                            <select class="form-control" required>
+                          <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label class="textColor" asp-for="@Artifact.Museum"></label>
+                                <select class="form-control" asp-for="@Artifact.MuseumId">
+                                <option asp-for="@Artifact.MuseumId"> @Artifact.Museum.MuseumName</option>
                                 <option>--- Chọn bảo tàng ---</option>
+                                @foreach (var item in Museums)
+                                {
+                                   <option value="@item.Id">@item.MuseumName</option> 
+                                }
                             </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="textColor" asp-for="@Artifact.TypeOfArtifact"></label>
+                                <select class="form-control" asp-for="@Artifact.TypeOfArtifactId" required>
+                                    <option asp-for="@Artifact.TypeOfArtifactId"> @Artifact.TypeOfArtifact.NameTypeArtifact</option>
+                                    <option>--- Chọn loại hiện vật ---</option>
+                                     @foreach(var itemtype in TypeOfArtifacts)
+                                     {
+                                        <option value="@itemtype.Id">@itemtype.NameTypeArtifact</option>
+                                     }
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="Artifact.TypeOfArtifact"></label>
-                             <select class="form-control" required>
-                                <option>--- Chọn loại hiện vật ---</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label class="textColor" asp-for="@Artifact.Image"></label>
+                                   <div class="d-flex flex-row">
+                                        <input class="form-control" name="File"   type="file" hidden="hidden" id="fileImage"  asp-for="@Artifact.Image"/>
+                                        <span class="form-control" id="custom-msg-Image" class="textColor">@Artifact.Image</span>
+                                        <button class="form-control w-25 btn btn-secondary" style=" background: #dfdfdf" type="button" id="upload-button-image">File Image</button>
+                                   </div>
+                             @* 
+                                <input type="text" disabled class="form-control"  asp-for="@Artifact.Image">
+                                <input type="file" asp-for="@Artifact.Image" class="form-control" required>*@
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="textColor"  asp-for="@Artifact.File3D"></label>
+                                <div class="d-flex flex-row">
+                                    <input class="form-control" name="File3D"   type="file" hidden="hidden" id="file3D"  asp-for="@Artifact.File3D"/>
+                                    <span class="form-control" id="custom-msg-3D" class="textColor">@Artifact.File3D</span>
+                                    <button class="form-control w-20" style=" background: #dfdfdf"  type="button" id="upload-button-3D">File 3D</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="@Artifact.Image"></label>
-                            <input type="file" asp-for="@Artifact.Image" class="form-control" required>
+                         <div class="form-row">
+                            <div class="col-lg-12">
+                                <label class="textColor" asp-for="@Artifact.Description"></label>
+                                <textarea asp-for="@Artifact.Description" class="summernote textColor">@Artifact.Description</textarea>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label  asp-for="@Artifact.File3D"></label>
-                            <input type="file" class="form-control"  asp-for="@Artifact.File3D"  required>
-                        </div>
-                    </div>
-                     <div class="form-row">
-                        <div class="col-lg-12">
-                            <label class="textColor" asp-for="@Artifact.Description"></label>
-                            <textarea asp-for="@Artifact.Description" class="summernote textColor"></textarea>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <button class="btn btn-primary mt-5 mb-5 w-15">Sửa hiện vật</button>
+                         <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <button class="btn btn-primary mt-5 mb-5 w-15">Sửa hiện vật</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -74,6 +115,42 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+      const fileImage = document.getElementById("fileImage");
+      const BtnImage = document.getElementById("upload-button-image");
+      const TxtImage = document.getElementById("custom-msg-Image");
 
+      const Btn3D = document.getElementById("upload-button-3D");
+      const file3D = document.getElementById("file3D");
+      const Txt3D = document.getElementById("custom-msg-3D");
 
+      BtnImage.addEventListener("click", function(){
+        fileImage.click();
+      });
+
+      Btn3D.addEventListener("click", function(){
+        file3D.click();
+      });
+
+      //1 Image
+      fileImage.addEventListener("change",function(){
+        if (fileImage.value) {
+          TxtImage.innerHTML = fileImage.value.match(
+            /[\/\\]([\w\d\s\.\-\(\)]+)$/
+          )[1]
+        }else {
+          TxtImage.innerHTML = "No file chosen, yet.";
+        }
+      });
+      //2 3D
+       file3D.addEventListener("change",function(){
+        if (file3D.value) {
+          Txt3D.innerHTML = file3D.value.match(
+            /[\/\\]([\w\d\s\.\-\(\)]+)$/
+          )[1]
+        }else {
+          Txt3D.innerHTML = "No file chosen, yet.";
+        }
+      });
+</script>
 

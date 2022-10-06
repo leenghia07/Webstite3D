@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using WebApp.Data;
 using WebApp.Models;
+using WebApp.Models.ViewModel;
 
 namespace WebApp.Controllers
 {
@@ -9,15 +12,18 @@ namespace WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly MuseumDataContext _context;
+        public HomeController(ILogger<HomeController> logger, MuseumDataContext context)
         {
             _logger = logger;
+            this._context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var Artifact = new VMArtifact();
+            Artifact.Museums = await _context.Museum.ToListAsync();
+            return View(Artifact);
         }
         public IActionResult ErrorPage()
         {

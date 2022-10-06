@@ -1,4 +1,6 @@
 ﻿@model WebApp.Models.ViewModel.VMArtifact
+@using System.Text.RegularExpressions;
+
 @{
     var Artifact = Model.Artifact;
 }
@@ -6,6 +8,8 @@
 <script src="~/js/three.min.js"></script>
 <script src="~/js/OrbitControls.js"></script>
 <script src="~/js/stats.module.js"></script>
+
+
 @*<script src="~/js/DirectionalLightShadow.js"></script>*@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
@@ -42,7 +46,7 @@
                                 <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
                                 <div class="dropdown-menu dropdown-menu-center">
                                     <a class="btn btn-primary w-70 ml-4" asp-controller="Artifact" asp-action="Edit" asp-route-id="@Artifact.Id"  style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Cập nhập thông tin</a>   
-                                    <a class="btn btn-info w-70 ml-4 mt-2" asp-controller="Editor" asp-action="Index" asp-route-id="@Artifact.Id"   style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Chỉnh sửa hình 3D</a>
+                                    <a class="btn btn-info w-70 ml-4 mt-2" asp-controller="Editor" asp-action="Edit" asp-route-id="@Artifact.Id"   style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Chỉnh sửa hình 3D</a>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +59,7 @@
                            
                             <div class="col-lg-6">
                                 <div class="row mt-3">
-                                    <h4>Hiện vật: Chén</h4>
+                                    <h4>Hiện vật: @Artifact.NameArtifact</h4>
                                     <input id="FileLoad" type="hidden" value="/File3D/@Artifact.File3D"></input>
                                 </div>
                             </div>
@@ -68,9 +72,14 @@
                             </div>
                             <div class="row mt-1">
                                 <i class="mdi mdi-checkbox-blank-circle-outline" style="font-size:20px;color: #da5e5e"></i>
-                                <h4 class="my-auto ml-1" > Mô tả:</h4>
-                                <div class="textColor blockquote">
-                                    @Artifact.Description
+                                <h4 class="my-auto ml-1" > Mô tả:</h4><br>
+                                <div class="textColor blockquote my-auto">
+                                     @{
+                                              String result = Regex.Replace(Artifact.Description, @"<[^>]*>", String.Empty);
+                                      }
+                                      <div class="ml-3">
+                                        @result
+                                     </div>
                                 </div> 
                             </div>
                         </div>
@@ -84,10 +93,13 @@
         </div>
     </div>
 </div>
+
+
 <script type="text/javascript">
     //   Canvas: Phần tử HTML canvas, cái này giống như 1 bức tranh (hay cái màn chiếu) trống, và threejs sẽ vẽ vời lên đây.
     var FileLoad = $('#FileLoad').val();
-    console.log(FileLoad);
+   // console.log(FileLoad);
+    
     var myCanvas = document.getElementById("Load3D")
     var showFPS = document.getElementById("FPS")
     
@@ -102,11 +114,15 @@
     showFPS.appendChild(stats.dom)
     // hiển thị hình ảnh input(camera,scence).
     var renderer = new THREE.WebGLRenderer();
+ 
      renderer.setSize(width ,height);
    
     myCanvas.appendChild(renderer.domElement); 
-    const controls = new THREE.OrbitControls(camera,renderer.domElement);
-                       
+
+    myCanvas.onwheel = function(event){
+        event.preventDefault();
+    };
+
     window.addEventListener('resize',function () {
         renderer.setSize(width,height);
         camera.aspect = width/height;
@@ -129,16 +145,17 @@
                     console.log( 'An error happened' );
                 }
             );
-       
+        const controls = new THREE.OrbitControls(camera,renderer.domElement);
+    
         const light = new THREE.DirectionalLight( 0xffffff, 1 );
         light.position.set( 0.357 , 3.008 , 0 ); //(x,y,z) default; light shining from top
        // light.castShadow = true; // default false
-        light.intensity = 2.2;
+        light.intensity = 2.3;
         scene.add( light );
 
         const light1 = new THREE.DirectionalLight( 0xffffff, 1 );
         light1.position.set( -0.5 , -1.2 , 0.034 );
-        light1.intensity = 2;
+        light1.intensity = 2.3;
         scene.add( light1 );
 
        renderer.outputEncoding = THREE.sRGBEncoding;

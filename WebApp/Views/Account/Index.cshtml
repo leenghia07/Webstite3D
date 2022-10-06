@@ -1,6 +1,5 @@
-﻿@model WebApp.Models.ViewModel.VMAccount
+﻿@model IEnumerable<WebApp.Areas.Identity.Data.ApplicationUser>
 @{
-    var Accounts = Model.Accounts;
     int Stt = 0;
 }
 <div class="row">
@@ -19,14 +18,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card shadow-lg">
-                    <div class="card-body">
-                        <table class="table table-striped table-bordered">
-                            <thead class="text-center text-nowrap">
+                    <div class="m-2">
+                        <table class="table table-striped table-bordered w-auto">
+                            <thead class="text-center text-nowrap" style="background-color:#dbd8d8">
                                 <tr>
                                     <td class="w-5">
                                         STT
                                     </td>
-                                    <td class="w-15">
+                                    <td class="w-10">
                                         Hình ảnh
                                     </td>
                                     <td class="w-20">
@@ -34,6 +33,9 @@
                                     </td>
                                     <td class="w-15">
                                        Ngày sinh
+                                    </td>
+                                    <td class="w-15">
+                                       Giới tính
                                     </td>
                                     <td class="w-25">
                                         Email
@@ -47,36 +49,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-
-                                @foreach (var item in Accounts)
+                                @foreach (var item in Model)
                                 {
-                                    @*var Name=item.*@
-                                    Stt++;
+                                     Stt++;
                                     <tr>
                                         <td class="text-center">
-                                            @Stt++
+                                            @Stt
                                         </td>
                                         <td class="text-center">
-                                            hinh anh
+                                            <img height="100" width="100" src="~/Images/@item.Image">
                                         </td>
                                         <td class="text-left">
-                                            ho ten
+                                            @item.FisrtName @item.LastName
                                         </td>
                                         <td class="text-center">
-                                            09-10-2000
+                                            @item.BirthDate.ToString("dd/MM/yyyy")
+                                        </td>
+                                         <td class="text-center">
+                                            @item.Sex
                                         </td>
                                         <td class="text-left">
                                             @item.Email
                                         </td>
-                                        <td class="text-left">
+                                        <td class="text-center">
                                             @item.PhoneNumber
                                         </td>
                                         <td class="text-center">
                                            <div class="dropdown dropdown-action">
                                                 <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
                                                 <div class="dropdown-menu dropdown-menu-center">
-                                                    <a class="btn btn-success w-70 ml-4" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa</a>                              
-                                                    <form>
+                                                    <form asp-controller="Account" asp-action="Edit" asp-route-id="@item.Id">
+                                                        <button class="btn btn-success w-70 ml-4"><i class="fa fa-pencil m-r-5"></i> Sửa</button>
+                                                    </form>                          
+                                                    <form asp-action="Delete" asp-route-id="@item.Id">
                                                         <button class="btn btn-danger w-70 mt-2 ml-4"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
                                                     </form>
                                                 </div>

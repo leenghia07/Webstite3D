@@ -12,7 +12,21 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<UserDatacontext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(
+    options => {
+        options.SignIn.RequireConfirmedAccount = true;
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequiredLength = 6;
+        options.Password.RequiredUniqueChars = 1;
+
+        // Gebruiker instellingen
+        options.User.RequireUniqueEmail = true;
+        options.User.AllowedUserNameCharacters =
+          "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ";
+    })
     .AddEntityFrameworkStores<UserDatacontext>();
 
 builder.Services.AddDbContext<MuseumDataContext>(options =>
@@ -28,7 +42,6 @@ builder.Services.AddControllersWithViews()
                     options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "/Login");
                     options.Conventions.AddAreaPageRoute("Identity", "/Account/Register", "/Register");
                 });
-
 StaticFileOptions options = new StaticFileOptions 
     { 
         ContentTypeProvider = new FileExtensionContentTypeProvider()

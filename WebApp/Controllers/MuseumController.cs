@@ -21,16 +21,17 @@ namespace WebApp.Controllers
                             .ToListAsync();
             return View(MuseumVM);
         }
-        [HttpGet]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Detail(Guid Id)
         {
-            var MuseumVM = new VMMuseum();
-            MuseumVM.Museum = await _MuseumDataContext.Museum.FindAsync(id);
-            if (MuseumVM == null)
-            {
-                return NotFound();
-            }
-            return View(MuseumVM);
+            var vmArtifact = new VMArtifact();
+            vmArtifact.Artifacts = _MuseumDataContext.Aritifact.Where(x => x.MuseumId.Equals(Id))
+                                                     .Include(i => i.Museum)
+                                                     .Include(i => i.TypeOfArtifact)
+                                                     .ToList();
+            vmArtifact.Museum =  _MuseumDataContext.Museum
+                                                   .FirstOrDefault(w => w.Id.Equals(Id));
+            return View(vmArtifact);
+
         }
         [HttpPost]
         public async Task<IActionResult> Create(Museum museum)
@@ -39,12 +40,13 @@ namespace WebApp.Controllers
             {
                 _MuseumDataContext.Add(museum);
                 await _MuseumDataContext.SaveChangesAsync();
+                ViewData["success"]= "Thêm thành công";
                 return RedirectToAction(nameof(Index));
-                ViewBag.message = "Thêm thành công";
+                
             }
             else
             {
-                ViewBag.messageError = "Thêm thất bại";
+                ViewData["error"]="thêm thất bại";
             }
             return View();
         }
@@ -56,8 +58,9 @@ namespace WebApp.Controllers
             {
                 _MuseumDataContext.Update(museum);
                 await _MuseumDataContext.SaveChangesAsync();
+                ViewData["success"]= "Cập nhập thành công";
                 return RedirectToAction(nameof(Index));
-                ViewBag.message = "Cập nhập thành công";
+
             }
             return View();
         }
@@ -68,7 +71,7 @@ namespace WebApp.Controllers
             _MuseumDataContext.Museum.Remove(Museum);
             await _MuseumDataContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-            ViewBag.message = "Xóa thành công";
+            ViewData["success"]= "Xóa thành công";
         }
     }
 }
