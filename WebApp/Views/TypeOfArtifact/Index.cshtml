@@ -20,17 +20,15 @@
         <strong>@ViewData["success"]</strong>
     </div>  
 }
-
 <div class="row">
     <div class="col-lg-12">
         <div class=" row page-titles shadow-lg mx-0">
             <div class="col-sm-6 p-md-0">
-                <h3>Loại hiện vật</h3>
+                <h3 style="color:#673BB7;">Loại hiện vật</h3>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active"><a asp-controller="Museum" asp-action="Index">danh sách</a></li>
-                   @*  <li class="breadcrumb-item active"><a>loại văn bản</a></li>*@
+                    <li class="breadcrumb-item active"><a asp-controller="TypeOfArticle" asp-action="Index">danh sách</a></li>
                 </ol>
             </div>
         </div>
@@ -38,11 +36,11 @@
             <div class="col-lg-4">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <form asp-action="create" method="POST">
+                        <form asp-action="create" >
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label>Loại hiện vật</label>
-                                    <input type="text" asp-for="TypeOfArtifact.NameTypeArtifact" class="form-control" placeholder="Tên loại hiện vật" required>
+                                    <input type="text" asp-for="@TypeOfArtifact.NameTypeArtifact" class="form-control" placeholder="Loại bài viết">
                                 </div>             
                             </div>
                             <div class="row justify-content-end mr-2">
@@ -62,7 +60,7 @@
                                         STT
                                     </td>
                                     <td class="w-30">
-                                        Loại hiện vật
+                                        Loại bài viết
                                     </td>
                                     <td class="w-15">
                                         Thao tác
@@ -75,7 +73,7 @@
                                 }
                                  @foreach (var item in TypeOfArtifacts)
                                 {
-                                      TypeOfArtifact = item;
+                                     TypeOfArtifact = item;
                                      Stt++; 
                                     <tr>
                                         <td class="text-center">
@@ -93,14 +91,14 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    @*Start model loại hiện vật*@
+                                    @*Start model*@
                                     <div class="w-50 d-flex justify-content-end">
                                         <div class="modal fade" id="modalEdit-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
                                                 <form asp-action="Update">
                                                      <div class="modal-content p-3" style="width: 550px;">
                                                          <div class="flex-row d-flex justify-content-center mb-2">
-                                                             <h2 class="text-info">Sửa thông tin loại hiện vật</h2>
+                                                             <h2 class="text-info">Sửa thông tin loại bài viết</h2>
                                                          </div>
                                                          <input type="hidden" asp-for="@TypeOfArtifact.Id"/>
                                                          <div class="d-flex flex-column w-auto mt-3">

@@ -1,0 +1,116 @@
+﻿@model WebApp.Models.ViewModel.VMRoomExhibitionMuseum;
+@{
+    Layout = "_LayoutUser";
+    var roomEM = Model.ExhibitionRoom; 
+}
+<script src="~/js/three.js"></script>
+<script src="~/js/three.min.js"></script>
+<script src="~/js/OrbitControls.js"></script>
+<script src="~/js/stats.module.js"></script>
+
+
+@*<script src="~/js/DirectionalLightShadow.js"></script>*@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
+<script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://82mou.github.io/threejs/js/OrbitControls.js"></script>
+<script src="https://unpkg.com/browse/three@0.91.0/src/lights/DirectionalLightShadow.js"></script>
+@*<script src="https://cdn.rawgit.com/mrdoob/three.js/r92/examples/js/loaders/GLTFLoader.js"></script>*@
+<style>
+   .detailInfo{
+        position: absolute;
+        left:1%;
+        top:2%;
+   }
+   .fbsStyle{
+        position: absolute;
+        left:90%;
+        top:2%;
+   }
+</style>
+<div class="col-lg-12 mb-3 ">
+        <a href="# " class="detailInfo" onclick="history.back()"> <i class="mdi mdi-arrow-left-bold-circle-outline" style="font-size: 3em;color:#230c4e;"></i></a>
+        <div id="FPS" class="fbsStyle"></div>
+        <div style="margin-top:-10%;" id="Load3D" class="row mt-3"></div>
+        <input id="FileLoad" type="hidden" value="/File3D/@roomEM.File3D"></input>
+</div>
+
+<script type="text/javascript">
+    //   Canvas: Phần tử HTML canvas, cái này giống như 1 bức tranh (hay cái màn chiếu) trống, và threejs sẽ vẽ vời lên đây.
+    var FileLoad = $('#FileLoad').val();
+   // console.log(FileLoad);
+    
+    var myCanvas = document.getElementById("Load3D")
+    var showFPS = document.getElementById("FPS")
+    
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    //var width =window.innerWidth;
+    //var height =window.innerHeight;
+    var width =1240;
+    var height =800;
+    var stats=new Stats();
+
+    showFPS.appendChild(stats.dom)
+    // hiển thị hình ảnh input(camera,scence).
+    var renderer = new THREE.WebGLRenderer();
+ 
+     renderer.setSize(width ,height);
+   
+    myCanvas.appendChild(renderer.domElement); 
+
+    myCanvas.onwheel = function(event){
+        event.preventDefault();
+    };
+
+    window.addEventListener('resize',function () {
+        renderer.setSize(width,height);
+        camera.aspect = width/height;
+        camera.updateProjectionMatrix();
+    })
+    
+      const loader = new THREE.GLTFLoader();
+        loader.load(
+            FileLoad,
+            function(gltf) {  
+                    var model = gltf.scene;
+                    model.position.set( -1.5 , -1.2 , 0 );
+                    scene.add( model);
+                    console.log(gltf)
+                },
+                function ( xhr ) {
+                    console.log( ( xhr.loaded / xhr.total * 100 )+"% loaded" )
+                },
+                function ( error ) {
+                    console.log( 'An error happened' );
+                }
+            );
+        const controls = new THREE.OrbitControls(camera,renderer.domElement);
+    
+        const light = new THREE.DirectionalLight( 0xffffff, 1 );
+        light.position.set( 0.357 , 3.008 , 0 ); //(x,y,z) default; light shining from top
+       // light.castShadow = true; // default false
+        light.intensity = 2.3;
+        scene.add( light );
+
+        const light1 = new THREE.DirectionalLight( 0xffffff, 1 );
+        light1.position.set( -0.5 , -1.2 , 0.034 );
+        light1.intensity = 2.3;
+        scene.add( light1 );
+
+       renderer.outputEncoding = THREE.sRGBEncoding;
+       scene.background = new THREE.Color();
+        
+        // phóng màn hình
+       camera.position.z = 8;
+
+      var render = function () {
+            //controls.update();
+            requestAnimationFrame( render );
+            stats.update()
+            controls.update()
+            renderer.render(scene, camera);
+       };
+      render();
+  
+</script>

@@ -1,0 +1,150 @@
+﻿@{
+    var trangchu = "Trang chủ";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>@trangchu</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="icon" href="~/images/cntt_ico_n.png" type="image/x-icon" />
+    <link href="~/template/css/style.css" rel="stylesheet" />
+    @*  summernote*@
+    <link href="~/template/vendor/summernote/summernote.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <style>
+        .textColor{
+            color:black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-wrapper">      
+        <!-- header  -->
+        <div class="row">
+            <div class="col-lg-12" style="background-color: #2e245a;height:130px">
+            @*<div class="col-lg-12" style="background-color: #2e245a;height:120px">*@
+                <div class="col-lg-12  d-flex flex-row-reverse">
+                        <a asp-controller="HomeUser" asp-action="Index">
+                        <div class="row">
+                            <img class="logo-abbr  mt-3 mr-5" height="100" width="100" src="~/images/cntt_ico_n.png" alt="">
+                            <h2 class=" ml-3 text-white my-auto mr-5">BẢO TÀNG LỊCH SỬ QUỐC GIA</h2>
+                            <img src="~/images/chimtrongdongson.png" class="mr-5 mt-3" height="110" width="600">
+                            <img src="~/images/—Pngtree—vietnam dongshan drum line decoration_6582793.png" class="mr-5 mt-3" height="100" width="100">
+                        </div>
+                        </a>
+                </div>
+            </div>
+            @*<img  class="col-lg-12" src="~/Images/banner-bg.jpg" height="100px">*@
+        </div>
+        @*nav*@
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#230c4e;">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item mt-2 mr-4" >
+                        <a asp-controller="HomeUser" asp-action="Index" class="ml-5">
+                            <i class="fa fa-home"style="font-size:20px ;"  aria-hidden="true"></i>
+                            <span class="text-white" style="font-size:20px ;">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown my-auto ml-3 mr-4">
+                        <a class="nav-link dropdown-toggle text-white" href="#"  style="font-size:20px ;" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                            Trưng bày 3D
+                        </a> 
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-dark" asp-controller="RoomArtifact" asp-action="index">Hiện vật</a>
+                            <a class="dropdown-item text-dark" asp-controller="RoomExhibitionMuseum" asp-action="index">Phòng trưng bày</a>
+                        </div>
+                    </li>
+                    <li class="nav-item mt-2 " >
+                        <a asp-controller="RoomExhibitionMuseum" asp-action="index" class="text-white" style="font-size:20px;"> Bảo tàng</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav my-auto ">
+                        <li class="nav-item mr-4">
+                        <a asp-area="Identity" asp-page="/Account/Login"><p class="text-white" style="font-size:20px">Login</p></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- content body  -->
+        <div class="row">
+             <div class="col-lg-1"></div>
+             <div class="col-lg-10">
+                 <main role="main" class="m-2">
+                    @RenderBody() 
+                 </main>
+             </div>
+             <div class="col-lg-1"></div>
+        </div>
+
+
+        <!-- Footer  -->
+        <div class="footer" style="background-color: #2e245a;">
+          <partial name="_footer" />
+        </div>
+
+    </div>
+     
+    
+   <!-- Required vendors -->
+    <script src="~/template/vendor/global/global.min.js"></script>
+    <script src="~/template/js/quixnav-init.js"></script>
+    <script src="~/template/js/custom.min.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+  @* Summernote *@
+   <script src="~/template/vendor/summernote/js/summernote.min.js"></script>
+    @*Init Summernote*@
+   
+   <script src="~/template/js/plugins-init/summernote-init.js"></script>
+   
+
+    @*Datatable*@
+    <script src="~/template/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/template/js/plugins-init/datatables.init.js"></script>
+    
+    <script>
+        $('.table').DataTable({
+            ordering: false,
+            pagingType: 'full_numbers',
+            lengthMenu: [[5, 10, 25, 50, -1], [5,10, 25, 50, "Tất cả"]],
+            "language": {
+                "decimal": "",
+                "emptyTable": "Không có dữ liệu",
+                "info": "Hiển thị từ _START_ đến _END_ trong _TOTAL_ hàng",
+                "infoEmpty": "Không có dữ liệu",
+                "infoFiltered": "(Tìm từ _MAX_ hàng)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Hiển thị _MENU_ ",
+                "loadingRecords": "Loading...",
+                "processing": "Processing...",
+                "search": "Tìm kiếm",
+                "zeroRecords": "Không tìm thấy kết quả",
+                "paginate": {
+                    "first": "",
+                    "last": "",
+                    "next": "Sau",
+                    "previous": "Trước"
+                },
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                }
+            }
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
+ 

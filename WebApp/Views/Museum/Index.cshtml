@@ -4,28 +4,11 @@
     var Museums = Model.Museums;
     var Museum = Model.Museum;
 }
-@if(ViewData["Error"] != null)
-{
-    <div class="alert mb-3 alert-danger solid alert-dismissible fade show">
-        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
-        </button>
-        <strong>@ViewData["Error"]</strong>
-    </div>   
-}
-@if(ViewData["success"] != null)
-{
-    <div class="alert mb-3 alert-primary solid alert-right-icon alert-dismissible fade show">
-        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
-        </button>
-        <strong>@ViewData["success"]</strong>
-    </div>  
-}
-
 <div class="row">
     <div class="col-lg-12">
         <div class=" row page-titles shadow-lg mx-0">
             <div class="col-sm-6 p-md-0">
-                <h3>Bảo tàng</h3>
+                <h3 style="color:#673BB7;">Bảo tàng</h3>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
@@ -33,6 +16,22 @@
                 </ol>
             </div>
         </div>
+        @if(TempData["Error"] != null)
+        {
+            <div class="alert mb-3 alert-danger solid alert-dismissible fade show">
+                <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                </button>
+                <strong>@TempData["Error"]</strong>
+            </div>   
+        }
+        @if(TempData["success"] != null)
+        {
+            <div class="alert mb-3 alert-primary solid alert-right-icon alert-dismissible fade show">
+                <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                </button>
+                <strong>@TempData["success"]</strong>
+            </div>  
+        }
         <div class="row">
             <div class="col-lg-4">
                 <div class="card shadow-lg">
@@ -41,14 +40,14 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label>Bảo tàng</label>
-                                    <input type="text" class="form-control" asp-for="Museum.MuseumName" placeholder="Tên bảo tàng" required>
+                                    <input type="text" class="form-control" asp-for="Museum.MuseumName" placeholder="Tên bảo tàng" >
                                 </div>
                                 <div class="form-group col-md-12">
                                     <span asp-validation-for="Museum.MuseumName"></span>
                                 </div>
                                  <div class="form-group col-md-12">
                                     <label>Địa chỉ</label>
-                                    <input type="text" class="form-control" asp-for="Museum.Address" placeholder="Tên bảo tàng" required>
+                                    <input type="text" class="form-control" asp-for="Museum.Address" placeholder="Tên bảo tàng" >
                                 </div>      
                                 <div class="form-group col-md-12">
                                     <span asp-validation-for="Museum.Address"></span>

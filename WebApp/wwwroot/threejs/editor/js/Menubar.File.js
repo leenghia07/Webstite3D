@@ -36,20 +36,16 @@ function MenubarFile( editor ) {
 
 		// }
 		if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
-			
-				editor.Storage.getAll(function(state) {
-					state.forEach(key => {
-						console.log(key)
-						if (key == KeyId ) {
-							editor.remove(KeyId);
-							found = true;
-						 }
-					})
-					if(!found)
-					{
-						// edit editor.
-					}
-				});
+			editor.compareID(KeyId);
+				// editor.Storage.getAll(function(state) {
+				// 	state.forEach(key => {
+				// 		console.log(key)
+				// 		if (key == KeyId ) {
+				// 			editor.remove(KeyId);
+				// 			console.log("thanh cong");
+				// 		 }
+				// 	})
+				// });
 			
 		}
 

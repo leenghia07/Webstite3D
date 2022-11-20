@@ -3,9 +3,12 @@ using WebApp.Data;
 using WebApp.Models;
 using WebApp.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
+using WebApp.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = Permission.Manager + "," + Permission.Employee)]
     public class TypeOfArtifactController : Controller
     {
         private readonly MuseumDataContext _context;
@@ -57,6 +60,7 @@ namespace WebApp.Controllers
                 ViewData["success"] = "Cập nhập thông tin thành công";
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["success"] = "Cập nhập thông tin thất bại";
             return View();
         }
         [HttpPost]

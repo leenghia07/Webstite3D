@@ -22,6 +22,42 @@ namespace WebApp.Migrations.MuseumData
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("WebApp.Models.Article", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ArtifactId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ExhibitionRoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("TypeOfArticleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TypeOfArtifactId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtifactId");
+
+                    b.HasIndex("TypeOfArtifactId");
+
+                    b.ToTable("Article");
+                });
+
             modelBuilder.Entity("WebApp.Models.Artifact", b =>
                 {
                     b.Property<Guid>("Id")
@@ -31,6 +67,9 @@ namespace WebApp.Migrations.MuseumData
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DiscoveryDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("File3D")
                         .HasColumnType("nvarchar(max)");
@@ -57,6 +96,34 @@ namespace WebApp.Migrations.MuseumData
                     b.ToTable("Aritifact");
                 });
 
+            modelBuilder.Entity("WebApp.Models.ExhibitionRoom", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("File3D")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameRoom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExhibitionRoom");
+                });
+
             modelBuilder.Entity("WebApp.Models.Museum", b =>
                 {
                     b.Property<Guid>("Id")
@@ -67,6 +134,9 @@ namespace WebApp.Migrations.MuseumData
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("MuseumName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -74,6 +144,21 @@ namespace WebApp.Migrations.MuseumData
                     b.HasKey("Id");
 
                     b.ToTable("Museum");
+                });
+
+            modelBuilder.Entity("WebApp.Models.TypeOfArticle", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NameType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeOfArticle");
                 });
 
             modelBuilder.Entity("WebApp.Models.TypeOfArtifact", b =>
@@ -89,6 +174,31 @@ namespace WebApp.Migrations.MuseumData
                     b.HasKey("Id");
 
                     b.ToTable("TypeOfArtifact");
+                });
+
+            modelBuilder.Entity("WebApp.Models.Article", b =>
+                {
+                    b.HasOne("WebApp.Models.Artifact", "Artifact")
+                        .WithMany()
+                        .HasForeignKey("ArtifactId");
+
+                    b.HasOne("WebApp.Models.ExhibitionRoom", "ExhibitionRoom")
+                        .WithMany()
+                        .HasForeignKey("TypeOfArtifactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApp.Models.TypeOfArticle", "TypeOfArticle")
+                        .WithMany()
+                        .HasForeignKey("TypeOfArtifactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Artifact");
+
+                    b.Navigation("ExhibitionRoom");
+
+                    b.Navigation("TypeOfArticle");
                 });
 
             modelBuilder.Entity("WebApp.Models.Artifact", b =>

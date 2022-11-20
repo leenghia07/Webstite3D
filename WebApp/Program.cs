@@ -27,8 +27,14 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(
         options.User.AllowedUserNameCharacters =
           "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ";
     })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<UserDatacontext>();
-
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Manager", policy => policy.RequireClaim("Manager"));
+    options.AddPolicy("Employee", policy => policy.RequireClaim("Employee"));
+    options.AddPolicy("User", policy => policy.RequireClaim("User"));
+});
 builder.Services.AddDbContext<MuseumDataContext>(options =>
     options.UseSqlServer(connectionString));
 

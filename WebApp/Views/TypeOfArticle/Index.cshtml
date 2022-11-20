@@ -1,0 +1,141 @@
+﻿@model WebApp.Models.ViewModel.VMTypeOfArticle
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var TypeOfArticles = Model.TypeOfArticles;
+    var TypeOfArticle = Model.TypeOfArticle;
+}
+@if(TempData["Error"] != null)
+{
+    <div class="alert mb-3 alert-danger solid alert-dismissible fade show">
+        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+        </button>
+        <strong>@TempData["Error"]</strong>
+    </div>   
+}
+@if(TempData["success"] != null)
+{
+    <div class="alert mb-3 alert-primary solid alert-right-icon alert-dismissible fade show">
+        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+        </button>
+        <strong>@TempData["success"]</strong>
+    </div>  
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class=" row page-titles shadow-lg mx-0">
+            <div class="col-sm-6 p-md-0">
+                <h3 style="color:#673BB7;">Loại bài viết</h3>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><a asp-controller="TypeOfArticle" asp-action="Index">danh sách</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <form asp-controller="TypeOfArticle" asp-action="Create" >
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label>Loại hiện vật</label>
+                                    <input asp-for="@TypeOfArticle.NameType" class="form-control"  placeholder="Loại bài viết">
+                                </div> 
+                                 <div class="form-group col-md-12">
+                                    <span asp-validation-for="@TypeOfArticle.NameType" class="text-danger"></span>
+                                </div> 
+                            </div>
+                            <div class="row justify-content-end mr-2">
+                                <button type="submit" style="width:100px;height:40px;font-size: 20px;" class="btn  btn-primary">Thêm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>   
+            </div>
+            <div class="col-lg-8">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <table class="table table-striped table-bordered w-auto">
+                            <thead class="text-center text-nowrap thead-light">
+                                <tr>
+                                    <td class="w-5">
+                                        STT
+                                    </td>
+                                    <td class="w-30">
+                                        Loại bài viết
+                                    </td>
+                                    <td class="w-15">
+                                        Thao tác
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int Stt = 0;
+                                }
+                                 @foreach (var item in TypeOfArticles)
+                                {
+                                     TypeOfArticle = item;
+                                     Stt++; 
+                                    <tr>
+                                        <td class="text-center">
+                                            @Stt
+                                        </td>
+                                        <td class="text-left">
+                                            <span>
+                                                @item.NameType
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="d-flex">
+                                                <button data-toggle="modal" data-target="#modalEdit-@item.Id" class=" btn btn-success"><i class="fa fa-pencil m-r-5"></i> <span class="text-white">Sửa</span></button>
+                                                <form asp-action="Delete" asp-route-id="@item.Id">
+                                                    <button class="ml-2 btn btn-danger"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @*Start model*@
+                                    <div class="w-50 d-flex justify-content-end">
+                                        <div class="modal fade" id="modalEdit-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
+                                                <form asp-action="Update">
+                                                     <div class="modal-content p-3" style="width: 550px;">
+                                                         <div class="flex-row d-flex justify-content-center mb-2">
+                                                             <h2 class="text-info">Sửa thông tin loại bài viết</h2>
+                                                         </div>
+                                                         <input type="hidden" asp-for="@TypeOfArticle.Id"/>
+                                                         <div class="d-flex flex-column w-auto mt-3">
+                                                             <div class="d-flex text-left mb-2 align-items-center">
+                                                                <div class="w-25 pl-2 mr-2">
+                                                                    <label class="my-auto"> Loại hiện vật</label>
+                                                                </div>
+                                                                <div class="w-75">
+                                                                    <input type="text" asp-for="@TypeOfArticle.NameType" required class="form-control"  />
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex flex-row justify-content-end my-0 mt-4">
+                                                                <div class="w-25 mr-2"></div>
+                                                                <div class="w-75 d-flex">
+                                                                    <input type="submit" name="btn" class="btn btn-success w-40" value="Sửa">
+                                                                    <input type="submit" class="btn btn-info w-40 mr-2 ml-5" data-dismiss="modal" value="Đóng">
+                                                                    <!-- <button id= "btnCreate" type="submit" class="btn btn-primary w-50" onclick="return validateInput()">Thêm</button> -->
+                                                                </div>
+                                                            </div>
+                                                         </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*End model loại hiện vật*@
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

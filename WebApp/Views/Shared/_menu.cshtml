@@ -1,33 +1,62 @@
-﻿<ul class="metismenu" id="menu">
-    <li>
-        <a class="" href="/">
-        <i class="fa fa-home" aria-hidden="true"></i><span class="nav-text">Home</span>
-        </a>
-    </li>
-    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                class="icon icon-single-04"></i><span class="nav-text">Nhân viên</span></a>
-        <ul aria-expanded="false">
-            <li><a asp-controller="Account" asp-action="Index">Danh sách</a></li>
-            <li><a asp-controller="Account" asp-action="Create" >Thêm nhân viên</a></li>
-        </ul>
-    </li>
-    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                class="icon icon-app-store"></i><span class="nav-text">Bảo tàng</span></a>
-        <ul aria-expanded="false">
-            <li><a asp-controller="Museum" asp-action="Index">Danh sách</a></li>
-        </ul>
-    </li>
-    <li><a class="has-arrow"  href="javascript:void()" aria-expanded="false"><i class="fa fa-plus-square-o" aria-hidden="true"></i><span class="nav-text">Hiện vật</span></a>
-        <ul aria-expanded="false">
-            <li><a asp-controller="Artifact" asp-action="Index">Danh sách</a></li>
-            <li><a asp-controller="TypeOfArtifact" asp-action="Index">Loại hiện vật</a></li>
-            <li><a asp-controller="Artifact" asp-action="Create">Thêm hiện vật</a></li>
-        </ul>
-    </li>
+﻿@using Microsoft.AspNetCore.Identity
+@using WebApp.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var UserInfo = UserManager.Users.SingleOrDefault(u => u.Id == UserManager.GetUserId(User));
+    var roleUser = await UserManager.GetRolesAsync(UserInfo);
+}
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <ul class="metismenu" id="menu">
         <li>
-        <a  aria-expanded="false" asp-controller="Editor" asp-action="Index" >
-            <i class="icon-briefcase"></i>
-            <span class="nav-text">Editor</span>
-        </a>
-    </li>
-</ul>
+            <a class="" href="/">
+            <i class="fa fa-home" aria-hidden="true"></i><span class="nav-text">Home</span>
+            </a>
+        </li>
+        @if(roleUser[0].ToString() == "Manager")
+        {
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                    class="icon icon-single-04"></i><span class="nav-text">Nhân viên</span></a>
+            <ul aria-expanded="false">
+                <li><a asp-controller="Account" asp-action="Index"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+                <li><a asp-controller="Role" asp-action="Index"><i class="fa fa-circle-o"></i> Quyền truy cập</a></li>
+                <li><a asp-controller="Account" asp-action="Create" ><i class="fa fa-circle-o"></i> Thêm nhân viên</a></li>
+            </ul>
+        </li>   
+        }
+        <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                    class="icon icon-app-store"></i><span class="nav-text">Bảo tàng</span></a>
+            <ul aria-expanded="false">
+                <li><a asp-controller="Museum" asp-action="Index"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+            </ul>
+        </li>
+        <li><a class="has-arrow"  href="javascript:void()" aria-expanded="false"><i class="fa fa-plus-square-o" aria-hidden="true"></i><span class="nav-text">Hiện vật</span></a>
+            <ul aria-expanded="false">
+                <li><a asp-controller="Artifact" asp-action="Index"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+                <li><a asp-controller="TypeOfArtifact" asp-action="Index"><i class="fa fa-circle-o"></i> Loại hiện vật</a></li>
+                <li><a asp-controller="Artifact" asp-action="Create"><i class="fa fa-circle-o"></i> Thêm hiện vật</a></li>
+            </ul>
+        </li>
+          <li>
+            <a  aria-expanded="false" asp-controller="ExhibitionRoom" asp-action="Index" >
+                <i class="mdi mdi-library"></i>
+                <span class="nav-text">Phòng trưng bày</span>
+            </a>
+        </li>
+              <li><a class="has-arrow"  href="javascript:void()" aria-expanded="false"><i class="fa fa-plus-square-o" aria-hidden="true"></i><span class="nav-text">Bài viết</span></a>
+            <ul aria-expanded="false">
+                <li><a asp-controller="Article" asp-action="Index"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+                <li><a asp-controller="TypeOfArticle" asp-action="Index"><i class="fa fa-circle-o"></i> Loại Bài viết</a></li>
+            </ul>
+        </li>
+            <li>
+            <a  aria-expanded="false" asp-controller="Editor" asp-action="Index" >
+                <i class="icon-briefcase"></i>
+                <span class="nav-text">Editor</span>
+            </a>
+        </li>
+    </ul>
+}

@@ -1,16 +1,11 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using WebApp.Areas.Identity.Data
+﻿
+@model WebApp.Models.ViewModel.VMAccount;
 
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
-@{
-    var UserInfo = UserManager.Users.SingleOrDefault(u => u.Id == UserManager.GetUserId(User));
-}
 <div class="mr-1 ml-1">
     <!-- Tiêu đề -->
     <div class=" row page-titles shadow-lg mx-0">
         <div class="col-sm-6 p-md-0">
-            <h3>Thông tin chi tiết</h3>
+            <h3 style="color:#673BB7;">Thông tin chi tiết</h3>
         </div>
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
@@ -27,17 +22,26 @@
                         <div class="col-lg-5">
                             <div class="row">
                                 <div class="col-lg-4 ml-3 mt-3">
-                                    <img src="~/Images/@UserInfo.Image" width="220" height="220" class="rounded-circle" alt="">
+                                    <img src="~/Images/@Model.Account.Image" width="220" height="220" class="rounded-circle" alt="">
                                 </div>
                                 <div class="col-lg-6 ml-2 mt-5" style="border-right: 2px dashed #ccc;">
-                                    <h4 class="mt-4 ml-5">@UserInfo.FisrtName @UserInfo.LastName</h4>
-                                    <h4 class="ml-5">@UserInfo.BirthDate.ToString("dd/MM/yyyy")</h4>
+                                    <h4 class="mt-4 ml-5">Họ Tên: @Model.Account.FisrtName @Model.Account.LastName</h4>
+                                  @*  <h4 class="ml-5">@UserInfo.BirthDate.ToString("dd/MM/yyyy")</h4>*@
+                                    @if (Model.Role == "Manager")
+                                    {
+                                        <span class=" ml-5 badge badge-pill badge-success text-white" style="font-size:20px;">Quản trị viên</span>
+                                        
+                                    }
+                                    @if (Model.Role == "Employee")
+                                    {
+                                       <span class=" mt-3 ml-5 badge badge-pill badge-info text-white" style="font-size:20px;">Nhân viên</span>
+                                    }
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 w-auto ml-5">
                             <ul class="mt-2">
-                                 <li >
+                            @*     <li >
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <h4>Họ</h4>
@@ -56,14 +60,14 @@
                                            <h5>@UserInfo.LastName</h5>
                                         </div>
                                     </div>
-                                </li>
-                                <li class="mt-2"> 
+                                </li>*@
+                                <li class="mt-0"> 
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <h4>Ngày sinh</h4>
                                         </div>
                                         <div class="col-lg-7">
-                                            <h5>@UserInfo.BirthDate</h5>
+                                            <h5>@Model.Account.BirthDate</h5>
                                         </div>
                                     </div>
                                 </li>
@@ -73,7 +77,7 @@
                                             <h4>Giới tính</h4>
                                         </div>
                                         <div class="col-lg-7">
-                                           <h5>@UserInfo.Sex</h5>
+                                           <h5>@Model.Account.Sex</h5>
                                         </div>
                                     </div>
                                 </li>
@@ -83,7 +87,7 @@
                                             <h4>Số điện thoại</h4>
                                         </div>
                                         <div class="col-lg-7">
-                                           <h5>@UserInfo.PhoneNumber</h5>
+                                           <h5>@Model.Account.PhoneNumber</h5>
                                         </div>
                                     </div>
                                 </li>
@@ -93,7 +97,7 @@
                                             <h4>Email</h4>
                                         </div>
                                         <div class="col-lg-7">
-                                           <h5>@UserInfo.Email</h5>
+                                           <h5>@Model.Account.Email</h5>
                                         </div>
                                     </div>
                                 </li>
@@ -103,7 +107,7 @@
                                             <h4>Địa chỉ</h4>
                                         </div>
                                         <div class="col-lg-7">
-                                           <h5>@UserInfo.Address</h5>
+                                           <h5>@Model.Account.Address</h5>
                                         </div>
                                     </div>
                                 </li>
@@ -113,14 +117,14 @@
                                             <h4>Nơi sinh</h4>
                                         </div>
                                         <div class="col-lg-7">
-                                           <h5>@UserInfo.PlaceOfBirth</h5>
+                                           <h5>@Model.Account.PlaceOfBirth</h5>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-lg-0">
-                            <a style="color: black" asp-controller="Account" asp-action="Edit" asp-route-id="@UserInfo.Id"><i class="mdi mdi-border-color" style="font-size:30px"></i></a>
+                            <a style="color: black" asp-controller="Account" asp-action="Edit" asp-route-id="@Model.Account.Id"><i class="mdi mdi-border-color" style="font-size:30px"></i></a>
                         </div>
                     </div>
                 </div>
@@ -141,7 +145,7 @@
                                     <h4>Số điện thoại</h4>
                                 </div>
                                 <div class="col-lg-7">
-                                    <h5>@UserInfo.PhoneNumber</h5>
+                                    <h5>@Model.Account.PhoneNumber</h5>
                                 </div>
                             </div>
                         </li>
@@ -151,7 +155,7 @@
                                     <h4>Email</h4>
                                 </div>
                                 <div class="col-lg-7">
-                                    <h5>@UserInfo.Email</h5>
+                                    <h5>@Model.Account.Email</h5>
                                 </div>
                             </div>
                         </li>
@@ -173,7 +177,7 @@
                                        <h4>Địa chỉ hiện tại</h4>
                                     </div>
                                     <div class="col-lg-7">
-                                       <h5>@UserInfo.Address</h5>
+                                       <h5>@Model.Account.Address</h5>
                                     </div>
                                 </div>
                             </li>
@@ -183,7 +187,7 @@
                                       <h4>Nơi sinh</h4>
                                     </div>
                                     <div class="col-lg-7">
-                                       <h5>@UserInfo.PlaceOfBirth</h5>
+                                       <h5>@Model.Account.PlaceOfBirth</h5>
                                     </div>
                                 </div>
                             </li>

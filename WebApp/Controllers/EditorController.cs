@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Data;
 using WebApp.Models.ViewModel;
+using WebApp.Core;
 namespace WebApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Permission.Manager + "," + Permission.Employee)]
     public class EditorController : Controller
     {
         private readonly MuseumDataContext _context;

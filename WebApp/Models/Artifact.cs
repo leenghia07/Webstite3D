@@ -27,5 +27,7 @@ namespace WebApp.Models
         public string? Description { get; set; }
         [Display(Name = "File 3D")]
         public string? File3D { get; set; }
+        [Display(Name = "Ngày phát hiện")]
+        public DateTime DiscoveryDate { get; set; }
     }
 }

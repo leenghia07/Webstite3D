@@ -591,7 +591,17 @@ Editor.prototype = {
 		this.focus( this.scene.getObjectById( id ) );
 
 	},
-
+	compareID:function (id)
+	{
+		this.storage.remove(id);
+		location.reload();
+		// this.storage.getObject(id,function(state)
+		// {
+		// 	console.log(state);
+			
+		// });
+		
+	},
 	clear: function () {
 
 		this.history.clear();

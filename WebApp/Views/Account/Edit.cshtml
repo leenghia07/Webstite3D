@@ -1,8 +1,11 @@
-﻿@model WebApp.Areas.Identity.Data.ApplicationUser
+﻿@using Microsoft.AspNetCore.Identity
+@using WebApp.Areas.Identity.Data;
+@model WebApp.Models.ViewModel.VMAccount;
+
 <div class=" row page-titles shadow-lg mx-0">
     <div class="col-sm-6 p-md-0">
         <div style="display:flex;">
-            <h3> Sửa nhân viên</h3>
+            <h3 style="color:#673BB7;"> Sửa nhân viên</h3>
         </div>
     </div>
     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -22,8 +25,8 @@
     }
 <div class=" card shadow-lg" style="">
     <div class="card-content ml-2 mr-4 mb-3 mt-2">
-        <form asp-controller="Account" asp-action="Update">
-            <input asp-for="Id" hidden="hidden"/>
+        <form asp-controller="Account" asp-action="UpdateUser">
+            <input asp-for="@Model.Account.Id" hidden="hidden"/>
             <div class="form-row">
                 <div class="col-lg-12 mb-2">
                     <dt class="textColor">Thông tin nhân viên</dt>
@@ -31,25 +34,25 @@
                 <div class="col-md-6 lg-3  mb-3 " style="display: flex">
                     <div class="col-md-6 lg-3  mb-3">
                         <label class="textColor">Họ</label>
-                        <input type="text" asp-for="FisrtName" class="form-control"  placeholder="Họ "  required>
+                        <input type="text" asp-for="@Model.Account.FisrtName" class="form-control"  placeholder="Họ "  required>
                     </div>
                     <div class=" col-md-6 lg-3 ml-3">
                         <label class="textColor">Tên</label>
-                        <input type="text" asp-for="LastName"  class="form-control"  placeholder="tên nhân viên"   required>
+                        <input  asp-for="@Model.Account.LastName"  class="form-control"  placeholder="tên nhân viên"   required>
                     </div>
                 </div>
     
                 <div class="col-md-6 mb-3">
                     <label class="textColor">Ngày sinh</label>
-                    <input asp-for="BirthDate" asp-format="{0:yyyy-MM-dd}" class="form-control" required /> 
+                    <input asp-for="@Model.Account.BirthDate" asp-format="{0:yyyy-MM-dd}" class="form-control" required /> 
                     
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label class="textColor">Giới tính</label>
-                    <select class="form-control" asp-for="Sex">
-                        <option asp-for ="@Model.Sex" selected>@Model.Sex</option>
+                    <select class="form-control" asp-for="@Model.Account.Sex">
+                        <option asp-for ="@Model.Account.Sex" selected>@Model.Account.Sex</option>
                         <option >---Chọn---</option>
                         <option value="Nam">Nam</option>
                         <option value="Nữ">Nữ</option>
@@ -59,21 +62,21 @@
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label class="textColor">Số điện thoại</label>
-                    <input type="text" asp-for="PhoneNumber" class="form-control"placeholder="Số điện thoại" required>
+                    <input type="number" asp-for="@Model.Account.PhoneNumber" class="form-control"placeholder="Số điện thoại" required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label class="textColor">Email</label>
-                    <input type="text" asp-for="Email" class="form-control" placeholder="Email" required>
+                    <input  asp-for="@Model.Account.Email"  class="form-control" placeholder="Email" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label class="textColor">Nơi sinh</label>
-                    <input type="text" asp-for="PlaceOfBirth" class="form-control" placeholder="Nơi sinh"  required>
+                    <input asp-for="@Model.Account.PlaceOfBirth" class="form-control" placeholder="Nơi sinh"  required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label class="textColor">Địa chỉ</label>
-                    <input type="text" asp-for="Address" class="form-control" placeholder="Địa chỉ" required>
+                    <input  asp-for="@Model.Account.Address" class="form-control" placeholder="Địa chỉ" required>
                 </div>
             </div>
             <div class="col-lg-12 mb-2">
@@ -82,11 +85,19 @@
             <div class="form-row">
                 <div class="col-md-6 mb-3 " >
                     <label class="textColor">Tên Tài Khoản</label>
-                    <input type="text" asp-for="UserName" class="form-control"  placeholder="Tên tài khoản"  required>
+                    <input  asp-for="@Model.Account.UserName" disabled class="form-control"  placeholder="Tên tài khoản"  required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label class="textColor">Mật khẩu</label>
-                    <input type="text" class="form-control" asp-for="PasswordHash"  placeholder="Mật khẩu"  required>
+                    <input  asp-for="@Model.Account.PasswordHash" disabled class="form-control"  placeholder="Mật khẩu"  required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 mb-3 " >
+                    <label class="textColor">Quyền</label>
+                    <select class="form-control" asp-items="@Model.ListRole" asp-for="@Model.PermissionId">
+                        <option value="">-- Chọn quyền --</option>
+                    </select>
                 </div>
             </div>
              <div class="row mb-4 mt-4">

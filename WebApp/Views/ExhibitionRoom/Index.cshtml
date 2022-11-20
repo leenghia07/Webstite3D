@@ -1,0 +1,153 @@
+﻿@*@model WebApp.Models.ExhibitionRoom;*@
+@model WebApp.Models.ViewModel.VMExhibitionRoom;
+@{
+    var ExhibitionRooms = Model.ExhibitionRooms; 
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class=" row page-titles shadow-lg mx-0">
+            <div class="col-sm-6 p-md-0">
+                <h3 style="color:#673BB7;">Phòng trưng bày</h3>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><a asp-controller="ExhibitionRoom" asp-action="Index">Danh sách</a></li>
+                </ol>
+            </div>
+        </div>
+        @if(TempData["success"] != null)
+        {
+            <div class="alert mb-3 alert-primary solid alert-right-icon alert-dismissible fade show">
+                <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                </button>
+                <strong>@TempData["success"]</strong>
+            </div>  
+        }
+        @if(TempData["Error"] != null)
+        {
+            <div class="alert mb-3 alert-danger solid alert-dismissible fade show">
+                <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                </button>
+                <strong>@TempData["Error"]</strong>
+            </div>   
+        }
+       
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="accordion-nine" class="accordion accordion-active-header shadow-lg">
+                    <div class="accordion__item">
+                        <div class="accordion__header" data-toggle="collapse" data-target="#active-header_collapseOne">
+                            <span class="accordion__header--icon"></span>
+                            <h4 class="accordion__header--text" style="color:#673BB7;">Thêm phòng trưng bày</h4>
+                            <span class="accordion__header--indicator"></span>
+                        </div>
+                    </div>
+                    <div id="active-header_collapseOne" class="collapse accordion__body show" data-parent="#accordion-nine">
+                        <form asp-controller="ExhibitionRoom" asp-action="Create">
+                            <div class="accordion__body--text"> 
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <label class="textColor">Tên phòng trưng bày</label>
+                                        <input  class="form-control" asp-for="@Model.ExhibitionRoom.NameRoom" placeholder="Phòng trưng bày" >                  
+                                    </div>
+                                    <span class="mt-2 mb-2 ml-2" asp-validation-for="@Model.ExhibitionRoom.NameRoom" style="color:red"></span>
+                                </div> 
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <label class="textColor">Ngày</label>
+                                        <input type="date" asp-for="@Model.ExhibitionRoom.Date"  class="form-control">
+                                        @*<span class="mt-2 mb-2 ml-2" asp-validation-for="@Model.NameRoom" style="color:red">test</span>*@
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <label class="textColor">File ảnh</label>
+                                        <input type="file" asp-for="@Model.ExhibitionRoom.Image"  class="form-control" name="File" >
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="textColor">File 3D phòng</label>
+                                        <input type="file" asp-for="@Model.ExhibitionRoom.File3D" name="File3D" class="form-control">
+                                    </div>
+                                </div>  
+                                <div class="form-row">
+                                    <div class="col-lg-12">
+                                        <div class="card-body">
+                                            <label class="textColor">Mô tả</label>
+                                            <textarea asp-for="@Model.ExhibitionRoom.Description"  class="summernote" placeholder="Nhập nội dung mô tả ...."></textarea>
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col">
+                                        <button type="submit" style="width:200px;height:50px;font-size: 20px;" class="btn  btn-primary">Thêm</button>
+                                    </div>
+                                    <div class="col"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap row mt-3 ml-2">
+            @foreach (var item in ExhibitionRooms)
+            {
+               <div class=" ml-2 card shadow-lg ">
+                   <div class="row ml-2">
+                       <div class="col-lg-12 d-flex flex-row-reverse">
+                     
+                            <div class=" dropdown dropdown-action">
+                                <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
+                                <div class="dropdown-menu dropdown-menu-center">
+                                    <form asp-controller="ExhibitionRoom" asp-action="Edit" >
+                                        <button class="btn btn-success w-70 mt-2 ml-4"><i class="fa fa-pencil m-r-5"></i> Sửa</button>
+                                    </form>                          
+                                    <button class="btn btn-danger w-70 mt-2 ml-4" data-toggle="modal" data-target="#delete-test"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
+                                </div>
+                                 <!-- START MODEL DELETE PHÒNG TRƯNG BÀY-->
+                                    <div class="w-50 d-flex justify-content-end">
+                                        <div class="modal fade" id="delete-test" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
+                                                <form asp-controller="ExhibitionRoom" asp-action="Delete" asp-route-id="@item.Id">
+                                                    <div class="modal-content p-3" style="width: auto;">
+                                                        <div class="flex-row d-flex justify-content-center mb-2">
+                                                            <h2 class="text-danger">Bạn có chắc xóa nhân viên</h2>
+                                                        </div>  
+                                                        <div class="row">
+                                                       
+                                                        </div>
+                                                        <div class="d-flex flex-row justify-content-end my-0 mt-5 ">
+                                                            <div class="w-75 d-flex">
+                                                                <input type="submit"  name="btn" class="btn btn-danger w-40" value="Xóa" >
+                                                                <input type="submit" class="btn btn-info w-40 mr-2 ml-5 text-white" data-dismiss="modal" value="Đóng">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        @* END MODAL  *@
+                            </div>
+                       </div>
+                   </div>
+                    <a asp-controller="ExhibitionRoom" asp-action="Detail" asp-route-id="@item.Id">
+                        <div class="row ml-2 mr-2">
+                            <div class="col-lg-10">
+                                <img src="~/Images/@item.Image" height="150" width="300">
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-1">
+                            <div class=" col text-center">
+                                <h4  style="color:#673BB7;">
+                                    @item.NameRoom
+                                </h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>              
+            }
+        </div>
+    </div>
+</div>

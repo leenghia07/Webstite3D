@@ -1,0 +1,216 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebApp.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var UserInfo = UserManager.Users.SingleOrDefault(u => u.Id == UserManager.GetUserId(User));
+    var roleUser = await UserManager.GetRolesAsync(UserInfo);
+    var nameRole = @roleUser[0].ToString();
+}
+
+    <div class="mr-1 ml-1">
+    <!-- Tiêu đề -->
+    <div class=" row page-titles shadow-lg mx-0">
+        <div class="col-sm-6 p-md-0">
+            <h3 style="color:#673BB7;">Thông tin chi tiết</h3>
+        </div>
+        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item active" ><a href="">Profile</a></li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow-lg">
+                <div class="card-content mb-2">
+                    <div class="row mt-1 mb-1">
+                        <div class="col-lg-5">
+                            <div class="row">
+                                <div class="col-lg-4 ml-4 mt-3">
+                                    <img src="~/Images/@UserInfo.Image" width="220" height="220" class="rounded-circle" alt="">
+                                </div>
+                                <div class="col-lg-6 ml-5 mt-5" style="border-right: 2px dashed #ccc;">
+                                    <h4 class="mt-4 ml-5">Họ Tên: @UserInfo.FisrtName @UserInfo.LastName</h4>
+                                  @*  <h4 class="ml-5">@UserInfo.BirthDate.ToString("dd/MM/yyyy")</h4>*@
+                                    @if (nameRole == "Manager")
+                                    {
+                                        <span class=" ml-5 badge badge-pill badge-success text-white" style="font-size:20px;">Quản trị viên</span>
+                                        
+                                    }
+                                    @if (nameRole == "Employee")
+                                    {
+                                       <span class=" mt-3 ml-5 badge badge-pill badge-info text-white" style="font-size:20px;">Nhân viên</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 w-auto">
+                            <ul class="mt-2 ml-5">
+                                 @*<li >
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <h4>Họ</h4>
+                                        </div>
+                                        <div class="col-lg-7">
+                                           <h5>@UserInfo.FisrtName</h5>
+                                        </div>
+                                    </div>
+                                </li>
+                                 <li class="mt-2">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <h4>Tên</h4>
+                                        </div>
+                                        <div class="col-lg-7">
+                                           <h5>@UserInfo.LastName</h5>
+                                        </div>
+                                    </div>
+                                </li>*@
+                            @*     <li >
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <h4>Họ</h4>
+                                        </div>
+                                        <div class="col-lg-7">
+                                           <h5>@UserInfo.FisrtName</h5>
+                                        </div>
+                                    </div>
+                                </li>*@
+                                <li class="mt-2"> 
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <h4>Ngày sinh</h4>
+                                        </div>
+                                        <div class="col-lg-7">
+                                            <h5>@UserInfo.BirthDate.ToString("dd/MM/yyyy")</h5>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mt-2">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <h4>Giới tính</h4>
+                                        </div>
+                                        <div class="col-lg-7">
+                                           <h5>@UserInfo.Sex</h5>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mt-2">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <h4>Số điện thoại</h4>
+                                        </div>
+                                        <div class="col-lg-7">
+                                           <h5>@UserInfo.PhoneNumber</h5>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mt-2">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <h4>Email</h4>
+                                        </div>
+                                        <div class="col-lg-7">
+                                           <h5>@UserInfo.Email</h5>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mt-2">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <h4>Địa chỉ</h4>
+                                        </div>
+                                        <div class="col-lg-7">
+                                           <h5>@UserInfo.Address</h5>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mt-2">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <h4>Nơi sinh</h4>
+                                        </div>
+                                        <div class="col-lg-7">
+                                           <h5>@UserInfo.PlaceOfBirth</h5>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="card shadow-lg">
+                <div class="card-header">
+                   <h3> Thông tin liên lạc</h3>
+                </div>
+                <div class="card-content">
+                    <ul class="mt-2 ml-5">
+                        <li class="mt-2">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <h4>Số điện thoại</h4>
+                                </div>
+                                <div class="col-lg-7">
+                                    <h5>@UserInfo.PhoneNumber</h5>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mt-2">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <h4>Email</h4>
+                                </div>
+                                <div class="col-lg-7">
+                                    <h5>@UserInfo.Email</h5>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow-lg">
+                <div class="card-header">
+                    <h3>Địa chỉ</h3>
+                </div>
+                <div class="card-content">
+                    <div class="col-lg-11">
+                        <ul class="mt-2 ml-5">
+                            <li>
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                       <h4>Địa chỉ hiện tại</h4>
+                                    </div>
+                                    <div class="col-lg-7">
+                                       <h5>@UserInfo.Address</h5>
+                                    </div>
+                                </div>
+                            </li>
+                             <li>
+                                <div class="row mb-2">
+                                    <div class="col-lg-5">
+                                      <h4>Nơi sinh</h4>
+                                    </div>
+                                    <div class="col-lg-7">
+                                       <h5>@UserInfo.PlaceOfBirth</h5>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    

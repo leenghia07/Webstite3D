@@ -7,9 +7,11 @@ using WebApp.Models;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class ArtifactController : Controller
     {
         private readonly MuseumDataContext _context;
@@ -48,7 +50,7 @@ namespace WebApp.Controllers
 
             if (DetailArtifact == null)
             {
-                ViewData["error"] = "Lỗi";
+                TempData["error"] = "Lỗi";
                 return RedirectToAction(nameof(Index));
             }
             return View(DetailArtifact);
@@ -64,7 +66,7 @@ namespace WebApp.Controllers
             EditArtifact.TypeOfArtifacts = await _context.TypeOfArtifact.ToListAsync();
             if (EditArtifact == null)
             {
-                ViewData["error"] = "Lỗi";
+                TempData["error"] = "Lỗi";
                 return RedirectToAction(nameof(Index));
             }
             return View(EditArtifact);
@@ -108,7 +110,7 @@ namespace WebApp.Controllers
             artifact.Image = FileNameImage;
             _context.Add(artifact);
              await _context.SaveChangesAsync();
-             ViewData["success"] = "Thêm thành công";
+            TempData["success"] = "Thêm thành công";
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
@@ -180,7 +182,7 @@ namespace WebApp.Controllers
 
             _context.Update(artifact);
             await _context.SaveChangesAsync();
-            ViewData["success"] = "Cập nhập thành công";
+            TempData["success"] = "Cập nhập thành công";
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
@@ -189,7 +191,7 @@ namespace WebApp.Controllers
             var Artifact = await _context.Aritifact.FindAsync(id);
             _context.Aritifact.Remove(Artifact);
             await _context.SaveChangesAsync();
-            ViewData["success"] = "Xóa thành công";
+            TempData["success"] = "Xóa hiện vật thành công";
             return RedirectToAction(nameof(Index));
         }
 

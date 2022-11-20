@@ -6,6 +6,8 @@ namespace WebApp.Models.ViewModel
     {
         [Required]
         public Museum? Museum { get; set; }
+        public string test{ get; set; }
+
         public IEnumerable<Museum>? Museums { get; set; }
     }
 }

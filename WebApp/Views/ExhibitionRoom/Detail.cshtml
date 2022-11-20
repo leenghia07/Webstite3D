@@ -1,0 +1,118 @@
+﻿@model WebApp.Models.ViewModel.VMExhibitionRoom;
+@{
+    var ExRoom = Model.ExhibitionRoom;
+}
+<script src="~/js/three.js"></script>
+<script src="~/js/three.min.js"></script>
+<script src="~/js/OrbitControls.js"></script>
+<script src="~/js/stats.module.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
+<script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://82mou.github.io/threejs/js/OrbitControls.js"></script>
+<script src="https://unpkg.com/browse/three@0.91.0/src/lights/DirectionalLightShadow.js"></script>
+<input id="FileLoad" type="hidden" value="/File3D/@ExRoom.File3D"></input>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class=" row page-titles shadow-lg mx-0">
+            <div class="col-lg-1">
+                <a href="#" onclick="history.back()"> <i class="mdi mdi-arrow-left-bold-circle-outline" style="font-size: 3em;color:#673BB7;"></i></a>
+            </div>
+            <div class="col-sm-5 p-md-0 my-auto">
+                <h3 style="color:#673BB7;">@ExRoom.NameRoom</h3>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="ExhibitionRoom" asp-action="Index">Danh sách</a></li>
+                    <li class="breadcrumb-item active"><a href="">Chi tiết</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="FPS" class="row"></div>
+                <div id="Load3D" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //   Canvas: Phần tử HTML canvas, cái này giống như 1 bức tranh (hay cái màn chiếu) trống, và threejs sẽ vẽ vời lên đây.
+    var FileLoad = $('#FileLoad').val();
+   // console.log(FileLoad);
+    
+    var myCanvas = document.getElementById("Load3D")
+    var showFPS = document.getElementById("FPS")
+    
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    var width =window.innerWidth;
+    var height =window.innerHeight;
+  //  var width =800;
+    //var height =600;
+    var stats=new Stats();
+
+    showFPS.appendChild(stats.dom)
+    // hiển thị hình ảnh input(camera,scence).
+    var renderer = new THREE.WebGLRenderer();
+ 
+     renderer.setSize(width ,height);
+   
+    myCanvas.appendChild(renderer.domElement); 
+
+    myCanvas.onwheel = function(event){
+        event.preventDefault();
+    };
+
+    window.addEventListener('resize',function () {
+        renderer.setSize(width,height);
+        camera.aspect = width/height;
+        camera.updateProjectionMatrix();
+    })
+    
+      const loader = new THREE.GLTFLoader();
+        loader.load(
+            FileLoad,
+            function(gltf) {  
+                    var model = gltf.scene;
+                    model.position.set( 10 , -25 , -55 );
+                    scene.add( model);
+                    console.log(gltf)
+                },
+                function ( xhr ) {
+                    console.log( ( xhr.loaded / xhr.total * 100 )+"% loaded" )
+                },
+                function ( error ) {
+                    console.log( 'An error happened' );
+                }
+            );
+        const controls = new THREE.OrbitControls(camera,renderer.domElement);
+        const light = new THREE.DirectionalLight( 0xffffff, 1 );
+        light.position.set( 0.357 , 3.008 , 0 ); //(x,y,z) default; light shining from top
+       // light.castShadow = true; // default false
+        light.intensity = 1;
+        scene.add( light );
+
+        const light1 = new THREE.DirectionalLight( 0xffffff, 1 );
+        light1.position.set( -0.5 , -1.2 , 0.034 );
+        light1.intensity = 1;
+        scene.add( light1 );
+
+       renderer.outputEncoding = THREE.sRGBEncoding;
+       scene.background = new THREE.Color();
+        
+        // phóng màn hình
+       camera.position.z = 30;
+        camera.position.add( camera.getWorldDirection() );
+
+      var render = function () {
+            //controls.update();
+            requestAnimationFrame( render );
+            stats.update()
+            controls.update()
+            renderer.render(scene, camera);
+       };
+      render();
+  
+</script>

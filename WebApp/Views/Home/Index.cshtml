@@ -1,6 +1,14 @@
 ﻿@model WebApp.Models.ViewModel.VMArtifact;
+@using Microsoft.AspNetCore.Identity
+@using WebApp.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
+    var UserInfo = UserManager.Users.SingleOrDefault(u => u.Id == UserManager.GetUserId(User));
     var Museums = Model.Museums;
+    var roleUser = await UserManager.GetRolesAsync(UserInfo);
+
 }
 <style>
         /* body{
@@ -63,7 +71,9 @@
     </div>
 <div class="col-lg-12">
     <div class="d-flex flex-wrap">
-        <div class="p-2 m-2">
+        @if(roleUser[0].ToString() == "Manager")
+        {
+           <div class="p-2 m-2">
             <a asp-controller="Account" asp-action="Index" style="height: 120px; width: 250px; " class="shadow-lg btn btn-info">
                 <div style="display: flex;">
                     <div class="col-lg-12">
@@ -92,7 +102,9 @@
                     </div>
                 </div>
             </a>
-        </div>
+        </div>  
+        }
+       
           <div class="p-2 m-2">
             <a asp-controller="Museum" asp-action="Index" style="height: 120px; width: 250px; " class="shadow-lg btn btn-light">
                 <div style="display: flex;">

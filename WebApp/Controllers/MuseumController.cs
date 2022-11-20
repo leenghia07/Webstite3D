@@ -3,9 +3,12 @@ using WebApp.Data;
 using WebApp.Models;
 using WebApp.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using WebApp.Core;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = Permission.Manager+","+Permission.Employee)]
     public class MuseumController : Controller
     {
         private readonly MuseumDataContext _MuseumDataContext;
@@ -40,15 +43,10 @@ namespace WebApp.Controllers
             {
                 _MuseumDataContext.Add(museum);
                 await _MuseumDataContext.SaveChangesAsync();
-                ViewData["success"]= "Thêm thành công";
-                return RedirectToAction(nameof(Index));
-                
+                TempData["success"] = "Thêm thành công";
+                return RedirectToAction(nameof(Index));   
             }
-            else
-            {
-                ViewData["error"]="thêm thất bại";
-            }
-            return View();
+            return View(museum);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -58,20 +56,19 @@ namespace WebApp.Controllers
             {
                 _MuseumDataContext.Update(museum);
                 await _MuseumDataContext.SaveChangesAsync();
-                ViewData["success"]= "Cập nhập thành công";
+                TempData["success"]= "Cập nhập thành công";
                 return RedirectToAction(nameof(Index));
-
             }
-            return View();
+            return View(museum);
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(Guid id, bool? saveChangesError = false)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var Museum = await _MuseumDataContext.Museum.FindAsync(id);
             _MuseumDataContext.Museum.Remove(Museum);
             await _MuseumDataContext.SaveChangesAsync();
+            TempData["success"] = "Xóa thành công";
             return RedirectToAction(nameof(Index));
-            ViewData["success"]= "Xóa thành công";
         }
     }
 }

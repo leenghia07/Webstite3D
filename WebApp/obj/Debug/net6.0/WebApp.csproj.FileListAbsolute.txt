@@ -57,7 +57,6 @@ D:\git\Webstite3D\WebApp\bin\Debug\net6.0\MessagePack.dll
 D:\git\Webstite3D\WebApp\bin\Debug\net6.0\MessagePack.Annotations.dll
 D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
 D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
-D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.Build.Locator.dll
 D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
 D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.CodeAnalysis.dll
 D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -305,3 +304,6 @@ D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 D:\git\Webstite3D\WebApp\obj\Debug\net6.0\WebApp.MvcApplicationPartsAssemblyInfo.cs
 D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Aspose.3D.dll
+D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.Build.dll
+D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.Build.Framework.dll
+D:\git\Webstite3D\WebApp\bin\Debug\net6.0\Microsoft.NET.StringTools.dll

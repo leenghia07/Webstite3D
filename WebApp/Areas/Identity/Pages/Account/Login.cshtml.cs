@@ -127,6 +127,8 @@ namespace WebApp.Areas.Identity.Pages.Account
                     var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
                     var userPrincipal = await _signInManager.CreateUserPrincipalAsync(user);
                     var identity = userPrincipal.Identity;
+                 /*   var role = await _signInManager.UserManager.GetRolesAsync(user);
+*/
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

@@ -16,7 +16,7 @@ namespace WebApp.Controllers
         public HomeController(ILogger<HomeController> logger, MuseumDataContext context)
         {
             _logger = logger;
-            this._context = context;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()

@@ -1,0 +1,453 @@
+﻿@model WebApp.Models.ViewModel.VMArticle;
+@using System.Text.RegularExpressions;
+@{
+    Layout = "_LayoutUser";
+    var ExhRooms = Model.ExhibitionRooms;
+    var Artifacts = Model.Artifacts;
+    int Stt = 1;
+    var Articles = @Model.Articles;
+    string AFD = "3f716e7b-ebf6-4452-b9ba-45f5c189507f";
+    string Main = "ed76dd39-1861-4260-940f-7e1d76ade15e";
+    string EXR = "56ea9add-0d90-4a1d-8c8f-fe66258655ae";
+    Guid idAFD = new Guid(AFD);
+    Guid idMain = new Guid(Main);
+    Guid idEXR = new Guid(EXR);
+    int count = @Model.Articles.Count();
+}
+<style>
+     .an {
+    display: block;
+  	display: -webkit-box;
+  	line-height: 1.9;
+  	-webkit-line-clamp: 3;  /* số dòng hiển thị */
+  	-webkit-box-orient: vertical;
+  	overflow: hidden;
+  	/* text-overflow: ellipsis; */
+}
+</style>
+<div class="col-lg-12">
+    <div class="row">
+          <div class="card shadow-lg">
+               <div class="card-body" style="margin-top:-1%;">
+                   <div class="row">
+                       @foreach (var itemMain in Articles)
+                        {
+                            if (itemMain.TypeOfArticleId == idMain)
+                            {
+                                if (itemMain.Number == 1)
+                                {
+                                    if (itemMain.Artifact == null)
+                                    {
+                                        <div class="col-lg-7">
+                                            <a asp-controller="RoomExhibitionMuseum" asp-action="Detail" asp-route-id="@itemMain.ExhibitionRoomId">
+                                                <div class="row">
+                                                    @if (itemMain.ExhibitionRoomId != null)
+                                                    {
+                                                        <img class="mt-2" src="~/images/@itemMain.ExhibitionRoom.Image" style="height:100%;width:100%;" >
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="mt-2" src="~/images/@itemMain.Artifact.Image" style="height:100%;width:100%;">
+                                                    }
+                                                </div>
+                                                <div class="row">
+                                                    @if (itemMain.ExhibitionRoomId != null)
+                                                    {
+                                                        <h2>@itemMain.ExhibitionRoom.NameRoom</h2>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h2>@itemMain.Artifact.NameArtifact</h2>
+                                                    }
+                                                </div>
+                                                <div class="row">
+                                                    @{
+                                                        String result = "";
+                                                    }
+                                                    @if (itemMain.ExhibitionRoomId != null)
+                                                    {
+                                                        result = Regex.Replace(itemMain.ExhibitionRoom.Description, @"<[^>]*>", String.Empty);
+                                                    }
+                                                    else
+                                                    {
+                                                        result = Regex.Replace(itemMain.Artifact.Description, @"<[^>]*>", String.Empty);
+                                                    }
+                                                    <span class="textColor an" >
+                                                        @result
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>    
+                                    }
+                                    else
+                                    {
+                                        <div class="col-lg-7">
+                                             <a asp-controller="RoomArtifact" asp-action="Detail" asp-route-id="@itemMain.ArtifactId">
+                                                <div class="row">
+                                                    @if (itemMain.ExhibitionRoomId != null)
+                                                    {
+                                                        <img class="mt-2" src="~/images/@itemMain.ExhibitionRoom.Image" style="height:100%;width:100%;" >
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="mt-2" src="~/images/@itemMain.Artifact.Image" style="height:100%;width:100%;">
+                                                    }
+                                                </div>
+                                                <div class="row">
+                                                    @if (itemMain.ExhibitionRoomId != null)
+                                                    {
+                                                        <h2>@itemMain.ExhibitionRoom.NameRoom</h2>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h2>@itemMain.Artifact.NameArtifact</h2>
+                                                    }
+                                                </div>
+                                                <div class="row">
+                                                    @{
+                                                        String result = "";
+                                                    }
+                                                    @if (itemMain.ExhibitionRoomId != null)
+                                                    {
+                                                        result = Regex.Replace(itemMain.ExhibitionRoom.Description, @"<[^>]*>", String.Empty);
+                                                    }
+                                                    else
+                                                    {
+                                                        result = Regex.Replace(itemMain.Artifact.Description, @"<[^>]*>", String.Empty);
+                                                    }
+                                                    <span class="textColor an" >
+                                                        @result
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div> 
+                                    }
+                                }
+                            }
+                        }
+                        <div class="col-lg-5">
+                            @foreach (var item in Articles)
+                            {
+                                if (item.Number != 1 && item.TypeOfArticleId == idMain)
+                                {
+                                   if(item.Artifact == null)
+                                    {
+                                        <a asp-controller="RoomExhibitionMuseum" asp-action="Detail" asp-route-id="@item.ExhibitionRoomId">
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    @if (item.ExhibitionRoomId != null)
+                                                    {
+                                                        <img class="mt-2" src="~/images/@item.ExhibitionRoom.Image" height="100" width="100">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="mt-2" src="~/images/@item.Artifact.Image" height="100" width="100">
+                                                    }
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <div class="row">
+                                                        @if (item.ExhibitionRoomId != null)
+                                                        {
+                                                            <h4>@item.ExhibitionRoom.NameRoom</h4>
+                                                        }
+                                                        else
+                                                        {
+                                                            <h4>@item.Artifact.NameArtifact</h4>
+                                                        }
+                                                    </div>
+                                                    <div class="row">
+                                                        @{
+                                                            String result1 = "";
+                                                        }
+                                                        @if (item.ExhibitionRoomId != null)
+                                                        {
+                                                            result1 = Regex.Replace(item.ExhibitionRoom.Description, @"<[^>]*>", String.Empty);
+                                                        }
+                                                        else
+                                                        {
+                                                            result1 = Regex.Replace(item.Artifact.Description, @"<[^>]*>", String.Empty);
+                                                        }
+                                                        <span class="textColor an" >
+                                                            @result1
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </a>   
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="RoomArtifact" asp-action="Detail" asp-route-id="@item.ArtifactId">
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    @if (item.ExhibitionRoomId != null)
+                                                    {
+                                                        <img class="mt-2" src="~/images/@item.ExhibitionRoom.Image" height="100" width="100">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="mt-2" src="~/images/@item.Artifact.Image" height="100" width="100">
+                                                    }
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <div class="row">
+                                                        @if (item.ExhibitionRoomId != null)
+                                                        {
+                                                            <h4>@item.ExhibitionRoom.NameRoom</h4>
+                                                        }
+                                                        else
+                                                        {
+                                                            <h4>@item.Artifact.NameArtifact</h4>
+                                                        }
+                                                    </div>
+                                                    <div class="row">
+                                                        @{
+                                                            String result1 = "";
+                                                        }
+                                                        @if (item.ExhibitionRoomId != null)
+                                                        {
+                                                            result1 = Regex.Replace(item.ExhibitionRoom.Description, @"<[^>]*>", String.Empty);
+                                                        }
+                                                        else
+                                                        {
+                                                            result1 = Regex.Replace(item.Artifact.Description, @"<[^>]*>", String.Empty);
+                                                        }
+                                                        <span class="textColor an" >
+                                                            @result1
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </a>   
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+               </div>
+           </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow-lg">
+                <div class="card-header">
+                       <div class="col-lg-11">
+                            <h4 >HIỆN VẬT BẢO TÀNG </h4>
+                       </div>
+                       <div class="col-lg-1">
+                           <a asp-controller="RoomArtifact" asp-action="index" ><h6 style="color:#673BB7;">Xem tất cả</h6></a>
+                       </div>
+                </div>
+                <div class="card-body">
+		            <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+                        <div class="carousel-inner w-100" role="listbox">
+                           <div class="carousel-item row no-gutters active">
+                               <div class="row">
+                                    @foreach (var item in Articles)
+                                    {
+                                        if (item.TypeOfArticleId == idAFD)
+                                        {
+                                            if (item.Number <= 3)
+                                            {
+                                                <div class="col-lg-4">
+                                                    <a asp-controller="RoomArtifact" asp-action="Detail" asp-route-id="@item.ArtifactId">
+                                                        <div class="row mb-3">
+                                                            <div class="col-lg-4">
+                                                                <img class="mt-2" src="~/images/@item.Artifact.Image" height="100" width="100">
+                                                            </div>
+                                                            <div class="col-lg-7 mt-2">
+                                                                <div class="row">
+                                                                    <h4>@item.Artifact.NameArtifact</h4>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <span class="textColor an" >
+                                                                        @{
+                                                                            String result = Regex.Replace(@item.Artifact.Description, @"<[^>]*>", String.Empty);
+                                                                        }
+                                                                        @result
+                                                                    </span>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class=" d-flex">
+                                                                        <i class="fa fa-plus-square-o fa-lg mt-2" style="color:black;font-size: 15px;" ></i>
+                                                                        <p class="my-auto textColor ml-3"> Tham quan trưng bày 3D</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                               </div>
+                            </div>
+                            <div class="carousel-item row no-gutters">
+                                <div class="row">
+                                    @foreach (var item in Articles)
+                                    {
+                                        if (item.TypeOfArticleId == idAFD)
+                                        {
+                                            if (item.Number > 3)
+                                            {
+                                                <div class="col-lg-4">
+                                                    <a asp-controller="RoomArtifact" asp-action="Detail" asp-route-id="@item.ArtifactId">
+                                                        <div class="row mb-3">
+                                                            <div class="col-lg-5">
+                                                                <img class="mt-2" src="~/images/@item.Artifact.Image" height="100" width="100">
+                                                            </div>
+                                                            <div class="col-lg-7 mt-2">
+                                                                <div class="row">
+                                                                    <h4>@item.Artifact.NameArtifact</h4>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <span class="textColor an" >
+                                                                        @{
+                                                                            String result = Regex.Replace(@item.Artifact.Description, @"<[^>]*>", String.Empty);
+                                                                        }
+                                                                        @result
+                                                                    </span>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class=" d-flex">
+                                                                        <i class="fa fa-plus-square-o fa-lg mt-2" style="color:black;font-size: 15px;" ></i>
+                                                                        <p class="my-auto textColor ml-3"> Tham quan trưng bày 3D</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                          
+                             <a class="carousel-control-prev text-dark " href="#recipeCarousel" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next text-dark" href="#recipeCarousel" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                     </div>  
+                </div>
+            </div>  
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                       <div class="col-lg-11">
+                           <h4 >Phòng trưng bày thường xuyên</h4>
+                       </div>
+                       <div class="col-lg-1">
+                           <a asp-controller="RoomExhibitionMuseum" asp-action="index" ><h6 style="color:#673BB7;">Xem tất cả</h6></a>
+                       </div>
+                </div>
+                <div class="card-body d-flex flex-row">
+                      <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+                        <div class="carousel-inner w-100" role="listbox">
+                           <div class="carousel-item row no-gutters active">
+                               <div class="row">
+                                    @foreach (var item in Articles)
+                                    {
+                                        if (item.TypeOfArticleId == idEXR)
+                                        {
+                                            if (item.Number <= 3)
+                                            {
+                                                 <div class="col-lg-4">
+                                                    <a asp-controller="RoomExhibitionMuseum" asp-action="Detail" asp-route-id="@item.ExhibitionRoomId">
+                                                         <div class="row mb-3">
+                                                            <div class="col-lg-4">
+                                                                <img class="mt-2" src="~/images/@item.ExhibitionRoom.Image" height="100" width="100">
+                                                            </div>
+                                                            <div class="col-lg-7 mt-2">
+                                                                <div class="row">
+                                                                    <h4>@item.ExhibitionRoom.NameRoom</h4>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <span class="textColor an" >
+                                                                        @{
+                                                                            String result = Regex.Replace(@item.ExhibitionRoom.Description, @"<[^>]*>", String.Empty);
+                                                                        }
+                                                                        @result
+                                                                    </span>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class=" d-flex">
+                                                                        <i class="fa fa-plus-square-o fa-lg mt-2" style="color:black;font-size: 15px;" ></i>
+                                                                        <p class="my-auto textColor ml-3"> Tham quan trưng bày 3D</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                               </div>
+                            </div>
+                            <div class="carousel-item row no-gutters">
+                                <div class="row">
+                                    @foreach (var item in Articles)
+                                    {
+                                        if (item.TypeOfArticleId == idEXR)
+                                        {
+                                            if (item.Number > 3)
+                                            {
+                                                <div class="col-lg-4">
+                                                    <a asp-controller="RoomExhibitionMuseum" asp-action="Detail" asp-route-id="@item.ExhibitionRoomId">
+                                                        <div class="row mb-3">
+                                                            <div class="col-lg-5">
+                                                                <img class="mt-2" src="~/images/@item.ExhibitionRoom.Image" height="100" width="100">
+                                                            </div>
+                                                            <div class="col-lg-7 mt-2">
+                                                                <div class="row">
+                                                                    <h4>@item.ExhibitionRoom.NameRoom</h4>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <span class="textColor an" >
+                                                                        @{
+                                                                            String result = Regex.Replace(@item.ExhibitionRoom.Description, @"<[^>]*>", String.Empty);
+                                                                        }
+                                                                        @result
+                                                                    </span>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class=" d-flex">
+                                                                        <i class="fa fa-plus-square-o fa-lg mt-2" style="color:black;font-size: 15px;" ></i>
+                                                                        <p class="my-auto textColor ml-3"> Tham quan trưng bày 3D</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                          
+                             <a class="carousel-control-prev text-dark " href="#recipeCarousel" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next text-dark" href="#recipeCarousel" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                     </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

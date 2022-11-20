@@ -1,0 +1,35 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+<div class="row">
+    <div class="col-lg-12">
+        <div class=" row page-titles shadow-lg mx-0">
+            <div class="col-sm-6 p-md-0">
+                <h3 style="color:#673BB7;">Thêm quyền truy cập</h3>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><a asp-controller="Role" asp-action="Index">Danh sách</a></li>
+                    <li class="breadcrumb-item active"><a href="">Thêm</a></li>
+                </ol>
+            </div>
+        </div>
+     </div>
+</div>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <form asp-action="CreatePerMission">
+                    <div class="form-row">
+                            <div class="form-group col-md-12">
+                            <label>Quyền truy cập</label>
+                            <input type="text" asp-for="@Model.Name"  class="form-control"  placeholder="Nhập tên quyền" required>
+                        </div>      
+                    </div>
+                    <div class="row justify-content-end mr-2">
+                        <button type="submit" style="width:100px;height:40px;font-size: 20px;" class="btn  btn-primary">Thêm</button>
+                    </div>
+                </form>
+            </div>
+        </div>   
+    </div>
+</div>

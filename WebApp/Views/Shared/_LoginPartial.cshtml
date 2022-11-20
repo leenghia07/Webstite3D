@@ -20,18 +20,39 @@
         <li class="nav-item dropdown header-profile">
         <a class="nav-link" href="#" role="button" data-toggle="dropdown">
             @*<i class="mdi mdi-account"></i>*@
-            <img class=" mr-2" src="~/Images/@UserInfo.Image" alt="">
-            @* @UserManager.GetUserName(User)*@
-             @UserInfo.LastName
+             @* @UserManager.GetUserName(User)*@
+            <div class="d-flex flex-row">
+                 @if(UserInfo.Image == null)
+                {
+                    <img  src="~/Images/hinhanhnull.jpg">    
+                }
+                else
+                {
+                    <img mr-2" src="~/Images/@UserInfo.Image" alt="">    
+                }
+                <p class="my-auto ml-3" style="color:#673BB7;">@UserInfo.LastName</p>
+            </div>
         </a>
         <div class="dropdown-menu dropdown-menu-right">
+             <a class="nav-link" href="#" role="button" data-toggle="dropdown" data-target="#login_dropdown">
+                <span>
+                    <img class=" mr-2" src="~/Images/@UserInfo.Image" alt="">
+                     <p style="color:#673BB7;">@UserInfo.FisrtName @UserInfo.LastName</p>
+                </span>
+            </a>
             <div class="justify-content-center">
                  <div class="dropdown-item">
                       <div class="row">
                         <i class="icon-user mt-3"></i>
-                        <form id="logoutForm" class="form-inline" asp-controller="Account" asp-action="Detail">
+                        <form id="logoutForm" class="form-inline" asp-controller="Account" asp-action="ProFile">
                             <button class="nav-link btn btn-link text-dark"><span class="small">Profile</span></button>
                         </form>
+                    </div>
+                </div>
+                <div class="dropdown-item">
+                      <div class="row">
+                        <i class="icon-key mt-3"></i>
+                        <button data-toggle="modal" data-target="#modalEdit-doimk" class="form-inline nav-link btn btn-link text-dark btn"><span class="small">Đổi mật khẩu</span></button>
                     </div>
                 </div>
                 <div class="dropdown-item">
@@ -47,6 +68,55 @@
             </div>
         </div>
     </li>
+       <!-- START MODEL ĐỔI MẬT KHẨU-->
+          <div class="w-50 d-flex justify-content-end">
+            <div class="modal fade" id="modalEdit-doimk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
+                    <form asp-controller="Account" asp-action="ChangePass">
+                        <div class="modal-content p-3" style="width: 550px;">
+                            <div class="flex-row d-flex justify-content-center mb-2">
+                                <h2 class="text-info">Đổi mật khẩu</h2>
+                            </div>
+                            <input type="hidden" name="idnhanvien" class="form-control"  />
+                            <div class="d-flex flex-column w-auto mt-3">
+                                <div class="d-flex text-left mb-2 align-items-center">
+                                    <div class="w-25 pl-2 mr-2">
+                                        <label class="my-auto">Mật khẩu cũ</label>
+                                    </div>
+                                    <div class="w-75">
+                                        <input asp-for="@UserInfo.PasswordHash"  class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="d-flex text-left mb-2 align-items-center">
+                                    <div class="w-25 pl-2 mr-2">
+                                        <label class="my-auto">Mật khẩu mới</label><b class="text-danger">*</b>
+                                    </div>
+                                    <div class="w-75">
+                                        <input type="password" name="matkhaumoi"  class="form-control" required/>
+                                    </div>
+                                </div>
+                                <div class="d-flex text-left mb-2 align-items-center">
+                                    <div class="w-25 pl-2 mr-2">
+                                        <label class="my-auto">nhập lại mật khẩu</label>
+                                    </div>
+                                    <div class="w-75">
+                                        <input type="password" name="nhaplaimk" class="form-control"required/>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row justify-content-end my-0 mt-4">
+                                    <div class="w-25 mr-2"></div>
+                                    <div class="w-75 d-flex">
+                                        <input type="submit" name="btn" class="btn btn-success w-40" value="Đổi mật khẩu">
+                                        <input type="submit" class="btn btn-info w-40 mr-2 ml-5" data-dismiss="modal" value="Đóng">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @*End MODEL*@
 }
 else
 {
