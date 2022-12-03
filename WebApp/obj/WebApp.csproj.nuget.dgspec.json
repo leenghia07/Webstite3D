@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\git\\Webstite3D\\WebApp\\WebApp.csproj": {}
+    "d:\\git\\Webstite3D\\WebApp\\WebApp.csproj": {}
   },
   "projects": {
-    "D:\\git\\Webstite3D\\WebApp\\WebApp.csproj": {
+    "d:\\git\\Webstite3D\\WebApp\\WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\git\\Webstite3D\\WebApp\\WebApp.csproj",
+        "projectUniqueName": "d:\\git\\Webstite3D\\WebApp\\WebApp.csproj",
         "projectName": "WebApp",
-        "projectPath": "D:\\git\\Webstite3D\\WebApp\\WebApp.csproj",
+        "projectPath": "d:\\git\\Webstite3D\\WebApp\\WebApp.csproj",
         "packagesPath": "C:\\Users\\lee nghia\\.nuget\\packages\\",
-        "outputPath": "D:\\git\\Webstite3D\\WebApp\\obj\\",
+        "outputPath": "d:\\git\\Webstite3D\\WebApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lee nghia\\AppData\\Roaming\\NuGet\\NuGet.Config",

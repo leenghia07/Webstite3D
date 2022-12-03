@@ -30,6 +30,8 @@ namespace WebApp.Controllers
                                                .Include(i => i.TypeOfArtifact)
                                                .AsNoTracking()
                                                .ToListAsync();
+            Artifact.Museums = await _context.Museum.ToListAsync();
+            Artifact.TypeOfArtifacts = await _context.TypeOfArtifact.ToListAsync();
             return View(Artifact);
         }
 

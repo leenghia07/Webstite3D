@@ -3,6 +3,7 @@
     var Articles = Model.Articles;
     string YearNow = DateTime.Now.ToString("yyyy");
     int Year = Int32.Parse(YearNow);
+    int stt = 0;
     int TenYearAgo = Year - 10;
     var Article = Model.Article;
     var TypeArticles = Model.TypeOfArticles.ToList();
@@ -184,10 +185,10 @@
                                             STT
                                         </td>
                                         <td class="w-15">
-                                            Hình ảnh
+                                            Hình ảnh    
                                         </td>
                                         <td class="w-20">
-                                            Hiện vật/Phòng trưng bày
+                                            Hiện vật
                                         </td>
                                         <td class="w-5">
                                           vị trí
@@ -206,7 +207,6 @@
                                     }
                                     @foreach (var item in Articles)
                                     {
-                                        
                                         stt1++;
                                         if(item.ArtifactId != null && item.TypeOfArticleId == idAFD)
                                         {
@@ -218,7 +218,7 @@
                                                     <img height="150" width="250" src="~/Images/@item.Artifact.Image">
                                                 </td>
                                                 <td class="text-left">
-                                                    <a asp-controller="ArtifactController" asp-action="Detail" asp-route-id="@item.Id" style="color:blue;font-size:17px;">@item.Artifact.NameArtifact</a>
+                                                    <a asp-controller="Artifact" asp-action="Detail" asp-route-id="@item.ArtifactId" style="color:blue;font-size:17px;">@item.Artifact.NameArtifact</a>
                                                 </td>
                                                 <td class="text-center">
                                                    <p>@item.Number</p>
@@ -226,11 +226,11 @@
                                                 <td class="text-center">
                                                     @if(item.State == true)
                                                     {
-                                                        <span class="badge badge-pill badge-success text-white">Đang trưng bày</span> 
+                                                        <span class="badge badge-pill badge-success text-white" style="font-size:0.8rem;">Đang trưng bày</span> 
                                                     }
                                                     else
                                                     {
-                                                        <span class="badge badge-pill badge-danger text-white">dừng trưng bày</span>   
+                                                        <span class="badge badge-pill badge-danger text-white"style="font-size:0.8rem;">dừng trưng bày</span>   
                                                     }
                                                 </td>
                                                 <td class="text-center">
@@ -314,8 +314,8 @@
                                 </tbody>
                             </table>
                         </div>
-                          <div class="tab-pane fade" id="tab_1">
-                              <table class="table table-striped table-bordered w-auto" style="width:100%">
+                        <div class="tab-pane fade" id="tab_1">
+                            <table class="table table-striped table-bordered w-auto" style="width:100%">
                                <thead class="text-center text-nowrap"  style="background-color:#dbd8d8">
                                     <tr>
                                         <td class="w-5">
@@ -364,11 +364,11 @@
                                                 <td class="text-left">
                                                     @if (item.ExhibitionRoomId != null)
                                                     {
-                                                        <a asp-controller="ExhibitionRoomController" asp-action="Detail" asp-route-id="@item.Id" style="color:blue;font-size:17px;">@item.ExhibitionRoom.NameRoom</a>
+                                                        <a asp-controller="ExhibitionRoom" asp-action="Detail" asp-route-id="@item.ExhibitionRoomId" style="color:blue;font-size:17px;">@item.ExhibitionRoom.NameRoom</a>
                                                     }
                                                     else
                                                     {
-                                                        <a asp-controller="ArtifactController" asp-action="Detail" asp-route-id="@item.Id" style="color:blue;font-size:17px;">@item.Artifact.NameArtifact</a>
+                                                        <a asp-controller="Artifact" asp-action="Detail" asp-route-id="@item.ArtifactId" style="color:blue;font-size:17px;">@item.Artifact.NameArtifact</a>
                                                     }
                                                 </td>
                                                 <td class="text-center">
@@ -377,11 +377,11 @@
                                                 <td class="text-center">
                                                     @if(item.State == true)
                                                     {
-                                                        <span class="badge badge-pill badge-success text-white">Đang trưng bày</span> 
+                                                        <span class="badge badge-pill badge-success text-white" style="font-size:0.8rem;">Đang trưng bày</span> 
                                                     }
                                                     else
                                                     {
-                                                        <span class="badge badge-pill badge-danger text-white">dừng trưng bày</span>   
+                                                        <span class="badge badge-pill badge-danger text-white" style="font-size:0.8rem;">dừng trưng bày</span>   
                                                     }
                                                 </td>
                                                 <td class="text-center">
@@ -523,7 +523,7 @@
                                                     <img height="150" width="250" src="~/Images/@item.ExhibitionRoom.Image">
                                                 </td>
                                                 <td class="text-left">
-                                                    <a asp-controller="ExhibitionRoomController" asp-action="Detail" asp-route-id="@item.Id" style="color:blue;font-size:17px;">@item.ExhibitionRoom.NameRoom</a>
+                                                    <a asp-controller="ExhibitionRoom" asp-action="Detail" asp-route-id="@item.ExhibitionRoomId" style="color:blue;font-size:17px;">@item.ExhibitionRoom.NameRoom</a>
                                                 </td>
                                                 <td class="text-center">
                                                    <p>@item.Number</p>
@@ -531,11 +531,11 @@
                                                 <td class="text-center">
                                                     @if(item.State == true)
                                                     {
-                                                        <span class="badge badge-pill badge-success text-white">Đang trưng bày</span> 
+                                                        <span class="badge badge-pill badge-success text-white" style="font-size:0.8rem;">Đang trưng bày</span> 
                                                     }
                                                     else
                                                     {
-                                                        <span class="badge badge-pill badge-danger text-white">dừng trưng bày</span>   
+                                                        <span class="badge badge-pill badge-danger text-white"style="font-size:0.8rem;">dừng trưng bày</span>   
                                                     }
                                                 </td>
                                                 <td class="text-center">
@@ -550,8 +550,8 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                              @*Start model phòng trưng bày*@
-                                        @*    <div class="w-50 d-flex justify-content-end">
+                                        @*Start model phòng trưng bày*@
+                                        @*   <div class="w-50 d-flex justify-content-end">
                                                 <div class="modal fade" id="ModalC_@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
                                                         <form  asp-action="Update">
