@@ -1,18 +1,19 @@
 ﻿@model WebApp.Models.ViewModel.VMMuseum
 @{
-   
     var Museums = Model.Museums;
     var Museum = Model.Museum;
 }
+
 <div class="row">
     <div class="col-lg-12">
         <div class=" row page-titles shadow-lg mx-0">
             <div class="col-sm-6 p-md-0">
-                <h3 style="color:#673BB7;">Bảo tàng</h3>
+                <h3 style="color:#673BB7;" class="mt-3">Bảo tàng</h3>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active"><a asp-controller="Museum" asp-action="Index">Danh sách</a></li>
+                    <a style="width:200px;height:50px;font-size: 20px;color:white;margin-right:10rem;" class="btn btn-secondary ml-5"  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Thêm bảo tàng</
+                    <li class="breadcrumb-item active my-auto"><a asp-controller="Museum" asp-action="Index" class="mt-3">Danh sách</a></li>
                 </ol>
             </div>
         </div>
@@ -32,33 +33,66 @@
                 <strong>@TempData["success"]</strong>
             </div>  
         }
-        <div class="row">
+        <div class="row ml-1">
             <div class="col-lg-4">
-                <div class="card shadow-lg">
-                    <div class="card-body">
-                        <form asp-action="Create">
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label>Bảo tàng</label>
-                                    <input type="text" class="form-control" asp-for="Museum.MuseumName" placeholder="Tên bảo tàng" >
+                <div class="collapse shadow-lg" id="collapseExample">
+                    <div class="card shadow-lg">
+                        <div class="card-header">
+                            <h4 > Thêm bảo tàng</h4>
+                        </div>
+                        <div class="card-body">
+                            <form asp-action="Create" enctype="multipart/form-data">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label class="textColor">Bảo tàng</label>
+                                        <input type="text" class="form-control" asp-for="@Museum.MuseumName" placeholder="Tên bảo tàng" >
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <span asp-validation-for="@Museum.MuseumName"></span>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="textColor" asp-for="@Museum.Image"></label>
+                                        <input class="form-control" name="File"  asp-for="@Museum.Image" type="file" accept=".jpeg,.png,.gif,.tiff,.psd,.svg,.heic,.raw" required>
+                                    </div>
+                                        <div class="form-group col-md-12">
+                                        <label class="textColor">Địa chỉ</label>
+                                        <input type="text" class="form-control" asp-for="@Museum.Address" placeholder="Tên bảo tàng" >
+                                    </div>      
+                                    <div class="form-group col-md-12">
+                                        <span asp-validation-for="@Museum.Address"></span>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <span asp-validation-for="Museum.MuseumName"></span>
+                                <div class="row justify-content-end mr-2">
+                                    <button type="submit" style="width:100px;height:40px;font-size: 20px;" class="btn  btn-primary">Thêm</button>
                                 </div>
-                                 <div class="form-group col-md-12">
-                                    <label>Địa chỉ</label>
-                                    <input type="text" class="form-control" asp-for="Museum.Address" placeholder="Tên bảo tàng" >
-                                </div>      
-                                <div class="form-group col-md-12">
-                                    <span asp-validation-for="Museum.Address"></span>
-                                </div>
+                            </form>
+                        </div>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card shadow-lg">
+                            <div class="card-header">
+                                <h4>Thống kê hiện vật</h4>
                             </div>
-                            <div class="row justify-content-end mr-2">
-                                <button type="submit" style="width:100px;height:40px;font-size: 20px;" class="btn  btn-primary">Thêm</button>
+                            <div class="card-body">
+                                <canvas id="myChart" style="width:100%;"></canvas>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>   
+                </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card shadow-lg">
+                            <div class="card-header">
+                                <h4>Thống kê phòng trưng bày</h4>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="chartExh" style="width:100%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-8">
                 <div class="card shadow-lg">
@@ -68,6 +102,9 @@
                                 <tr>
                                     <td class="w-5">
                                         STT
+                                    </td>
+                                     <td class="w-30">
+                                        Hình ảnh
                                     </td>
                                     <td class="w-30">
                                         Bảo tàng
@@ -92,6 +129,9 @@
                                         <td class="text-center">
                                             @Stt
                                         </td>
+                                         <td class="text-center">
+                                              <img src="~/Images/@itemMuseum.Image" height="150" width="150">
+                                         </td>
                                         <td class="text-left">
                                             <a asp-controller="Museum" asp-action="Detail" asp-route-id="@itemMuseum.Id" style="color:blue">@itemMuseum.MuseumName</a>
                                         </td>
@@ -129,6 +169,18 @@
                                                                     <input type="text" asp-for="@Museum.MuseumName" required class="form-control"  />
                                                                 </div>
                                                             </div>
+                                                             <div class="d-flex text-left mb-2 align-items-center">
+                                                                <div class="w-25 pl-2 mr-2">
+                                                                    <label class="my-auto">Hình ảnh</label>
+                                                                </div>
+                                                                <div class="w-75">
+                                                                   <div class="d-flex flex-row">
+                                                                        <input class="form-control" name="File" type="file" hidden="hidden" id="fileImage"  asp-for="@Museum.Image"/>
+                                                                        <span class="form-control" id="custom-msg-Image" class="textColor">@Museum.Image</span>
+                                                                        <button class="form-control w-50 btn btn-secondary" style=" background: #dfdfdf" type="button" id="upload-button-image">File Image</button>
+                                                                   </div>
+                                                                </div>
+                                                            </div>
                                                             <div class="d-flex text-left mb-2 align-items-center">
                                                                 <div class="w-25 pl-2 mr-2">
                                                                     <label class="my-auto">Địa chỉ</label>
@@ -161,3 +213,93 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){  
+        $.ajax({
+        type : 'get',
+        url : '/Museum/getChart',
+        dataType: 'json', 
+        encode  : true,
+            success:function(data){
+                console.log(data)
+                var xValues = [];
+                var yValues = [];
+                var yValueExh = [];
+                xValues = data.nameMuseums
+                yValues = data.totalArtifact
+
+                yValueExh = data.totalExh 
+                var barColors = [
+                    "#673BB7",
+                    "#00aba9",
+                    "#A52A2A",
+                    "#6495ED",
+                    "#00FFFF",
+                    "#FF7F50",
+                    "#D2691E",
+                    "#008B8B",
+                    "#556B2F",
+                    "#8FBC8F",
+                    "#00CED1"
+                ];
+
+                // Chart Artifact
+                new Chart("myChart", {
+                    type: "doughnut",
+                    data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                    },
+                    options: {
+                    title: {
+                        display: true,
+                    }
+                    }
+                });
+                  // Chart Exh
+                new Chart("chartExh", {
+                    type: "doughnut",
+                    data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValueExh
+                    }]
+                    },
+                    options: {
+                    title: {
+                        display: true,
+                    }
+                    }
+                });
+            },
+            error:function(){ 
+                    console.log("Error!!!!");
+            }
+        
+        });
+    });
+</script>
+<script type="text/javascript">
+      const fileImage = document.getElementById("fileImage");
+      const BtnImage = document.getElementById("upload-button-image");
+      const TxtImage = document.getElementById("custom-msg-Image");
+
+      BtnImage.addEventListener("click", function(){
+        fileImage.click();
+      });
+      //1 Image
+      fileImage.addEventListener("change",function(){
+        if (fileImage.value) {
+          TxtImage.innerHTML = fileImage.value.match(
+            /[\/\\]([\w\d\s\.\-\(\)]+)$/
+          )[1]
+        }else {
+          TxtImage.innerHTML = "No file chosen, yet.";
+        }
+      });
+</script>

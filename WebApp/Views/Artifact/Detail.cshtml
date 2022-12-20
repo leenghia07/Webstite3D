@@ -1,227 +1,179 @@
 ﻿@model WebApp.Models.ViewModel.VMArtifact
+@using System.Text.RegularExpressions;
 @{
-    Layout = "_LayoutEditor";
-	var Artifact = Model.Artifact;
+    var artifactRoom = Model.Artifact;
 }
-<input type="hidden" id="idmodel" value="@Artifact.Id"></input>
-<input id="File3D" type="hidden" value="/File3D/@Artifact.File3D"></input>
-<script type="importmap">
-	{
-		"imports": {
-			"three": "/threejs/build/three.module.js",
-			"three/addons/": "/threejs/examples/jsm/"
-		}
-	}
+<script src="~/js/three.js"></script>
+<script src="~/js/three.min.js"></script>
+<script src="~/js/OrbitControls.js"></script>
+<script src="~/js/stats.module.js"></script>
+
+
+@*<script src="~/js/DirectionalLightShadow.js"></script>*@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
+<script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://82mou.github.io/threejs/js/OrbitControls.js"></script>
+<script src="https://unpkg.com/browse/three@0.91.0/src/lights/DirectionalLightShadow.js"></script>
+@*<script src="https://cdn.rawgit.com/mrdoob/three.js/r92/examples/js/loaders/GLTFLoader.js"></script>*@
+<style>
+   .detailInfo{
+        position: absolute;
+        left:1%;
+        top:2%;
+   }
+   .fbsStyle{
+        position: absolute;
+        left:95%;
+        top:2%;
+   }
+</style>
+<div class="col-lg-12 mb-3 ">
+    <div class="col-lg-12">
+        <div class="card shawdow-lg detailInfo w-30 ml-2 mb-5">
+            <div class="card-header">
+               <div class="d-flex flex-row">
+                   <a href="#" onclick="history.back()"> <i class="mdi mdi-arrow-left-bold-circle-outline" style="font-size: 3em;color:#230c4e;"></i></a>
+                   <h5 class="mt-4 ml-2">Mô hình 3D: @artifactRoom.NameArtifact</h5>
+               </div>
+            </div>
+            <div class="card-body">
+                <div id="accordion-eleven" class="accordion accordion-rounded-stylish accordion-bordered">
+                    <div class="accordion__item ">
+                        <div class="accordion__header accordion__header--primary" style="background-color:#eeeeee;" data-toggle="collapse" data-target="#rounded-stylish_collapseOne">
+                            <span class="accordion__header--icon"></span>
+                            <span class="accordion__header--text">Thông tin chi tiết</span>
+                            <span class="accordion__header--indicator"></span>
+                        </div>
+                        <div id="rounded-stylish_collapseOne" class="collapse accordion__body show" data-parent="#accordion-eleven">
+                            <div class="accordion__body--text shadow-lg">
+                                <ul>
+                                    <li class="mb-1">
+                                         <h4>Tên hiện vật:</h4>
+                                         <span class="text-dark">@artifactRoom.NameArtifact</span>
+                                    </li>
+                                    <li class="mb-1">
+                                        <h4>Loại hiện vật:</h4>
+                                        <span class="text-dark">@artifactRoom.TypeOfArtifact.NameTypeArtifact</span>
+                                       
+                                    </li>
+                                   <li class="mb-1">
+                                        <h4>Ngày phát hiện:</h4>
+                                        <span class="text-dark">@artifactRoom.DiscoveryDate.ToString("dd/MM/yyyy")</span>
+                                    </li>
+                                   <li class="mb-1">
+                                        <h4>Đang trưng Bày tại bảo tàng:</h4>
+                                        <span class="text-dark">@artifactRoom.Museum.MuseumName</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion__item">
+                        <div class="accordion__header collapsed accordion__header--info" style="background-color:#eeeeee;" data-toggle="collapse" data-target="#rounded-stylish_collapseTwo">
+                            <span class="accordion__header--icon"></span>
+                            <span class="accordion__header--text">Mô tả</span>
+                            <span class="accordion__header--indicator"></span>
+                        </div>
+                        <div id="rounded-stylish_collapseTwo" class="collapse accordion__body" data-parent="#accordion-eleven">
+                            <div class="accordion__body--text shadow-lg">
+                                    @{
+                                    String result = Regex.Replace(@artifactRoom.Description, @"<[^>]*>", String.Empty);
+                                }
+                                <span class="text-dark">
+                                    @result
+                                </span>
+                            </div>
+                        </div>
+                    </div>    
+                </div> 
+            </div>
+        </div>
+        <div id="FPS" class="fbsStyle"></div>
+        <div style="margin-top:-10%;" id="Load3D" class="row mt-3"></div>
+        <input id="FileLoad" type="hidden" value="/File3D/@artifactRoom.File3D"></input>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    //   Canvas: Phần tử HTML canvas, cái này giống như 1 bức tranh (hay cái màn chiếu) trống, và threejs sẽ vẽ vời lên đây.
+    var FileLoad = $('#FileLoad').val();
+   // console.log(FileLoad);
+    
+    var myCanvas = document.getElementById("Load3D")
+    var showFPS = document.getElementById("FPS")
+    
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    //var width =window.innerWidth;
+    //var height =window.innerHeight;
+    var width =1240;
+    var height =800;
+    var stats=new Stats();
+
+    showFPS.appendChild(stats.dom)
+    // hiển thị hình ảnh input(camera,scence).
+    var renderer = new THREE.WebGLRenderer();
+ 
+     renderer.setSize(width ,height);
+   
+    myCanvas.appendChild(renderer.domElement); 
+
+    myCanvas.onwheel = function(event){
+        event.preventDefault();
+    };
+
+    window.addEventListener('resize',function () {
+        renderer.setSize(width,height);
+        camera.aspect = width/height;
+        camera.updateProjectionMatrix();
+    })
+    
+      const loader = new THREE.GLTFLoader();
+        loader.load(
+            FileLoad,
+            function(gltf) {  
+                    var model = gltf.scene;
+                    model.position.set( -1.5 , -1.2 , 0 );
+                    scene.add( model);
+                    console.log(gltf)
+                },
+                function ( xhr ) {
+                    console.log( ( xhr.loaded / xhr.total * 100 )+"% loaded" )
+                },
+                function ( error ) {
+                    console.log( 'An error happened' );
+                }
+            );
+        const controls = new THREE.OrbitControls(camera,renderer.domElement);
+    
+        const light = new THREE.DirectionalLight( 0xffffff, 1 );
+        light.position.set( 0.357 , 3.008 , 0 ); //(x,y,z) default; light shining from top
+       // light.castShadow = true; // default false
+        light.intensity = 2.3;
+        scene.add( light );
+
+        const light1 = new THREE.DirectionalLight( 0xffffff, 1 );
+        light1.position.set( -0.5 , -1.2 , 0.034 );
+        light1.intensity = 2.3;
+        scene.add( light1 );
+
+       renderer.outputEncoding = THREE.sRGBEncoding;
+       scene.background = new THREE.Color();
+        
+        // phóng màn hình
+       camera.position.z = 8;
+
+      var render = function () {
+            //controls.update();
+            requestAnimationFrame( render );
+            stats.update()
+            controls.update()
+            renderer.render(scene, camera);
+       };
+      render();
+  
 </script>
-<script type="module">
-		import * as THREE from 'three';
-		import { Editor } from '/threejs/editor/js/Editor.js';
-		import { Viewport } from '/threejs/editor/js/Viewport.js';
-		import { Toolbar } from '/threejs/editor/js/Toolbar.js';
-		import { Script } from '/threejs/editor/js/Script.js';
-		import { Player } from '/threejs/editor/js/Player.js';
-		import { Sidebar } from '/threejs/editor/js/Sidebar.js';
-		//import { SidebarDetail } from '/threejs/editor/js/Sidebar2.js';
-		import { Menubar } from '/threejs/editor/js/Menubar.js';
-		import { Resizer } from '/threejs/editor/js/Resizer.js';
-		import { VRButton } from '/threejs/examples/jsm/webxr/VRButton.js';
-		import { GLTFLoader } from '/threejs/examples/jsm/loaders/GLTFLoader.js';
 
-		window.URL = window.URL || window.webkitURL;
-		window.BlobBuilder = window.+BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
 
-		Number.prototype.format = function () {
-
-			return this.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-
-		};
-
-		const editor = new Editor();
-
-		window.editor = editor; // Expose editor to Console
-		window.THREE = THREE; // Expose THREE to APP Scripts and Console
-		window.VRButton = VRButton; // Expose VRButton to APP Scripts
-
-		const viewport = new Viewport(editor);
-		document.body.appendChild(viewport.dom);
-
-		const sidebar = new SidebarDetail(editor);
-		document.body.appendChild(sidebar.dom);
-
-		const resizer = new Resizer(editor);
-		document.body.appendChild(resizer.dom);
-
-		const File3D = $('#File3D').val();
-		const IdModel = $('#idmodel').val();
-
-		var found = false;
-		var loaderFile = new GLTFLoader();
-		editor.storage.init(function () {
-			editor.storage.getAll(function(state) {
-				//console.log(state);
-                     state.forEach(key => { 
-                         if (key == IdModel) {
-                             found = true;
-							//console.log(IdModel);
-
-                          		editor.storage.getObject(key,function (state) {
-								if (isLoadingFromHash) return;
-
-								if (state !== undefined) {
-									editor.fromJSON(state);
-									console.log(state)
-
-								}
-								//console.log(editor.objectByName("Scene"));
-
-								const selected = editor.config.getKey('selected');
-
-								if (selected !== undefined) {
-
-									editor.selectByUuid(selected);
-								
-								}
-							});	
-                         }
-					 })
-                     if (!found) {
-                        loaderFile.load(
-                        File3D,
-                        function(gltf) {  
-                                var model = gltf.scene;
-                                //editor.removeObject(model);
-                                model.position.y =0;
-                                editor.addObject( model);
-                            }
-                        )
-                     }
-					}
-				);
-			//
-
-			let timeout;
-
-			function saveState() {
-
-				if (editor.config.getKey('autosave') === false) {
-
-					return;
-
-				}
-
-				clearTimeout(timeout);
-
-				timeout = setTimeout(function () {
-
-					editor.signals.savingStarted.dispatch();
-
-					timeout = setTimeout(function () {
-
-						//editor.storage.set(editor.toJSON());
-						editor.storage.setObject(editor.toJSON(),IdModel);	
-						editor.signals.savingFinished.dispatch();
-
-					}, 100);
-
-				}, 1000);
-
-			}
-
-			const signals = editor.signals;
-
-			signals.geometryChanged.add(saveState);
-			signals.objectAdded.add(saveState);
-			signals.objectChanged.add(saveState);
-			signals.objectRemoved.add(saveState);
-			signals.materialChanged.add(saveState);
-			signals.sceneBackgroundChanged.add(saveState);
-			signals.sceneEnvironmentChanged.add(saveState);
-			signals.sceneFogChanged.add(saveState);
-			signals.sceneGraphChanged.add(saveState);
-			signals.scriptChanged.add(saveState);
-			signals.historyChanged.add(saveState);
-
-		});
-
-		//
-
-		document.addEventListener('dragover', function (event) {
-
-			event.preventDefault();
-			event.dataTransfer.dropEffect = 'copy';
-
-		});
-
-		document.addEventListener('drop', function (event) {
-
-			event.preventDefault();
-
-			if (event.dataTransfer.types[0] === 'text/plain') return; // Outliner drop
-
-			if (event.dataTransfer.items) {
-
-				// DataTransferItemList supports folders
-
-				editor.loader.loadItemList(event.dataTransfer.items);
-			
-			} else {
-
-				editor.loader.loadFiles(event.dataTransfer.files);
-			
-
-			}
-
-		});
-
-		function onWindowResize() {
-
-			editor.signals.windowResize.dispatch();
-
-		}
-
-		window.addEventListener('resize', onWindowResize);
-
-		onWindowResize();
-
-		
-
-		let isLoadingFromHash = false;
-		const hash = window.location.hash;
-		
-
-		if (hash.slice(1, 6) === 'file=') {
-
-			const file = hash.slice(6);
-			
-			if (confirm('Any unsaved data will be lost. Are you sure?')) {
-
-				const loader = new THREE.FileLoader();
-				loader.crossOrigin = '';
-				loader.load(file, function (text) {
-
-					editor.clear();
-					editor.fromJSON(JSON.parse(text));
-
-				});
-
-				isLoadingFromHash = true;
-
-			}
-
-		}
-
-		// ServiceWorker
-
-		if ('serviceWorker' in navigator) {
-
-			try {
-
-				navigator.serviceWorker.register('sw.js');
-
-			} catch (error) {
-
-			}
-
-		}
-
-	</script>

@@ -29,5 +29,23 @@ namespace WebApp.Controllers
             roomEM.ExhibitionRoom = roomExhibitionMuseum;
             return View(roomEM);
         }
+        public async Task<IActionResult> Search(VMRoomExhibitionMuseum vmExhRoom)
+        {
+            VMRoomExhibitionMuseum ExhRoom = new VMRoomExhibitionMuseum();
+            string data = vmExhRoom.Year + '/' + vmExhRoom.Month + '/' + 01;
+            DateTime myDate = DateTime.Parse(data);
+            var Month = new DateTime(myDate.Year, myDate.Month, 01);
+            var FistDatOfMonth = Month.ToString("yyyy/MM/dd");
+            var lastDayOfMonth = Month.AddMonths(1).AddSeconds(-1).ToString("yyyy/MM/dd");
+            DateTime FistDate = DateTime.Parse(FistDatOfMonth);
+            DateTime LastDate = DateTime.Parse(lastDayOfMonth);
+            var ExhRooms = _context.ExhibitionRoom.Where(i => i.Date >= FistDate)
+                                              .Where(t => t.Date <= LastDate)
+                                              .OrderByDescending(i => i.Date);
+            ExhRoom.Month = vmExhRoom.Month;
+            ExhRoom.Year = vmExhRoom.Year;
+            ExhRoom.ExhibitionRooms = ExhRooms;
+            return View(ExhRoom);
+        }
     }
 }

@@ -18,11 +18,13 @@ namespace WebApp.Controllers
             _logger = logger;
             _context = context;
         }
-
         public async Task<IActionResult> Index()
         {
             var Artifact = new VMArtifact();
+
             Artifact.Museums = await _context.Museum.ToListAsync();
+            Artifact.Artifacts = await _context.Aritifact.ToListAsync();
+            Artifact.ExhibitionRooms = await _context.ExhibitionRoom.ToListAsync();
             return View(Artifact);
         }
         public IActionResult ErrorPage()

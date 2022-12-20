@@ -44,7 +44,7 @@
 
 		const viewport = new Viewport(editor);
 		document.body.appendChild(viewport.dom);
-
+		console.log(viewport.dom)
 		const toolbar = new Toolbar(editor);
 		document.body.appendChild(toolbar.dom);
 
@@ -59,7 +59,7 @@
 
 		const menubar = new Menubar(editor);
 		document.body.appendChild(menubar.dom);
-
+		
 		const resizer = new Resizer(editor);
 		document.body.appendChild(resizer.dom);
 		const id = "create";
@@ -70,14 +70,14 @@
 			editor.storage.getAll(function(state) {
 				//console.log(state);
                      state.forEach(key => {		
-                         if (key == id ) {
+                         if (key == id ) { 
 							//console.log(IdModel);
                           		editor.storage.getObject(key,function (state) {
 								if (isLoadingFromHash) return;
 
 								if (state !== undefined) {
 									editor.fromJSON(state);
-									console.log(state)
+									//console.log(state)
 
 								}
 								//console.log(editor.objectByName("Scene"));

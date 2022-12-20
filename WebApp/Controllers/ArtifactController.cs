@@ -29,6 +29,7 @@ namespace WebApp.Controllers
                                                .Include(i => i.Museum)
                                                .Include(i => i.TypeOfArtifact)
                                                .AsNoTracking()
+                                               .OrderByDescending(i => i.DiscoveryDate)
                                                .ToListAsync();
             Artifact.Museums = await _context.Museum.ToListAsync();
             Artifact.TypeOfArtifacts = await _context.TypeOfArtifact.ToListAsync();
@@ -196,6 +197,27 @@ namespace WebApp.Controllers
             TempData["success"] = "Xóa hiện vật thành công";
             return RedirectToAction(nameof(Index));
         }
-
+        [HttpPost]
+        public IActionResult Search(VMArtifact vmArtifact)
+        {
+            VMArtifact artifact = new VMArtifact();
+            string data = vmArtifact.Year + '/' + vmArtifact.Month + '/' + 01;
+            DateTime myDate = DateTime.Parse(data);
+            var Month = new DateTime(myDate.Year,myDate.Month,01);
+            var FistDatOfMonth = Month.ToString("yyyy/MM/dd");
+            var lastDayOfMonth = Month.AddMonths(1).AddSeconds(-1).ToString("yyyy/MM/dd");
+            DateTime FistDate = DateTime.Parse(FistDatOfMonth);
+            DateTime LastDate = DateTime.Parse(lastDayOfMonth);
+            var Artifact =  _context.Aritifact.Where(i => i.DiscoveryDate >= FistDate)
+                                              .Where(t => t.DiscoveryDate <= LastDate)
+                                              .Where(y => y.TypeOfArtifactId == vmArtifact.TypeOfArtifact)
+                                              .OrderByDescending(i => i.DiscoveryDate);
+            artifact.Month = vmArtifact.Month;
+            artifact.Year = vmArtifact.Year;
+            artifact.Artifacts = Artifact;
+            artifact.TypeOfArtifact = vmArtifact.TypeOfArtifact;
+            artifact.TypeOfArtifacts = _context.TypeOfArtifact.ToList();
+            return View(artifact);
+        }
     }
 }

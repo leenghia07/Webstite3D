@@ -22,36 +22,43 @@
 <div class="col-lg-12">
     <h1 class="text-center mt-3"  style="border-bottom: 0.1rem solid;">Hiện vật</h1>
     <div class="card shadow-lg mt-5">
+        <form asp-controller="RoomArtifact" asp-action="Search">
         <div class="card-header">
-            <div class="col-4">
+            <div class="col-lg-2">
                 <h4>Danh sách</h4>
             </div>
-            <div class="col-8 mr-5">
-                <div class=" card-body d-flex flex-row ">
-                        <div class="col-lg-3">
-                            <select  class="form-control w-100 " required>
-                                <option  value=""  >Chọn tháng</option> 
-                                @for (var i = 1; i <= 12 ; i++)
-                                {
-                                    <option  value="@i">Tháng @i</option> 
-                                }
-                            </select>
-                        </div>
-                        <div class="col-lg-3">
-                            <select class="form-control w-100 " required>
-                                <option   value="">Chọn năm</option>
-                                 @for (var i = @Year; i >= TenYearAgo; i--)
-                                 {
-                                     <option  value="@i">Năm @i</option> 
-                                 }
-                            </select>
-                        </div>
-                        <div class="col-lg-5">
-                            <button type="submit" style="width:200px;height:50px;font-size: 20px;" class="btn btn-secondary">Tìm kiếm</button>
-                        </div>
-                    </div>
+            <div class="col-lg-2">
+                <select  class="form-control" asp-for="@Model.Month" required>
+                    <option  value=""  >Chọn tháng</option> 
+                    @for (var i = 1; i <= 12 ; i++)
+                    {
+                        <option  value="@i">Tháng @i</option> 
+                    }
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control" asp-for="@Model.Year" required>
+                    <option   value="">Chọn năm</option>
+                        @for (var i = @Year; i >= TenYearAgo; i--)
+                        {
+                            <option  value="@i">Năm @i</option> 
+                        }
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control" asp-for="@Model.TypeOfArtifact"  required>
+                    <option  value="">Loại hiện vật</option>
+                        @foreach (var item in @Model.TypeOfArtifacts)
+                        {
+                        <option  value="@item.Id">@item.NameTypeArtifact</option>   
+                        }
+                </select>
+            </div>
+            <div class="col-lg-2 mr-5">
+                <button type="submit" style="width:200px;height:50px;font-size: 20px;" class="btn btn-secondary">Tìm kiếm</button>
             </div>
         </div>
+        </form>
         <div class="card-body" style="margin-top:-1%;">
             @foreach (var item in RoomArtifacts)
             {

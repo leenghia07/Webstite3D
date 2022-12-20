@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using WebApp.Areas.Identity.Data;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebApp.Areas.Identity.Pages.Account
 {
@@ -116,7 +118,7 @@ namespace WebApp.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     /*var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
@@ -126,9 +128,25 @@ namespace WebApp.Areas.Identity.Pages.Account
                     return LocalRedirect(returnUrl);*/
                     var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
                     var userPrincipal = await _signInManager.CreateUserPrincipalAsync(user);
-                    var identity = userPrincipal.Identity;
-                 /*   var role = await _signInManager.UserManager.GetRolesAsync(user);
-*/
+                    /*     var identity = userPrincipal.Identity;*/
+                    /*   var role = await _signInManager.UserManager.GetRolesAsync(user);
+   */
+                    if (Input.RememberMe == true)
+                    {
+                        CookieOptions cookie = new CookieOptions();
+                        cookie.Expires= DateTime.Now.AddMonths(1);
+                        cookie.IsEssential = true;
+                        cookie.Path = "/";
+                        HttpContext.Response.Cookies.Append("UserName", Input.Email, cookie);
+                        HttpContext.Response.Cookies.Append("Pass", Input.Password, cookie);
+                        HttpContext.Response.Cookies.Append("Check", Input.RememberMe.ToString(), cookie);
+                    }
+                    else
+                    {
+                        Response.Cookies.Delete("UserName");
+                        Response.Cookies.Delete("Pass");
+                        Response.Cookies.Delete("Check");
+                    }
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

@@ -10,6 +10,10 @@ namespace WebApp.Models
         public string NameRoom { get; set; }
         [Display(Name = "Ảnh")]
         public string? Image { get; set; }
+        public Guid MuseumId { get; set; }
+        [ForeignKey("MuseumId")]
+        [Display(Name = "Bảo tàng")]
+        public virtual Museum Museum { get; set; }
         [Display(Name = "File 3D")]
         public string? File3D { get; set; }
         [Display(Name = "Nội dung")]

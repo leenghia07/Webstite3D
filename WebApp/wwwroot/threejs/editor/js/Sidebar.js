@@ -29,6 +29,7 @@ function Sidebar( editor ) {
 	container.select( 'scene' );
 
 	return container;
+
 }
 
 export { Sidebar };

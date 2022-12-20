@@ -1,0 +1,149 @@
+﻿@model WebApp.Models.ViewModel.VMArtifact
+@using System.Text.RegularExpressions;
+@{
+    Layout = "_LayoutUser";
+    var Museum = @Model.Museum;
+    var Artifacts = @Model.Artifacts;
+    var ExhRooms = @Model.ExhibitionRooms; 
+}
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-4">
+              <div class="card shawdow-lg detailInfo">
+                    <div class="card-header">
+                        <div class="d-flex flex-row">
+                            <a href="#" onclick="history.back()"> <i class="mdi mdi-arrow-left-bold-circle-outline" style="font-size: 3em;color:#230c4e;"></i></a>
+                            <h5 class="mt-4 ml-2">Bảo tàng: @Museum.MuseumName</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="accordion-eleven" class="accordion accordion-rounded-stylish accordion-bordered">
+                            <div class="accordion__item ">
+                                <div class="accordion__header accordion__header--primary" style="background-color:#eeeeee;" data-toggle="collapse" data-target="#rounded-stylish_collapseOne">
+                                    <span class="accordion__header--icon"></span>
+                                    <span class="accordion__header--text">Thông tin chi tiết</span>
+                                    <span class="accordion__header--indicator"></span>
+                                </div>
+                                <div id="rounded-stylish_collapseOne" class="collapse accordion__body show" data-parent="#accordion-eleven">
+                                    <div class="accordion__body--text shadow-lg">
+                                        <ul>
+                                            <li class="mb-1">
+                                                    <h4>Tên Bảo tàng:</h4>
+                                                    <span class="text-dark">@Museum.MuseumName</span>
+                                            </li>
+                                            <li class="mb-1">
+                                                <h4>Hình ảnh:</h4>
+                                                <img src="~/Images/@Museum.Image" height="150" width="300">
+                                            </li>
+                                            <li class="mb-1">
+                                                <h4>Địa chỉ:</h4>
+                                                <span class="text-dark">@Museum.Address</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+        </div>
+        <div class="col-lg-8">
+           <div class="row">
+                <div class="col-lg-12">
+                      <div class="card">
+                           <div class="card-header">
+                               <h4> Hiện vật</h4>
+                           </div>
+                           <div class="card-body">
+                                @foreach (var item in Artifacts)
+                                {
+                                    <a asp-controller="RoomArtifact" asp-action="Detail" asp-route-id="@item.Id">
+                                        <div class="row mb-3">
+                                            <div class="col-lg-3">
+                                                <img class="mt-4 ml-2" src="~/images/@item.Image" height="150" width="150">
+                                            </div>
+                                            <div class="col-lg-9 mt-2">
+                                                <div class="row">
+                                                    <h4>@item.NameArtifact</h4>
+                                                </div>
+                                                <div class="row h-75 mr-2">
+                                                    <span class="textColor an" style="font-size:16px;" >
+                                                       @{
+                                                            String result = Regex.Replace( @item.Description, @"<[^>]*>", String.Empty);
+                                                        }
+                                                        @result
+                                                    </span>
+                                                </div>
+                                                <div class="row mt-1">
+                                                     <div class="col-lg-10">
+                                                        <div class="row">
+                                                            <i class="fa fa-plus-square-o fa-lg mt-1" style="color:black;font-size: 20px;" ></i>
+                                                            <h5 class="  ml-3"> Tham quan trưng bày 3D</h5>
+                                                        </div>
+                                                     </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="row">
+                                                            <i class="mdi mdi-timer"style="color:black;font-size: 15px;" ></i>
+                                                            <p class=" textColor ml-3">@item.DiscoveryDate.ToString("dd/MM/yyyy")</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                }
+                           </div>
+                        </div>
+                </div>
+           </div>
+           <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                       <div class="card-header">
+                           <h4> Phòng trưng bày</h4>
+                       </div>
+                       <div class="card-body">
+                           @foreach (var item in ExhRooms)
+                           {
+                               <a asp-controller="RoomExhibitionMuseum" asp-action="Detail" asp-route-id="@item.Id">
+                                    <div class="row mb-3">
+                                        <div class="col-lg-3">
+                                            <img class="mt-4 ml-2" src="~/images/@item.Image" height="150" width="150">
+                                        </div>
+                                        <div class="col-lg-9 mt-2">
+                                            <div class="row">
+                                                <h4>@item.NameRoom</h4>
+                                            </div>
+                                            <div class="row h-75 mr-2">
+                                                <span class="textColor an" style="font-size:16px;" >
+                                                   @{
+                                                        String result = Regex.Replace( @item.Description, @"<[^>]*>", String.Empty);
+                                                    }
+                                                    @result
+                                                </span>
+                                            </div>
+                                            <div class="row mt-1">
+                                                 <div class="col-lg-10">
+                                                    <div class="row">
+                                                        <i class="fa fa-plus-square-o fa-lg mt-1" style="color:black;font-size: 20px;" ></i>
+                                                        <h5 class="  ml-3"> Tham quan trưng bày 3D</h5>
+                                                    </div>
+                                                 </div>
+                                                <div class="col-lg-2">
+                                                    <div class="row">
+                                                        <i class="mdi mdi-timer"style="color:black;font-size: 15px;" ></i>
+                                                        <p class=" textColor ml-3">@item.Date.ToString("dd/MM/yyyy")</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                           }
+                       </div>
+                    </div>
+                </div> 
+           </div>
+        </div>
+    </div>
+</div>

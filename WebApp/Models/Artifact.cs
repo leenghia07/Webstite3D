@@ -29,5 +29,10 @@ namespace WebApp.Models
         public string? File3D { get; set; }
         [Display(Name = "Ngày phát hiện")]
         public DateTime DiscoveryDate { get; set; }
+
+        public static implicit operator Artifact(int v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

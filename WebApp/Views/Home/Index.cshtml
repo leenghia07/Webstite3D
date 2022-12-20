@@ -1,23 +1,20 @@
 ﻿@model WebApp.Models.ViewModel.VMArtifact;
 @using Microsoft.AspNetCore.Identity
+@using System.Net
 @using WebApp.Areas.Identity.Data
+@using Microsoft.AspNetCore.Http;
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @{
     var UserInfo = UserManager.Users.SingleOrDefault(u => u.Id == UserManager.GetUserId(User));
     var Museums = Model.Museums;
+    var Artifacts = Model.Artifacts.Count();
+    var ExhibitionRooms = Model.ExhibitionRooms.Count();
     var roleUser = await UserManager.GetRolesAsync(UserInfo);
 
 }
 <style>
-        /* body{
-  margin:0;
-  color:#444;
-  background-color:#98c2c2;
-  font:300 18px/18px Roboto, sans-serif;
-  transition:background .4s ease-in-out 0s;
-} */
 *,:after,:before{box-sizing:border-box}
 .pull-left{float:left}
 .pull-right{float:right}
@@ -56,11 +53,14 @@
 .header.active [data-action]{opacity:1}
 
     </style>   
+<input id="sumArtifact" hidden="hidden" value="@Artifacts" />
+<input id="sumExhRoom" hidden="hidden" value="@ExhibitionRooms" />
 <div class=" row page-titles shadow-lg mx-0">
         <div class="col-sm-6 p-md-0">
             <div style="display:flex;">
                 <h3> Tổng quan </h3>
                 <p class="mt-2 mb-0 ml-4">  Đồ án hiển thị hiện vật bảo tàng 3D</p>
+               
             </div>
         </div>
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -73,6 +73,7 @@
     <div class="d-flex flex-wrap">
         @if(roleUser[0].ToString() == "Manager")
         {
+            <h1></h1>
            <div class="p-2 m-2">
             <a asp-controller="Account" asp-action="Index" style="height: 120px; width: 250px; " class="shadow-lg btn btn-info">
                 <div style="display: flex;">
@@ -151,7 +152,7 @@
                 </div>
             </a>
         </div>
-          <div class="p-2 m-2">
+        <div class="p-2 m-2">
             <a asp-controller="Editor" asp-action="Index" style="height: 120px; width: 250px;" class=" shadow-lg btn btn-warning">
                 <div style="display: flex;">
                     <div class="col-lg-12">
@@ -167,18 +168,55 @@
             </a>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-               <div class="card mt-5 shadow-lg">
-                   <div class="card-header">
-                      <h4 class="textColor"> Danh sách bảo tàng</h4>
-                   </div>
+   
+    <div class="row mt-3">
+    @if (roleUser[0].ToString() == "Manager")
+    {
+       <div class="col-lg-6">
+           <div class="card shadow-lg">
+                <div class="card-header">
+                   <h4>Thống kê hiện vật</h4>
+                </div>
+                <div class="card-body">
+                    <canvas id="myChart" style="width:100%;"></canvas>
+                </div>
+           </div>
+        </div>
+        <div class="col-lg-1"></div>
+    }
+        <div class="col-lg-4">
+            <div class="calendar" style="margin-top:-0.2rem;">
+                <div class="header">
+                    <a data-action="prev-month" href="javascript:void(0)" title="Previous Month"><i></i></a>
+                    <div class="text" data-render="month-year"></div>
+                    <a data-action="next-month" href="javascript:void(0)" title="Next Month"><i></i></a>
+                </div>
+                <div class="months" data-flow="left">
+                <div class="month month-a">
+                    <div class="render render-a"></div>
+                </div>
+                <div class="month month-b">
+                    <div class="render render-b"></div>
+                </div>
+                </div>
+            </div>
+        </div>
+        @if (roleUser[0].ToString() == "Employee")
+        {
+            <div class="col-lg-8">
+                <div class="card mt-5 shadow-lg">
+                    <div class="card-header">
+                        <h4 class="textColor"> Danh sách bảo tàng</h4>
+                    </div>
                     <div class="card-body">
                         <table class="table table-striped table-bordered w-auto">
                             <thead class="text-center text-nowrap"  style="background-color:#dbd8d8">
                                 <tr>
                                     <td class="w-5 h5">
                                         STT
+                                    </td>
+                                    <td class="w-5 h5">
+                                        Hình ảnh
                                     </td>
                                     <td class="w-30 h5">
                                         Bảo tàng
@@ -191,10 +229,13 @@
                                 }
                                 @foreach (var itemMuseum in Museums)
                                 {
-                                    Stt++; 
+                                    Stt++;
                                     <tr>
                                         <td class="text-center h5">
                                             @Stt
+                                        </td>
+                                        <td class="text-center h5">
+                                            <img src="~/Images/@itemMuseum.Image" height="150" width="300">
                                         </td>
                                         <td class="text-center h5" >
                                             @itemMuseum.MuseumName
@@ -202,31 +243,142 @@
                                     </tr>
                                 }
                             </tbody>
-                        </table>
-                    </div>
+                    </table>
                 </div>
+            </div>
         </div>
-        <div class="col-lg-2"></div>
-        <div class="col-lg-4">
-            <div class="calendar">
-                <div class="header">
-                <a data-action="prev-month" href="javascript:void(0)" title="Previous Month"><i></i></a>
-                <div class="text" data-render="month-year"></div>
-                <a data-action="next-month" href="javascript:void(0)" title="Next Month"><i></i></a>
+        }
+    </div>
+     @if (roleUser[0].ToString() == "Manager")
+    {
+    <div class="row">
+         <div class="col-lg-6">
+            <div class="card mt-5 shadow-lg">
+                <div class="card-header">
+                    <h4 class="textColor"> Danh sách bảo tàng</h4>
                 </div>
-                <div class="months" data-flow="left">
-                <div class="month month-a">
-                    <div class="render render-a"></div>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered w-auto">
+                        <thead class="text-center text-nowrap"  style="background-color:#dbd8d8">
+                            <tr>
+                                <td class="w-5 h5">
+                                    STT
+                                </td>
+                                 <td class="w-5 h5">
+                                    Hình ảnh
+                                </td>
+                                <td class="w-30 h5">
+                                    Bảo tàng
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int Stt = 0;
+                            }
+                            @foreach (var itemMuseum in Museums)
+                            {
+                                Stt++; 
+                                <tr>
+                                    <td class="text-center h5">
+                                        @Stt
+                                    </td>
+                                    <td class="text-center h5">
+                                         <img src="~/Images/@itemMuseum.Image" height="150" width="300">
+                                    </td>
+                                    <td class="text-center h5" >
+                                        @itemMuseum.MuseumName
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
-                <div class="month month-b">
-                    <div class="render render-b"></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card mt-5 shadow-lg">
+                <div class="card-header">
+                    <h4>Thống kê phòng trưng bày</h4>
                 </div>
+                <div class="card-body">
+                    <canvas id="chartExh" style="width:100%;"></canvas>
                 </div>
             </div>
         </div>
     </div>
+    }
 </div>
+<script>
+      $(document).ready(function(){  
+        $.ajax({
+        type : 'get',
+        url : '/Museum/getChart',
+        dataType: 'json', 
+        encode  : true,
+            success:function(data){
+                console.log(data)
+                var xValues = [];
+                var yValues = [];
+                var yValueExh = [];
+                xValues = data.nameMuseums
+                yValues = data.totalArtifact
 
+                yValueExh = data.totalExh 
+                var barColors = [
+                    "#673BB7",
+                    "#00aba9",
+                    "#A52A2A",
+                    "#6495ED",
+                    "#00FFFF",
+                    "#FF7F50",
+                    "#D2691E",
+                    "#008B8B",
+                    "#556B2F",
+                    "#8FBC8F",
+                    "#00CED1"
+                ];
+
+                // Chart Artifact
+                new Chart("myChart", {
+                    type: "doughnut",
+                    data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                    },
+                    options: {
+                    title: {
+                        display: true,
+                    }
+                    }
+                });
+                  // Chart Exh
+                new Chart("chartExh", {
+                    type: "doughnut",
+                    data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValueExh
+                    }]
+                    },
+                    options: {
+                    title: {
+                        display: true,
+                    }
+                    }
+                });
+            },
+            error:function(){ 
+                    console.log("Error!!!!");
+            }
+        
+        });
+    });
+</script>
 <script>
     var Calendar = function(t) {
     this.divId = t.RenderID ? t.RenderID : '[data-render="calendar"]', this.DaysOfWeek = t.DaysOfWeek ? t.DaysOfWeek : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], this.Months = t.Months ? t.Months : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

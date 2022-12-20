@@ -4,6 +4,8 @@
     var Artifacts = Model.Artifacts;
     int Stt = 0;
     int count = Model.Artifacts.Count();
+    var ExhRooms = Model.ExhibitionRooms;
+    int countExh = Model.ExhibitionRooms.Count();
     var NameMuseum = Model.Museum.MuseumName;
 }
  <style>
@@ -18,11 +20,17 @@
 }
 </style>
 <div class=" row page-titles shadow-lg mx-0">
-    <div class="col-sm-4">
+    <div class="col-sm-1">
+        <a href="#" onclick="history.back()"> <i class="mdi mdi-arrow-left-bold-circle-outline" style="font-size: 3em;color:#230c4e;"></i></a>
+    </div>
+    <div class="col-sm-3 mt-3">
         <h3 style="color:#673BB7;">@NameMuseum</h3>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-2 mt-3">
         <h4>Tổng hiện vật: @count</h4>
+    </div>
+    <div class="col-sm-4 mt-3">
+        <h4>Tổng phòng trưng bày: @countExh</h4>
     </div>
     <div class="col-sm-2 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
         <ol class="breadcrumb">
@@ -31,9 +39,11 @@
         </ol>
     </div>
 </div>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card shadow-lg">
+            <div class="card-header"><h4>Danh Sách hiện vật</h4></div>
             <div class="card-body">
                 <table class="table table-striped table-bordered w-auto">
                     <thead class="text-center text-nowrap"  style="background-color:#dbd8d8">
@@ -89,6 +99,70 @@
                                     <div class="dropdown-menu dropdown-menu-center">
                                         <a class="btn btn-success w-70 ml-4" asp-controller="Artifact" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa</a>                              
                                         <form asp-controller="Artifact" asp-action="Delete" asp-route-id="@item.Id">
+                                            <button class="btn btn-danger w-70 mt-2 ml-4"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="card shadow-lg">
+            <div class="card-header"><h4>Danh Sách Phòng trưng bày</h4></div>
+            <div class="card-body">
+                <table class="table table-striped table-bordered w-auto">
+                    <thead class="text-center text-nowrap"  style="background-color:#dbd8d8">
+                        <tr>
+                            <td class="w-5">
+                                STT
+                            </td>
+                            <td class="w-5">
+                                Hình ảnh
+                            </td>
+                            <td class="w-20">
+                                Phòng trưng bày
+                            </td>
+                            <td class="w-25">
+                                Mô tả
+                            </td>
+                            <td class="w-5">
+
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ExhRooms)
+                        {
+                            Stt++;
+                        <tr>
+                            <td class="text-center">
+                                @Stt
+                            </td>
+                            <td class="text-center">
+                                <img src="/images/@item.Image" height="100" width="100">
+                            </td>
+                            <td class="text-center">
+                                <a asp-controller="ExhiditionRoom" asp-action="Detail" asp-route-id="@item.Id" style="color:blue">@item.NameRoom</a>
+                            </td>
+                            <td class="text-left">
+                                <div class="an">
+                                    @{
+                                        String result = Regex.Replace(item.Description, @"<[^>]*>", String.Empty);
+                                    }
+                                    @result
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="dropdown dropdown-action">
+                                    <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-center">
+                                        <a class="btn btn-success w-70 ml-4" asp-controller="ExhiditionRoom" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa</a>                              
+                                        <form asp-controller="ExhiditionRoom" asp-action="Delete" asp-route-id="@item.Id">
                                             <button class="btn btn-danger w-70 mt-2 ml-4"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
                                         </form>
                                     </div>

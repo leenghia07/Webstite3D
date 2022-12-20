@@ -6,7 +6,12 @@ namespace WebApp.Models.ViewModel
     {
         [Required]
         public Museum? Museum { get; set; }
-        public string test{ get; set; }
+        public Guid? MuseumId { get; set; }
+        public List<string> NameMuseums { get; set; }
+        public List<int> TotalArtifact { get; set; }
+        public List<int> TotalExh { get; set; }
+        
+        public IEnumerable<Museum>? MuseumsSelections { get; set; }
 
         public IEnumerable<Museum>? Museums { get; set; }
     }

@@ -63,6 +63,10 @@ namespace WebApp.Controllers
             ViewData["success"] = "Xóa thành công";
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Search(VMArticle vmArticle)
+        {
+            return
+        }
 
     }
 }

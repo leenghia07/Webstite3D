@@ -8,6 +8,7 @@ namespace WebApp.Models.ViewModel
     {
         public ExhibitionRoom ExhibitionRoom  { get; set; }
         public IEnumerable<ExhibitionRoom> ExhibitionRooms { get; set; }
+        public IEnumerable<Museum> Museums { get; set; }
 
     }
 }

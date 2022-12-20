@@ -1,7 +1,8 @@
-﻿@*@model WebApp.Models.ExhibitionRoom;*@
-@model WebApp.Models.ViewModel.VMExhibitionRoom;
+﻿@model WebApp.Models.ViewModel.VMExhibitionRoom;
 @{
     var ExhibitionRooms = Model.ExhibitionRooms; 
+    var Museums = Model.Museums; 
+
 }
 <div class="row">
     <div class="col-lg-12">
@@ -58,6 +59,16 @@
                                         <input type="date" asp-for="@Model.ExhibitionRoom.Date"  class="form-control">
                                         @*<span class="mt-2 mb-2 ml-2" asp-validation-for="@Model.NameRoom" style="color:red">test</span>*@
                                     </div>
+                                     <div class="col-md-6">
+                                        <label class="textColor">Bảo tàng</label>
+                                        <select class="form-control" asp-for="@Model.ExhibitionRoom.MuseumId">
+                                            <option >Chọn bảo tàng</option>
+                                            @foreach (var item in Museums)
+                                            {
+                                                <option asp-for="@item.Id"> @item.MuseumName</option>
+                                            }
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-6">
@@ -100,7 +111,7 @@
                             <div class=" dropdown dropdown-action">
                                 <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
                                 <div class="dropdown-menu dropdown-menu-center">
-                                    <form asp-controller="ExhibitionRoom" asp-action="Edit" >
+                                    <form asp-controller="ExhibitionRoom" asp-action="Edit" asp-route-id="@item.Id">
                                         <button class="btn btn-success w-70 mt-2 ml-4"><i class="fa fa-pencil m-r-5"></i> Sửa</button>
                                     </form>                          
                                     <button class="btn btn-danger w-70 mt-2 ml-4" data-toggle="modal" data-target="#delete-test"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>

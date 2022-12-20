@@ -43,17 +43,16 @@ namespace WebApp.Migrations.MuseumData
                     b.Property<bool>("State")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("TypeOfArticleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TypeOfArtifactId")
+                    b.Property<Guid?>("TypeOfArticleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ArtifactId");
 
-                    b.HasIndex("TypeOfArtifactId");
+                    b.HasIndex("ExhibitionRoomId");
+
+                    b.HasIndex("TypeOfArticleId");
 
                     b.ToTable("Article");
                 });
@@ -115,11 +114,16 @@ namespace WebApp.Migrations.MuseumData
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("MuseumId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("NameRoom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MuseumId");
 
                     b.ToTable("ExhibitionRoom");
                 });
@@ -184,15 +188,11 @@ namespace WebApp.Migrations.MuseumData
 
                     b.HasOne("WebApp.Models.ExhibitionRoom", "ExhibitionRoom")
                         .WithMany()
-                        .HasForeignKey("TypeOfArtifactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ExhibitionRoomId");
 
                     b.HasOne("WebApp.Models.TypeOfArticle", "TypeOfArticle")
                         .WithMany()
-                        .HasForeignKey("TypeOfArtifactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TypeOfArticleId");
 
                     b.Navigation("Artifact");
 
@@ -218,6 +218,17 @@ namespace WebApp.Migrations.MuseumData
                     b.Navigation("Museum");
 
                     b.Navigation("TypeOfArtifact");
+                });
+
+            modelBuilder.Entity("WebApp.Models.ExhibitionRoom", b =>
+                {
+                    b.HasOne("WebApp.Models.Museum", "Museum")
+                        .WithMany()
+                        .HasForeignKey("MuseumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Museum");
                 });
 #pragma warning restore 612, 618
         }

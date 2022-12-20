@@ -8,221 +8,245 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WebApp
 build_property.RootNamespace = WebApp
-build_property.ProjectDir = d:\git\Webstite3D\WebApp\
+build_property.ProjectDir = D:\git\Webstite3D\WebApp\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = d:\git\Webstite3D\WebApp
+build_property.MSBuildProjectDirectory = D:\git\Webstite3D\WebApp
 build_property._RazorSourceGeneratorDebug = 
 
-[d:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/ConfirmEmail.cshtml]
+[D:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/ConfirmEmail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxDb25maXJtRW1haWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/ForgotPassword.cshtml]
+[D:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/ForgotPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/Login.cshtml]
+[D:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/Logout.cshtml]
+[D:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/Register.cshtml]
+[D:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/ResendEmailConfirmation.cshtml]
+[D:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/ResendEmailConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZXNlbmRFbWFpbENvbmZpcm1hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+[D:/git/Webstite3D/WebApp/Areas/Identity/Pages/Account/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+[D:/git/Webstite3D/WebApp/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Areas/Identity/Pages/_ViewImports.cshtml]
+[D:/git/Webstite3D/WebApp/Areas/Identity/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Areas/Identity/Pages/_ViewStart.cshtml]
+[D:/git/Webstite3D/WebApp/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Account/Create.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Account/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Account/Detail.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Account/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxEZXRhaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Account/Edit.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Account/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Account/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Account/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Account/Profile.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Account/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Article/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Article/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Artifact/Create.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Artifact/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWZhY3RcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Artifact/Detail.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Artifact/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWZhY3RcRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Artifact/Edit.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Artifact/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWZhY3RcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Artifact/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Artifact/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWZhY3RcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Editor/Edit.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Artifact/Search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWZhY3RcU2VhcmNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/git/Webstite3D/WebApp/Views/Editor/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdG9yXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Editor/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Editor/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdG9yXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/ExhibitionRoom/Detail.cshtml]
+[D:/git/Webstite3D/WebApp/Views/ExhibitionRoom/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhoaWJpdGlvblJvb21cRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/ExhibitionRoom/Edit.cshtml]
+[D:/git/Webstite3D/WebApp/Views/ExhibitionRoom/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhoaWJpdGlvblJvb21cRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/ExhibitionRoom/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/ExhibitionRoom/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhoaWJpdGlvblJvb21cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/HomeUser/Detail.cshtml]
+[D:/git/Webstite3D/WebApp/Views/HomeUser/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVVzZXJcRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/HomeUser/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/HomeUser/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVVzZXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Home/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Home/Privacy.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Login/login.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Login/login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cbG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Museum/Detail.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Museum/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTXVzZXVtXERldGFpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Museum/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Museum/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTXVzZXVtXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Role/Create.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Role/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Role/Edit.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Role/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Role/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Role/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/RoomArtifact/Detail.cshtml]
+[D:/git/Webstite3D/WebApp/Views/RoomArtifact/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbUFydGlmYWN0XERldGFpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/RoomArtifact/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/RoomArtifact/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbUFydGlmYWN0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/RoomExhibitionMuseum/Detail.cshtml]
+[D:/git/Webstite3D/WebApp/Views/RoomArtifact/Search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbUFydGlmYWN0XFNlYXJjaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/git/Webstite3D/WebApp/Views/RoomExhibitionMuseum/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbUV4aGliaXRpb25NdXNldW1cRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/RoomExhibitionMuseum/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/RoomExhibitionMuseum/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbUV4aGliaXRpb25NdXNldW1cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Shared/Error.cshtml]
+[D:/git/Webstite3D/WebApp/Views/RoomExhibitionMuseum/Search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbUV4aGliaXRpb25NdXNldW1cU2VhcmNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/git/Webstite3D/WebApp/Views/RoomMuseum/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbU11c2V1bVxEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/git/Webstite3D/WebApp/Views/RoomMuseum/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbU11c2V1bVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/git/Webstite3D/WebApp/Views/RoomMuseum/Search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbU11c2V1bVxTZWFyY2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/git/Webstite3D/WebApp/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Shared/_Calendar.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Shared/_Calendar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DYWxlbmRhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Shared/_footer.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Shared/_footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9mb290ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Shared/_LayoutEditor.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Shared/_LayoutEditor.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRFZGl0b3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Shared/_LayoutUser.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Shared/_LayoutUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRVc2VyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Shared/_LoginPartial.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Shared/_menu.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Shared/_menu.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9tZW51LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/TypeOfArticle/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/TypeOfArticle/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZU9mQXJ0aWNsZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/TypeOfArtifact/Detail.cshtml]
+[D:/git/Webstite3D/WebApp/Views/TypeOfArtifact/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZU9mQXJ0aWZhY3RcRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/TypeOfArtifact/Index.cshtml]
+[D:/git/Webstite3D/WebApp/Views/TypeOfArtifact/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZU9mQXJ0aWZhY3RcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/_ViewImports.cshtml]
+[D:/git/Webstite3D/WebApp/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/_ViewStart.cshtml]
+[D:/git/Webstite3D/WebApp/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/git/Webstite3D/WebApp/Views/Shared/_Layout.cshtml]
+[D:/git/Webstite3D/WebApp/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-7882z672yd

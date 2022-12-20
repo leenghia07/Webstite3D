@@ -46,43 +46,54 @@
 }
 <div class="row"> 
     <div class="col-lg-12">
-        <div class=" row page-titles shadow-lg mx-0">
-            <div class="col-sm-6 p-md-0">
-                <h3 style="color:#673BB7;">Bài viết</h3>
-            </div>
-            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active"><a href="">Danh sách</a></li>
-                </ol>
-            </div>
-        </div>
-        <div class="card shadow-lg mt-4">
-            <div class="card-body d-flex flex-row ">
-                <div class="col-lg-3">
-                    <select  class="form-control" required>
-                        <option  value=""  >Chọn tháng</option> 
-                        @for (var i = 1; i <= 12 ; i++)
-                        {
-                            <option  value="@i">Tháng @i</option> 
-                        }
-                    </select>
+        <form asp-action="Search">
+            <div class=" row page-titles shadow-lg mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <h3 style="color:#673BB7;">Bài viết</h3>
                 </div>
-                <div class="col-lg-3">
-                    <select class="form-control" required>
-                        <option  value="">Chọn năm</option>
-                            @for (var i = @Year; i >= TenYearAgo; i--)
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a href="">Danh sách</a></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="card shadow-lg mt-4">
+                <div class="card-body d-flex flex-row ">
+                    <div class="col-lg-2">  
+                        <select  class="form-control" asp-for="@Model.Month" required>
+                            <option  value=""  >Chọn tháng</option> 
+                            @for (var i = 1; i <= 12 ; i++)
                             {
-                                <option  value="@i">Năm @i</option> 
+                                <option  value="@i">Tháng @i</option> 
                             }
-                    </select>
-                </div>
-                <div class="col-lg-5">
-                    <button type="submit" style="width:200px;height:50px;font-size: 20px;" class="btn btn-secondary">Tìm kiếm</button>
-                    <button type="submit" data-toggle="modal" data-target="#modalCreate" style="width:200px;height:50px;font-size: 20px;" class="btn btn-secondary">Tạo</button>
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <select class="form-control" asp-for="@Model.Year" required>
+                            <option  value="">Chọn năm</option>
+                                @for (var i = @Year; i >= TenYearAgo; i--)
+                                {
+                                    <option  value="@i">Năm @i</option> 
+                                }
+                        </select>
+                    </div>
+                     <div class="col-lg-2">
+                        <select class="form-control" asp-for="@Model.TypeOfArticle" required>
+                            <option  value="">Chọn loại bài viết</option>
+                            @foreach (var item in @Model.TypeOfArticles)
+                            {
+                                <option  value="@item.Id">@item.NameType</option> 
+                            }
+                        </select>
+                    </div>
+                    <div class="col-lg-5">
+                        <button type="submit" style="width:200px;height:50px;font-size: 20px;" class="btn btn-secondary">Tìm kiếm</button>
+                        <button type="submit" data-toggle="modal" data-target="#modalCreate" style="width:200px;height:50px;font-size: 20px;" class="btn btn-secondary">Tạo</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        @*Start model*@
+        </form>
+        @*Start model thêm bài viết*@
         <div class="w-50 d-flex justify-content-end">
             <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
@@ -134,7 +145,7 @@
                                        </select>
                                     </div>
                                 </div>
-                                  <div class="d-flex text-left mb-2 align-items-center">
+                                <div class="d-flex text-left mb-2 align-items-center">
                                     <div class="w-25 pl-2 mr-2">
                                         <label class="my-auto" asp-for="@Model.Article.Number"></label>
                                     </div>
@@ -156,7 +167,7 @@
                 </div>
             </div>
         </div>
-        @*End model loại hiện vật*@
+        @*End model thêm bài viết*@
         <div class="card">       
             <div class="card-body">
                 <!-- Nav tabs -->
@@ -166,13 +177,13 @@
                             int tab = 0;
                         }
                         <li class="nav-item">
-                                <a class=" btn btn-secondary active w-auto" style="border-radius: 2rem;height:2rem;" data-toggle="tab" href="#tab_@tab">@TypeArticles[0].NameType</a>
+                                <a class=" btn btn-info active w-auto text-white" style="border-radius: 2rem;height:2rem;" data-toggle="tab" href="#tab_@tab">@TypeArticles[0].NameType</a>
                         </li>
                         @for (var i = 1; i < TypeArticles.Count(); i++)
                         {
                             tab++;
                             <li class="ml-3 nav-item">
-                                <a class=" btn btn-secondary w-auto" style="border-radius: 2rem;height:2rem;" data-toggle="tab" href="#tab_@tab">@TypeArticles[i].NameType</a>
+                                <a class=" btn btn-info w-auto text-white" style="border-radius: 2rem;height:2rem;" data-toggle="tab" href="#tab_@tab">@TypeArticles[i].NameType</a>
                             </li>
                         } 
                     </ul>
@@ -191,7 +202,7 @@
                                             Hiện vật
                                         </td>
                                         <td class="w-5">
-                                          vị trí
+                                            vị trí
                                         </td>
                                          <td class="w-5">
                                             Trạng thái
@@ -203,16 +214,16 @@
                                 </thead>
                                 <tbody>
                                     @{
-                                        int stt1 = 0;
+                                        int stthienvat = 0;
                                     }
                                     @foreach (var item in Articles)
                                     {
-                                        stt1++;
                                         if(item.ArtifactId != null && item.TypeOfArticleId == idAFD)
                                         {
+                                            stthienvat++;
                                             <tr>
                                                 <td class="text-center">
-                                                    @stt1
+                                                    @stthienvat
                                                 </td>
                                                 <td class="text-center">
                                                     <img height="150" width="250" src="~/Images/@item.Artifact.Image">
@@ -245,11 +256,11 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                             @*Start model Trưng bày hiện vật*@
+                                         @*Start model Trưng bày chính*@
                                             <div class="w-50 d-flex justify-content-end">
                                                 <div class="modal fade" id="ModalA_@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
-                                                        <form  asp-action="">
+                                                        <form  asp-action="Update">
                                                             <input asp-for="@Model.Type" value="1" hidden></input>
                                                             <input asp-for="@Model.Type" value="1" hidden></input>
                                                             <div class="modal-content p-3" style="width: 550px;">
@@ -289,10 +300,10 @@
                                                                 </div> 
                                                                 <div class="d-flex text-left mb-2 align-items-center">
                                                                     <div class="w-25 pl-2 mr-2">
-                                                                        <label class="my-auto" asp-for="@Model.Article.Number"></label>
+                                                                        <label class="my-auto" asp-for="@item.Number"></label>
                                                                     </div>
                                                                     <div class="w-75">
-                                                                        <input type="number" class="form-control" asp-for="@Model.Article.Number"/>
+                                                                        <input type="number" class="form-control" asp-for="@item.Number"/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex flex-row justify-content-end my-0 mt-4">
@@ -340,16 +351,16 @@
                                 </thead>
                                 <tbody>
                                     @{
-                                        int stt2 = 0;
+                                        int numberMain = 0;
                                     }  
                                     @foreach (var item in Articles)
                                     {
-                                        stt2++;
                                         if (item.TypeOfArticleId == idMain)
                                         {
+                                            numberMain++;
                                             <tr>
                                                 <td class="text-center">
-                                                    @stt2
+                                                    @numberMain
                                                 </td>
                                                 <td class="text-center">
                                                    @if (item.ExhibitionRoomId != null)
@@ -396,14 +407,14 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                              @*Start model Trưng bày hiện vật*@
-                                       @*     <div class="w-50 d-flex justify-content-end">
+                                            @*Start model Trưng bày chính*@
+                                            <div class="w-50 d-flex justify-content-end">
                                                 <div class="modal fade" id="ModalB_@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
-                                                        <form  asp-action="">
-                                                           <input asp-for="@Model.Type" value="2" hidden />
-                                                            <input asp-for="@Model.Type" value="2" hidden />
-                                                               <div class="modal-content p-3" style="width: 550px;">
+                                                        @*<form  asp-action="Update">
+                                                            <input asp-for="@Model.Type" value="1" hidden></input>
+                                                            <input asp-for="@Model.Type" value="1" hidden></input>
+                                                            <div class="modal-content p-3" style="width: 550px;">
                                                                 <div class="flex-row d-flex justify-content-center mb-2">
                                                                     <h2 class="text-info">Sửa bài viết</h2>
                                                                 </div>
@@ -440,42 +451,26 @@
                                                                 </div> 
                                                                 <div class="d-flex text-left mb-2 align-items-center">
                                                                     <div class="w-25 pl-2 mr-2">
-                                                                        <label class="my-auto" asp-for="@Model.Article.ExhibitionRoom"></label>
+                                                                        <label class="my-auto" asp-for="@item.Number"></label>
                                                                     </div>
                                                                     <div class="w-75">
-                                                                        <select class="form-control" asp-for="@Model.Article.ExhibitionRoomId" id="remain-open">
-                                                                            <option value="@item.ExhibitionRoomId">@item.ExhibitionRoom.NameRoom</option>
-                                                                            <option>Chọn loại bài viết</option>
-                                                                            @foreach (var itemEX in ExhibitionRooms)
-                                                                            {
-                                                                                <option value="@itemEX.Id">@itemEX.NameRoom</option>
-                                                                            }
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                    <div class="d-flex text-left mb-2 align-items-center">
-                                                                    <div class="w-25 pl-2 mr-2">
-                                                                        <label class="my-auto" asp-for="@Model.Article.Number"></label>
-                                                                    </div>
-                                                                    <div class="w-75">
-                                                                        <input type="number" class="form-control" asp-for="@Model.Article.Number"/>
+                                                                        <input type="number" class="form-control" asp-for="@item.Number"/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex flex-row justify-content-end my-0 mt-4">
                                                                     <div class="w-25 mr-2"></div>
                                                                     <div class="w-75 d-flex">
-                                                                        <input type="submit" name="btn" class="btn btn-success w-40" value="Tạo bài viết">
+                                                                        <input type="submit" name="btn" class="btn btn-success w-40" value="Sửa bài viết">
                                                                         <input type="submit" class="btn btn-info w-40 mr-2 ml-5" data-dismiss="modal" value="Đóng">
-                                                                        <!-- <button id= "btnCreate" type="submit" class="btn btn-primary w-50" onclick="return validateInput()">Thêm</button> -->
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        </form>
+                                                        </form>*@
                                                     </div>
                                                 </div>
-                                            </div>*@
-                                            @*End model Trưng bày hiện vật*@
+                                            </div>
+                                            @*End model Trưng bày chínht*@
                                         }
                                     
                                     }
@@ -512,9 +507,10 @@
                                     }
                                     @foreach (var item in Articles)
                                     {
-                                        stt3++;
                                         if (item.ExhibitionRoomId != null && item.TypeOfArticleId == idEXR)
                                         {
+                                            stt3++;
+
                                             <tr>
                                                 <td class="text-center">
                                                     @stt3
@@ -550,7 +546,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @*Start model phòng trưng bày*@
+                                        @*Start model phòng trưng bày thường xuyên*@
                                         @*   <div class="w-50 d-flex justify-content-end">
                                                 <div class="modal fade" id="ModalC_@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
@@ -614,7 +610,7 @@
                                                     </div>
                                                 </div>
                                             </div>*@
-                                            @*End model phòng trưng bày*@
+                                            @*End model phòng trưng bày thường xuyên*@
                                         }
                                     }
                                 </tbody>

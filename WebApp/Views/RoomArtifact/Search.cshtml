@@ -1,0 +1,113 @@
+﻿@model WebApp.Models.ViewModel.VMRoomArtifact;
+@using System.Text.RegularExpressions;
+@{
+    Layout = "_LayoutUser";
+    var RoomArtifacts = Model.Artifacts;
+    int Stt = 0;
+    string YearNow = DateTime.Now.ToString("yyyy");
+    int Year = Int32.Parse(YearNow);
+    int TenYearAgo = Year - 10;
+}
+<style>
+     .an {
+    display: block;
+  	display: -webkit-box;
+  	line-height: 1.9;
+  	-webkit-line-clamp: 3;  /* số dòng hiển thị */
+  	-webkit-box-orient: vertical;
+  	overflow: hidden;
+  	/* text-overflow: ellipsis; */
+}
+</style>
+<div class="col-lg-12">
+    <h1 class="text-center mt-3"  style="border-bottom: 0.1rem solid;">Hiện vật</h1>
+    <div class="card shadow-lg mt-5">
+        <form asp-controller="RoomArtifact" asp-action="Search">
+        <div class="card-header">
+            <div class="col-lg-2">
+                <h4>Danh sách</h4>
+            </div>
+            <div class="col-lg-2">
+                <select  class="form-control" asp-for="@Model.Month" required>
+                    <option  value="@Model.Month"  >Tháng @Model.Month</option> 
+                    <option  value=""  >Chọn tháng</option> 
+                    @for (var i = 1; i <= 12 ; i++)
+                    {
+                        <option  value="@i">Tháng @i</option> 
+                    }
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control" asp-for="@Model.Year" required>
+                    <option   value="@Model.Year">Năm @Model.Year</option>
+                    <option   value="">Chọn năm</option>
+                        @for (var i = @Year; i >= TenYearAgo; i--)
+                        {
+                            <option  value="@i">Năm @i</option> 
+                        }
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control" asp-for="@Model.TypeOfArtifact"  required>
+                     @foreach (var item in @Model.TypeOfArtifacts)
+                        {
+                            @if (item.Id == @Model.TypeOfArtifact)
+                            {
+                                <option  value="@item.Id">@item.NameTypeArtifact</option>   
+                            }
+                        }
+                    <option  value="">Loại hiện vật</option>
+                        @foreach (var item in @Model.TypeOfArtifacts)
+                        {
+                        <option  value="@item.Id">@item.NameTypeArtifact</option>   
+                        }
+                </select>
+            </div>
+            <div class="col-lg-2 mr-5">
+                <button type="submit" style="width:200px;height:50px;font-size: 20px;" class="btn btn-secondary">Tìm kiếm</button>
+            </div>
+        </div>
+        </form>
+        <div class="card-body" style="margin-top:-1%;">
+            @foreach (var item in RoomArtifacts)
+            {
+                <div class="card" style="background-color:#eeeeee;">
+                    <a asp-controller="RoomArtifact" asp-action="Detail" asp-route-id="@item.Id">
+                        <div class="row mb-3">
+                            <div class="col-lg-2">
+                                <img class="mt-4 ml-2" src="~/images/@item.Image" height="150" width="150">
+                            </div>
+                            <div class="col-lg-10 mt-2">
+                                <div class="row">
+                                    <h4>@item.NameArtifact</h4>
+                                </div>
+                                <div class="row h-75 mr-2">
+                                    <span class="textColor an" style="font-size:16px;" >
+                                       @{
+                                            String result = Regex.Replace( @item.Description, @"<[^>]*>", String.Empty);
+                                        }
+                                        @result
+                                    </span>
+                                </div>
+                                <div class="row mt-1">
+                                     <div class="col-lg-10">
+                                        <div class="row">
+                                            <i class="fa fa-plus-square-o fa-lg mt-1" style="color:black;font-size: 20px;" ></i>
+                                            <h5 class="  ml-3"> Tham quan trưng bày 3D</h5>
+                                        </div>
+                                     </div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <i class="mdi mdi-timer"style="color:black;font-size: 15px;" ></i>
+                                            <p class=" textColor ml-3">@item.DiscoveryDate.ToString("dd/MM/yyyy")</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

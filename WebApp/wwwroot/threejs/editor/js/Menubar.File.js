@@ -24,29 +24,14 @@ function MenubarFile( editor ) {
 	// New
 
 	let option = new UIRow();
-	var found = false;
-	const KeyId="create";
 	option.setClass( 'option' );
 	option.setTextContent( strings.getKey( 'menubar/file/new' ) );
 	option.onClick( function () {
 
-		// if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
-			
-		 //	editor.clear();
-
-		// }
 		if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
-			editor.compareID(KeyId);
-				// editor.Storage.getAll(function(state) {
-				// 	state.forEach(key => {
-				// 		console.log(key)
-				// 		if (key == KeyId ) {
-				// 			editor.remove(KeyId);
-				// 			console.log("thanh cong");
-				// 		 }
-				// 	})
-				// });
-			
+
+			editor.clear();
+
 		}
 
 	} );
@@ -290,7 +275,7 @@ function MenubarFile( editor ) {
 		exporter.parse( scene, function ( result ) {
 
 			saveString( JSON.stringify( result, null, 2 ), 'scene.gltf' );
-			//console.log(result);
+
 		}, undefined, { animations: animations } );
 
 

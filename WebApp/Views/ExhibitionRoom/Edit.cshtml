@@ -1,5 +1,136 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WebApp.Models.ViewModel.VMExhibitionRoom
 @{
+    var ExhRoom = Model.ExhibitionRoom;  
+    var Museums = Model.Museums;  
 }
+@if(ViewData["Error"] != null)
+{
+    <div class="alert mb-3 alert-danger solid alert-dismissible fade show">
+        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+        </button>
+        <strong>@ViewData["Error"]</strong>
+    </div>   
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row page-titles shadow-lg mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div style="display:flex;">
+                    <h3 style="color:#673BB7;"> Sửa thông tin phòng trưng bày</h3>
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="ExhibitionRoom" asp-action="Index">Phòng trưng bày</a></li>
+                    <li class="breadcrumb-item active"><a asp-controller="ExhibitionRoom" asp-action="">Sửa</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+   <div class="col-lg-12">
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <form asp-controller="ExhibitionRoom" asp-action="Update" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="@ExhRoom.Id" />
+                    <h2 class="text-center mt-2">Sửa thông tin phòng trưng bày</h2>
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <label class="textColor">Tên phòng trưng bày</label>
+                            <input  class="form-control" asp-for="@ExhRoom.NameRoom" placeholder="Phòng trưng bày" >                  
+                        </div>
+                        <span class="mt-2 mb-2 ml-2" asp-validation-for="@ExhRoom.NameRoom" style="color:red"></span>
+                    </div> 
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label class="textColor">Ngày</label>
+                            <input asp-for="@ExhRoom.Date" asp-format="{0:yyyy-MM-dd}" class="form-control" required /> 
+                            @*<span class="mt-2 mb-2 ml-2" asp-validation-for="@Model.NameRoom" style="color:red">test</span>*@
+                        </div>
+                        <div class="col-md-6">
+                            <label class="textColor">Bảo tàng</label>
+                            <select class="form-control" asp-for="@ExhRoom.MuseumId">
+                                <option asp-for="@ExhRoom.MuseumId">@ExhRoom.Museum.MuseumName</option>
+                                <option >Chọn bảo tàng</option>
+                                @foreach (var item in Museums)
+                                {
+                                    <option asp-for="@item.Id"> @item.MuseumName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label class="textColor">File ảnh</label>
+                            <div class="d-flex flex-row">
+                                <input class="form-control" name="File"   type="file" hidden="hidden" id="fileImage"  asp-for="@ExhRoom.Image"/>
+                                <span class="form-control" id="custom-msg-Image" class="textColor">@ExhRoom.Image</span>
+                                <button class="form-control w-25 btn btn-secondary" style=" background: #dfdfdf" type="button" id="upload-button-image">File Image</button>
+                            </div>
+                            </div>
+                        <div class="col-md-6">
+                            <label class="textColor">File 3D phòng</label>
+                            <div class="d-flex flex-row">
+                                <input class="form-control" name="File3D"   type="file" hidden="hidden" id="file3D"  asp-for="@ExhRoom.File3D"/>
+                                <span class="form-control" id="custom-msg-3D" class="textColor">@ExhRoom.File3D</span>
+                                <button class="form-control w-20" style=" background: #dfdfdf"  type="button" id="upload-button-3D">File 3D</button>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="form-row">
+                        <div class="col-lg-12">
+                            <div class="card-body">
+                                <label class="textColor">Mô tả</label>
+                                <textarea asp-for="@ExhRoom.Description"  class="summernote" placeholder="Nhập nội dung mô tả ...."></textarea>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <button class="btn btn-primary mt-5 mb-5 w-15">Sửa phòng trưng bày</button>
+                        </div>
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+      const fileImage = document.getElementById("fileImage");
+      const BtnImage = document.getElementById("upload-button-image");
+      const TxtImage = document.getElementById("custom-msg-Image");
+
+      const Btn3D = document.getElementById("upload-button-3D");
+      const file3D = document.getElementById("file3D");
+      const Txt3D = document.getElementById("custom-msg-3D");
+
+      BtnImage.addEventListener("click", function(){
+        fileImage.click();
+      });
+
+      Btn3D.addEventListener("click", function(){
+        file3D.click();
+      });
+
+      //1 Image
+      fileImage.addEventListener("change",function(){
+        if (fileImage.value) {
+          TxtImage.innerHTML = fileImage.value.match(
+            /[\/\\]([\w\d\s\.\-\(\)]+)$/
+          )[1]
+        }else {
+          TxtImage.innerHTML = "No file chosen, yet.";
+        }
+      });
+      //2 3D
+       file3D.addEventListener("change",function(){
+        if (file3D.value) {
+          Txt3D.innerHTML = file3D.value.match(
+            /[\/\\]([\w\d\s\.\-\(\)]+)$/
+          )[1]
+        }else {
+          Txt3D.innerHTML = "No file chosen, yet.";
+        }
+      });
+</script>
+
