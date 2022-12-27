@@ -60,13 +60,24 @@ namespace WebApp.Controllers
                     }
                     if (File.Count == 1)
                     {
-                        string FileNameImage = Path.GetFileName(File[0].FileName);
-                        using (FileStream stream = new FileStream(Path.Combine(PathImage, FileNameImage), FileMode.Create))
+                        string FileName = Path.GetFileName(File[0].FileName);
+                        using (FileStream stream = new FileStream(Path.Combine(PathImage, FileName), FileMode.Create))
                         {
                             File[0].CopyTo(stream);
                         }
-                        exhibitionRoom.Image = FileNameImage;
-                        exhibitionRoom.File3D = null;
+                        switch (File[0].Name)
+                        {
+                            case "FileImage":
+                                exhibitionRoom.Image = FileName;
+                                exhibitionRoom.File3D = null;
+                                break;
+                            case "File3D":
+                                exhibitionRoom.Image = null;
+                                exhibitionRoom.File3D = FileName;
+                                break;
+                            default:
+                                break;
+                        }
                     }
                     if (File.Count == 2)
                     {
@@ -120,9 +131,9 @@ namespace WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(ExhibitionRoom exhibitionRoom)
         {
-            var GetExhRoom = await _context.ExhibitionRoom
-                                           .SingleOrDefaultAsync(w => w.Id == exhibitionRoom.Id);
-
+           /* var exhibitionRoom = vmexhibitionRoom.ExhibitionRoom;*/
+            var GetExhRoom = await _context.ExhibitionRoom.AsNoTracking()
+                                                          .SingleAsync(w => w.Id == exhibitionRoom.Id);
             string wwwPath = _environment.WebRootPath;
             string ContentPath = _environment.ContentRootPath;
             var File = HttpContext.Request.Form.Files;
@@ -135,13 +146,24 @@ namespace WebApp.Controllers
                 }
                 if (File.Count == 1)
                 {
-                    string FileNameImage = Path.GetFileName(File[0].FileName);
-                    using (FileStream stream = new FileStream(Path.Combine(PathImage, FileNameImage), FileMode.Create))
+                    string FileName = Path.GetFileName(File[0].FileName);
+                    using (FileStream stream = new FileStream(Path.Combine(PathImage, FileName), FileMode.Create))
                     {
                         File[0].CopyTo(stream);
                     }
-                    exhibitionRoom.Image = FileNameImage;
-                    exhibitionRoom.File3D = GetExhRoom.File3D;
+                    switch (File[0].Name)
+                    {
+                        case "FileImage":
+                            exhibitionRoom.Image = FileName;
+                            exhibitionRoom.File3D = GetExhRoom.File3D;
+                            break;
+                        case "File3D":
+                            exhibitionRoom.Image = GetExhRoom.Image;
+                            exhibitionRoom.File3D = FileName;
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 if (File.Count == 2)
                 {
@@ -183,13 +205,12 @@ namespace WebApp.Controllers
             {
                 exhibitionRoom.Image = GetExhRoom.Image;
                 exhibitionRoom.File3D = GetExhRoom.File3D;
+                exhibitionRoom.MuseumId = GetExhRoom.MuseumId;
             }
-
             _context.Update(exhibitionRoom);
             await _context.SaveChangesAsync();
             TempData["success"] = "Cập nhập thành công";
             return RedirectToAction(nameof(Index));
-            return View();
         }
         [HttpPost]
         public async Task<IActionResult> Delete(Guid Id)

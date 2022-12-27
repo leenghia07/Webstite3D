@@ -133,13 +133,24 @@ namespace WebApp.Controllers
                 }
                 if(File.Count == 1)
                 {
-                    string FileNameImage = Path.GetFileName(File[0].FileName);
-                    using (FileStream stream = new FileStream(Path.Combine(PathImage, FileNameImage), FileMode.Create))
+                    string FileName = Path.GetFileName(File[0].FileName);
+                    using (FileStream stream = new FileStream(Path.Combine(PathImage, FileName), FileMode.Create))
                     {
                         File[0].CopyTo(stream);
                     }
-                    artifact.Image = FileNameImage;
-                    artifact.File3D = GetArtifact.File3D;
+                    switch (File[0].Name)
+                    {
+                        case "FileImage":
+                            artifact.Image = FileName;
+                            artifact.File3D = GetArtifact.File3D;
+                            break;
+                        case "File3D":
+                            artifact.Image = GetArtifact.Image;
+                            artifact.File3D = FileName;
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 if(File.Count == 2)
                 {

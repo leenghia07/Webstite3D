@@ -103,6 +103,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdG9yXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/git/Webstite3D/WebApp/Views/Editor/EditRoom.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdG9yXEVkaXRSb29tLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/git/Webstite3D/WebApp/Views/Editor/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdG9yXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

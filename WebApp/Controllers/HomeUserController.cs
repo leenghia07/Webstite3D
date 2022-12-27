@@ -14,24 +14,15 @@ namespace WebApp.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            /* VMArtifactRoom ArtifactRoom = new VMArtifactRoom();
-             var Artifacts = await _context.Aritifact.ToListAsync();
-             var Rooms = await _context.ExhibitionRoom.ToListAsync();
-             ArtifactRoom.Artifacts = Artifacts;
-             ArtifactRoom.ExhibitionRooms = Rooms;*/
             VMArticle article = new VMArticle();
             var listArticle = await _context.Article
                                            .Include(i => i.Artifact)
                                            .Include(i => i.ExhibitionRoom)
                                            .Include(i => i.TypeOfArticle)
+                                           .OrderBy(i => i.Number)
                                           .ToListAsync();
             article.Articles = listArticle;
             return View(article);
-        }
-        public async Task<IActionResult> Detail()
-        {
-            return View();
-
         }
     }
 }

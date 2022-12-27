@@ -5,7 +5,7 @@
     int Year = Int32.Parse(YearNow);
     int stt = 0;
     int TenYearAgo = Year - 10;
-    var Article = Model.Article;
+    var article = Model.Article;
     var TypeArticles = Model.TypeOfArticles.ToList();
     var ExhibitionRooms = Model.ExhibitionRooms;
     var Artifacts = Model.Artifacts;
@@ -108,7 +108,7 @@
                                         <label class="my-auto" asp-for="@Model.Article.TypeOfArticle"></label>
                                     </div>
                                     <div class="w-75">
-                                       <select class="form-control" asp-for="@Model.Article.TypeOfArticleId"  id="remain-open">
+                                       <select id="checkType" class="form-control" asp-for="@Model.Article.TypeOfArticleId"  id="remain-open">
                                            <option>Chọn loại bài viết</option>
                                            @foreach (var item in TypeArticles)
                                            {
@@ -117,32 +117,36 @@
                                        </select>
                                     </div>
                                 </div>
-                                <div class="d-flex text-left mb-2 align-items-center">
-                                    <div class="w-25 pl-2 mr-2">
-                                        <label class="my-auto" asp-for="@Model.Article.Artifact"></label>
-                                    </div>
-                                    <div class="w-75">
-                                       <select class="form-control" asp-for="@Model.Article.ArtifactId" id="remain-open">
-                                           <option>Chọn hiện vật</option>
-                                           @foreach (var item in Artifacts)
-                                           {
-                                               <option value="@item.Id">@item.NameArtifact</option>
-                                           }
-                                       </select>
-                                    </div>
-                                </div> 
-                                <div class="d-flex text-left mb-2 align-items-center">
-                                    <div class="w-25 pl-2 mr-2">
-                                        <label class="my-auto" asp-for="@Model.Article.ExhibitionRoom"></label>
-                                    </div>
-                                    <div class="w-75">
-                                       <select class="form-control" asp-for="@Model.Article.ExhibitionRoomId" id="remain-open">
-                                           <option>Chọn loại bài viết</option>
-                                           @foreach (var item in ExhibitionRooms)
-                                           {
-                                               <option value="@item.Id">@item.NameRoom</option>
-                                           }
-                                       </select>
+                                <div id="artifact">
+                                    <div class="d-flex text-left mb-2 align-items-center">
+                                        <div class="w-25 pl-2 mr-2">
+                                            <label class="my-auto" asp-for="@Model.Article.Artifact"></label>
+                                        </div>
+                                        <div class="w-75">
+                                           <select class="form-control" asp-for="@Model.Article.ArtifactId" id="artifact1">
+                                               <option>Chọn hiện vật</option>
+                                               @foreach (var item in Artifacts)
+                                               {
+                                                   <option value="@item.Id">@item.NameArtifact</option>
+                                               }
+                                           </select>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div id="exh">
+                                    <div class="d-flex text-left mb-2 align-items-center">
+                                        <div class="w-25 pl-2 mr-2">
+                                            <label class="my-auto" asp-for="@Model.Article.ExhibitionRoom"></label>
+                                        </div>
+                                        <div class="w-75">
+                                           <select class="form-control" asp-for="@Model.Article.ExhibitionRoomId" id="exh1">
+                                               <option>Chọn phòng trưng bày</option>
+                                               @foreach (var item in ExhibitionRooms)
+                                               {
+                                                   <option value="@item.Id">@item.NameRoom</option>
+                                               }
+                                           </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="d-flex text-left mb-2 align-items-center">
@@ -220,6 +224,7 @@
                                     {
                                         if(item.ArtifactId != null && item.TypeOfArticleId == idAFD)
                                         {
+                                            article = item;
                                             stthienvat++;
                                             <tr>
                                                 <td class="text-center">
@@ -261,8 +266,7 @@
                                                 <div class="modal fade" id="ModalA_@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
                                                         <form  asp-action="Update">
-                                                            <input asp-for="@Model.Type" value="1" hidden></input>
-                                                            <input asp-for="@Model.Type" value="1" hidden></input>
+                                                            <input asp-for="@article.Id" hidden />
                                                             <div class="modal-content p-3" style="width: 550px;">
                                                                 <div class="flex-row d-flex justify-content-center mb-2">
                                                                     <h2 class="text-info">Sửa bài viết</h2>
@@ -273,7 +277,7 @@
                                                                         <label class="my-auto" asp-for="@Model.Article.TypeOfArticle"></label>
                                                                     </div>
                                                                     <div class="w-75">
-                                                                        <select class="form-control" asp-for="@Model.Article.TypeOfArticleId"  id="remain-open">
+                                                                        <select class="form-control" asp-for="@article.TypeOfArticleId"  id="remain-open">
                                                                             <option value="@item.TypeOfArticleId">@item.TypeOfArticle.NameType</option>
                                                                             <option>Chọn loại bài viết</option>
                                                                             @foreach (var itemAl in TypeArticles)
@@ -285,25 +289,35 @@
                                                                 </div>
                                                                 <div class="d-flex text-left mb-2 align-items-center">
                                                                     <div class="w-25 pl-2 mr-2">
-                                                                        <label class="my-auto" asp-for="@Model.Article.Artifact"></label>
+                                                                        <label class="my-auto" asp-for="@Model.Artifact"></label>
                                                                     </div>
                                                                     <div class="w-75">
-                                                                        <select class="form-control" asp-for="@Model.Article.ArtifactId" id="remain-open">
+                                                                        <select class="form-control" asp-for="@article.ArtifactId" id="remain-open">
                                                                             <option value="@item.ArtifactId">@item.Artifact.NameArtifact</option>
-                                                                            <option>Chọn hiện vật</option>
-                                                                            @foreach (var itemAF in Artifacts)
-                                                                            {
-                                                                                <option value="@itemAF.Id">@itemAF.NameArtifact</option>
-                                                                            }
                                                                         </select>
                                                                     </div>
                                                                 </div> 
                                                                 <div class="d-flex text-left mb-2 align-items-center">
                                                                     <div class="w-25 pl-2 mr-2">
-                                                                        <label class="my-auto" asp-for="@item.Number"></label>
+                                                                        <label class="my-auto" asp-for="@article.Number"></label>
                                                                     </div>
                                                                     <div class="w-75">
-                                                                        <input type="number" class="form-control" asp-for="@item.Number"/>
+                                                                        <input type="number" class="form-control" asp-for="@article.Number"/>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex text-left mb-2 align-items-center">
+                                                                    <div class="w-25 pl-2 mr-2">
+                                                                        <label class="my-auto" asp-for="@article.State"></label>
+                                                                    </div>
+                                                                    <div class="w-75">
+                                                                        @if(article.State == true)
+                                                                        {
+                                                                            <input  type="checkbox" checked asp-for="@article.State"/>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input type="checkbox"  asp-for="@article.State"/>
+                                                                        }
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex flex-row justify-content-end my-0 mt-4">
@@ -357,6 +371,7 @@
                                     {
                                         if (item.TypeOfArticleId == idMain)
                                         {
+                                            article = item;
                                             numberMain++;
                                             <tr>
                                                 <td class="text-center">
@@ -407,13 +422,12 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            @*Start model Trưng bày chính*@
+                                        @*Start model Trưng bày chính*@
                                             <div class="w-50 d-flex justify-content-end">
                                                 <div class="modal fade" id="ModalB_@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
-                                                        @*<form  asp-action="Update">
-                                                            <input asp-for="@Model.Type" value="1" hidden></input>
-                                                            <input asp-for="@Model.Type" value="1" hidden></input>
+                                                        <form  asp-action="Update">
+                                                            <input asp-for="@article.Id;" hidden />
                                                             <div class="modal-content p-3" style="width: 550px;">
                                                                 <div class="flex-row d-flex justify-content-center mb-2">
                                                                     <h2 class="text-info">Sửa bài viết</h2>
@@ -421,10 +435,10 @@
                                                                 <div class="d-flex flex-column w-auto mt-3">
                                                                 <div class="d-flex text-left mb-2 align-items-center">
                                                                     <div class="w-25 pl-2 mr-2">
-                                                                        <label class="my-auto" asp-for="@Model.Article.TypeOfArticle"></label>
+                                                                        <label class="my-auto" asp-for="@article.TypeOfArticle"></label>
                                                                     </div>
                                                                     <div class="w-75">
-                                                                        <select class="form-control" asp-for="@Model.Article.TypeOfArticleId"  id="remain-open">
+                                                                        <select class="form-control" asp-for="@article.TypeOfArticleId"  id="remain-open">
                                                                             <option value="@item.TypeOfArticleId">@item.TypeOfArticle.NameType</option>
                                                                             <option>Chọn loại bài viết</option>
                                                                             @foreach (var itemAl in TypeArticles)
@@ -434,27 +448,54 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
+                                                                @if(@item.Artifact != null)
+                                                                    {
+                                                                     <div class="d-flex text-left mb-2 align-items-center">
+                                                                        <div class="w-25 pl-2 mr-2">
+                                                                            <label class="my-auto" asp-for="@Model.Artifact"></label>
+                                                                        </div>
+                                                                        <div class="w-75">
+                                                                            <select class="form-control" asp-for="@article.Id" id="remain-open">
+                                                                                <option value="@item.ArtifactId">@item.Artifact.NameArtifact</option>
+                                                                      
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>    
+                                                                    }
+                                                                 @if(@item.ExhibitionRoomId != null)
+                                                                 {
+                                                                     <div class="d-flex text-left mb-2 align-items-center">
+                                                                        <div class="w-25 pl-2 mr-2">
+                                                                            <label class="my-auto" asp-for="@article.ExhibitionRoom"></label>
+                                                                        </div>
+                                                                        <div class="w-75">
+                                                                            <select class="form-control" asp-for="@article.Id" id="remain-open">
+                                                                                <option value="@item.ExhibitionRoomId">@item.ExhibitionRoom.NameRoom</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                }
                                                                 <div class="d-flex text-left mb-2 align-items-center">
                                                                     <div class="w-25 pl-2 mr-2">
-                                                                        <label class="my-auto" asp-for="@Model.Article.Artifact"></label>
+                                                                        <label class="my-auto" asp-for="@article.Number"></label>
                                                                     </div>
                                                                     <div class="w-75">
-                                                                        <select class="form-control" asp-for="@Model.Article.ArtifactId" id="remain-open">
-                                                                            <option value="@item.ArtifactId">@item.Artifact.NameArtifact</option>
-                                                                            <option>Chọn hiện vật</option>
-                                                                            @foreach (var itemAF in Artifacts)
-                                                                            {
-                                                                                <option value="@itemAF.Id">@itemAF.NameArtifact</option>
-                                                                            }
-                                                                        </select>
+                                                                        <input type="number" class="form-control" asp-for="@article.Number"/>
                                                                     </div>
-                                                                </div> 
-                                                                <div class="d-flex text-left mb-2 align-items-center">
+                                                                </div>
+                                                                 <div class="d-flex text-left mb-2 align-items-center">
                                                                     <div class="w-25 pl-2 mr-2">
-                                                                        <label class="my-auto" asp-for="@item.Number"></label>
+                                                                        <label class="my-auto" asp-for="@article.State"></label>
                                                                     </div>
                                                                     <div class="w-75">
-                                                                        <input type="number" class="form-control" asp-for="@item.Number"/>
+                                                                        @if(article.State == true)
+                                                                        {
+                                                                            <input  type="checkbox" checked asp-for="@article.State"/>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input type="checkbox"  asp-for="@article.State"/>
+                                                                        }
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex flex-row justify-content-end my-0 mt-4">
@@ -466,11 +507,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        </form>*@
-                                                    </div>
+                                                    </form>
                                                 </div>
                                             </div>
-                                            @*End model Trưng bày chínht*@
+                                        </div>
+                                        @*End model Trưng chính*@
                                         }
                                     
                                     }
@@ -509,6 +550,7 @@
                                     {
                                         if (item.ExhibitionRoomId != null && item.TypeOfArticleId == idEXR)
                                         {
+                                            article = item;
                                             stt3++;
 
                                             <tr>
@@ -546,24 +588,23 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @*Start model phòng trưng bày thường xuyên*@
-                                        @*   <div class="w-50 d-flex justify-content-end">
+                                          @*Start model Trưng bày thường xuyên*@
+                                            <div class="w-50 d-flex justify-content-end">
                                                 <div class="modal fade" id="ModalC_@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
                                                         <form  asp-action="Update">
-                                                          <input asp-for="@Model.Type" value="3" hidden />
-                                                            <input asp-for="@Model.Type" value="3" hidden />
-                                                                 <div class="modal-content p-3" style="width: 550px;">
+                                                            <input asp-for="@article.Id" hidden />
+                                                            <div class="modal-content p-3" style="width: 550px;">
                                                                 <div class="flex-row d-flex justify-content-center mb-2">
                                                                     <h2 class="text-info">Sửa bài viết</h2>
                                                                 </div>
                                                                 <div class="d-flex flex-column w-auto mt-3">
                                                                 <div class="d-flex text-left mb-2 align-items-center">
                                                                     <div class="w-25 pl-2 mr-2">
-                                                                        <label class="my-auto" asp-for="@Model.Article.TypeOfArticle"></label>
+                                                                        <label class="my-auto" asp-for="@article.TypeOfArticle"></label>
                                                                     </div>
                                                                     <div class="w-75">
-                                                                        <select class="form-control" asp-for="@Model.Article.TypeOfArticleId"  id="remain-open">
+                                                                        <select class="form-control" asp-for="@article.TypeOfArticleId"  id="remain-open">
                                                                             <option value="@item.TypeOfArticleId">@item.TypeOfArticle.NameType</option>
                                                                             <option>Chọn loại bài viết</option>
                                                                             @foreach (var itemAl in TypeArticles)
@@ -573,44 +614,56 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
+                                                                @if (true)
+                                                                {
                                                                 <div class="d-flex text-left mb-2 align-items-center">
                                                                     <div class="w-25 pl-2 mr-2">
-                                                                        <label class="my-auto" asp-for="@Model.Article.ExhibitionRoom"></label>
+                                                                        <label class="my-auto" asp-for="@article.ExhibitionRoom"></label>
                                                                     </div>
                                                                     <div class="w-75">
-                                                                        <select class="form-control" asp-for="@Model.Article.ExhibitionRoomId" id="remain-open">
+                                                                        <select class="form-control" asp-for="@article.ExhibitionRoomId" id="remain-open">
                                                                             <option value="@item.ExhibitionRoomId">@item.ExhibitionRoom.NameRoom</option>
-                                                                            <option>Chọn loại bài viết</option>
-                                                                            @foreach (var itemEX in ExhibitionRooms)
-                                                                            {
-                                                                                <option value="@itemEX.Id">@itemEX.NameRoom</option>
-                                                                            }
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                    <div class="d-flex text-left mb-2 align-items-center">
+                                                                } 
+                                                                <div class="d-flex text-left mb-2 align-items-center">
                                                                     <div class="w-25 pl-2 mr-2">
-                                                                        <label class="my-auto" asp-for="@Model.Article.Number"></label>
+                                                                        <label class="my-auto" asp-for="@article.Number"></label>
                                                                     </div>
                                                                     <div class="w-75">
-                                                                        <input type="number" class="form-control" asp-for="@Model.Article.Number"/>
+                                                                        <input type="number" class="form-control" asp-for="@article.Number"/>
+                                                                    </div>
+                                                                </div>
+                                                                 <div class="d-flex text-left mb-2 align-items-center">
+                                                                    <div class="w-25 pl-2 mr-2">
+                                                                        <label class="my-auto" asp-for="@article.State"></label>
+                                                                    </div>
+                                                                    <div class="w-75">
+                                                                        @if(article.State == true)
+                                                                        {
+                                                                            <input  type="checkbox" checked asp-for="@article.State"/>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input type="checkbox"  asp-for="@article.State"/>
+                                                                        }
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex flex-row justify-content-end my-0 mt-4">
                                                                     <div class="w-25 mr-2"></div>
                                                                     <div class="w-75 d-flex">
-                                                                        <input type="submit" name="btn" class="btn btn-success w-40" value="Tạo bài viết">
+                                                                        <input type="submit" name="btn" class="btn btn-success w-40" value="Sửa bài viết">
                                                                         <input type="submit" class="btn btn-info w-40 mr-2 ml-5" data-dismiss="modal" value="Đóng">
-                                                                        <!-- <button id= "btnCreate" type="submit" class="btn btn-primary w-50" onclick="return validateInput()">Thêm</button> -->
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        </form>
-                                                    </div>
+                                                    </form>
                                                 </div>
-                                            </div>*@
-                                            @*End model phòng trưng bày thường xuyên*@
+                                            </div>
+                                        </div>
+                                        @*End model Trưng bày thường xuyên*@
                                         }
                                     }
                                 </tbody>
@@ -622,3 +675,45 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function() { 
+    var e = document.getElementById("checkType");
+    var i = document.getElementById("artifact1");
+    var k = document.getElementById("exh1");
+   document.getElementById("artifact").style.display = 'none';
+   document.getElementById("exh").style.display = 'none';
+    function onChange() {
+      var value = e.value;
+      var text = e.options[e.selectedIndex].text;
+        if (text == "Chính") {
+            document.getElementById("artifact").style.display = 'block';
+            document.getElementById("exh").style.display = 'block';
+            console.log(i.options[i.selectedIndex].text);
+            console.log(k.options[k.selectedIndex].text);
+             if (i.options[i.selectedIndex].text != "Chọn hiện vật") {
+                document.getElementById("exh").style.display = 'none';
+            }
+            if(k.options[k.selectedIndex].text != "Chọn phòng trưng bày")
+            {
+                document.getElementById("artifact").style.display = 'none';
+            }
+        }
+        else if (text == "Trưng bày hiện vật") {
+            document.getElementById("artifact").style.display = 'block'
+            document.getElementById("exh").style.display = 'none';
+        }
+        else if (text == "Phòng trưng bày thường xuyên") {
+            document.getElementById("artifact").style.display = 'none'
+            document.getElementById("exh").style.display = 'block';
+        }
+        else {
+            document.getElementById("artifact").style.display = 'none'
+            document.getElementById("exh").style.display = 'none';
+        }
+    }
+    e.onchange = onChange;
+    i.onchange = onChange;
+    k.onchange = onChange;
+    onChange();
+});
+</script>

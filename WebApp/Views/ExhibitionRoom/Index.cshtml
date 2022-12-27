@@ -73,7 +73,7 @@
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <label class="textColor">File ảnh</label>
-                                        <input type="file" asp-for="@Model.ExhibitionRoom.Image"  class="form-control" name="File" >
+                                        <input type="file" asp-for="@Model.ExhibitionRoom.Image" dirname="FileImage" class="form-control" name="File" >
                                     </div>
                                     <div class="col-md-6">
                                         <label class="textColor">File 3D phòng</label>
@@ -107,13 +107,13 @@
                <div class=" ml-2 card shadow-lg ">
                    <div class="row ml-2">
                        <div class="col-lg-12 d-flex flex-row-reverse">
-                     
                             <div class=" dropdown dropdown-action">
                                 <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
                                 <div class="dropdown-menu dropdown-menu-center">
                                     <form asp-controller="ExhibitionRoom" asp-action="Edit" asp-route-id="@item.Id">
-                                        <button class="btn btn-success w-70 mt-2 ml-4"><i class="fa fa-pencil m-r-5"></i> Sửa</button>
+                                        <button class="btn btn-success w-70 mt-2 ml-4"><i class="fa fa-pencil m-r-5"></i> Sửa thông tin</button>
                                     </form>                          
+                                    <a class="btn btn-info w-70 mt-2 ml-4" asp-controller="Editor" asp-action="EditRoom" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa chi tiết 3D</a>
                                     <button class="btn btn-danger w-70 mt-2 ml-4" data-toggle="modal" data-target="#delete-test"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
                                 </div>
                                  <!-- START MODEL DELETE PHÒNG TRƯNG BÀY-->

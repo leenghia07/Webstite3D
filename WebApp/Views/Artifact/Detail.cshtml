@@ -106,12 +106,12 @@
     
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
-    //var width =window.innerWidth;
+    var width =window.innerWidth;
     //var height =window.innerHeight;
-    var width =1240;
+    //var width =1240;
     var height =800;
     var stats=new Stats();
-
+    
     showFPS.appendChild(stats.dom)
     // hiển thị hình ảnh input(camera,scence).
     var renderer = new THREE.WebGLRenderer();
@@ -129,7 +129,6 @@
         camera.aspect = width/height;
         camera.updateProjectionMatrix();
     })
-    
       const loader = new THREE.GLTFLoader();
         loader.load(
             FileLoad,

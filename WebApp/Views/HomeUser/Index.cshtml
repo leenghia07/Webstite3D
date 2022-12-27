@@ -36,18 +36,18 @@
                             {
                                 if (itemMain.Number == 1)
                                 {
-                                    if (itemMain.Artifact == null)
+                                    if (itemMain.Artifact == null && itemMain.State != false)
                                     {
                                         <div class="col-lg-7">
                                             <a asp-controller="RoomExhibitionMuseum" asp-action="Detail" asp-route-id="@itemMain.ExhibitionRoomId">
-                                                <div class="row">
+                                                <div class="row mb-2" style="justify-content:center;">
                                                     @if (itemMain.ExhibitionRoomId != null)
                                                     {
-                                                        <img class="mt-2" src="~/images/@itemMain.ExhibitionRoom.Image" style="height:100%;width:100%;" >
+                                                        <img class="mt-2" src="~/images/@itemMain.ExhibitionRoom.Image" style="height:30rem;width:70rem;" >
                                                     }
                                                     else
                                                     {
-                                                        <img class="mt-2" src="~/images/@itemMain.Artifact.Image" style="height:100%;width:100%;">
+                                                        <img class="mt-2" src="~/images/@itemMain.Artifact.Image" style="height:30rem;width:70rem;">
                                                     }
                                                 </div>
                                                 <div class="row">
@@ -83,14 +83,14 @@
                                     {
                                         <div class="col-lg-7">
                                              <a asp-controller="RoomArtifact" asp-action="Detail" asp-route-id="@itemMain.ArtifactId">
-                                                <div class="row">
-                                                    @if (itemMain.ExhibitionRoomId != null)
+                                                <div class="row mb-2"  style="justify-content:center;">
+                                                    @if (itemMain.ExhibitionRoomId != null )
                                                     {
-                                                        <img class="mt-2" src="~/images/@itemMain.ExhibitionRoom.Image" style="height:100%;width:100%;" >
+                                                        <img class="mt-2" src="~/images/@itemMain.ExhibitionRoom.Image" style="height:30rem;width:70rem;"  >
                                                     }
                                                     else
                                                     {
-                                                        <img class="mt-2" src="~/images/@itemMain.Artifact.Image" style="height:100%;width:100%;">
+                                                        <img class="mt-2" src="~/images/@itemMain.Artifact.Image" style="height:30rem;width:70rem;">
                                                     }
                                                 </div>
                                                 <div class="row">
@@ -128,7 +128,7 @@
                         <div class="col-lg-5">
                             @foreach (var item in Articles)
                             {
-                                if (item.Number != 1 && item.TypeOfArticleId == idMain && item.Number <= 6)
+                                if (item.Number != 1 && item.TypeOfArticleId == idMain && item.Number <= 6 && item.State != false)
                                 {
                                    if(item.Artifact == null)
                                     {
@@ -227,7 +227,6 @@
                </div>
            </div>
     </div>
-    
     <div class="row">
         <div class="col-lg-12">
             <div class="card shadow-lg">
@@ -246,7 +245,7 @@
                                <div class="row">
                                     @foreach (var item in Articles)
                                     {
-                                        if (item.TypeOfArticleId == idAFD)
+                                        if (item.TypeOfArticleId == idAFD && item.State != false)
                                         {
                                             if (item.Number <= 3)
                                             {
@@ -287,7 +286,7 @@
                                 <div class="row">
                                     @foreach (var item in Articles)
                                     {
-                                        if (item.TypeOfArticleId == idAFD)
+                                        if (item.TypeOfArticleId == idAFD && item.State != false)
                                         {
                                             if (item.Number > 3)
                                             {
@@ -357,7 +356,7 @@
                                <div class="row">
                                     @foreach (var item in Articles)
                                     {
-                                        if (item.TypeOfArticleId == idEXR)
+                                        if (item.TypeOfArticleId == idEXR && item.State != false)
                                         {
                                             if (item.Number <= 3)
                                             {
@@ -398,7 +397,7 @@
                                 <div class="row">
                                     @foreach (var item in Articles)
                                     {
-                                        if (item.TypeOfArticleId == idEXR)
+                                        if (item.TypeOfArticleId == idEXR && item.State != false)
                                         {
                                             if (item.Number > 3)
                                             {

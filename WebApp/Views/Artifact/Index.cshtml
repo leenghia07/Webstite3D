@@ -232,6 +232,7 @@
                                                     <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
                                                     <div class="dropdown-menu dropdown-menu-center">
                                                         <a class="btn btn-success w-70 ml-4" asp-controller="Artifact" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa</a>                              
+                                                        <a class="btn btn-info w-70 mt-2 ml-4" asp-controller="Editor" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa chi tiết 3D</a>  
                                                         <form asp-action="Delete" asp-route-id="@item.Id">
                                                             <button class="btn btn-danger w-70 mt-2 ml-4"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
                                                         </form>
@@ -259,7 +260,8 @@
                                     <div class="dropdown-menu dropdown-menu-center">
                                         <form asp-controller="Artifact" asp-action="Edit" asp-route-id="@item.Id" >
                                             <button class="btn btn-success w-70 mt-2 ml-4"><i class="fa fa-pencil m-r-5"></i> Sửa</button>
-                                        </form>                          
+                                        </form>
+                                        <a class="btn btn-info w-70 mt-2 ml-4" asp-controller="Editor" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa chi tiết 3D</a>  
                                         <button class="btn btn-danger w-70 mt-2 ml-4" data-toggle="modal" data-target="#delete-test"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
                                     </div>
                                    @* START MODEL DELETE*@

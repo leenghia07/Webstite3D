@@ -20,9 +20,19 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var DetailArtifact = new VMArtifact();
-            DetailArtifact.Artifact = await _context.Aritifact.FindAsync(id);
+            var Artifact = _context.Aritifact.SingleOrDefault(i => i.Id == id);
+            DetailArtifact.Artifact = Artifact;
 
             return View(DetailArtifact);
+        }
+        public async Task<IActionResult> EditRoom(Guid id)
+        {
+            var ExhRoom = new VMExhibitionRoom();
+            var Exh = _context.ExhibitionRoom.SingleOrDefault(i => i.Id == id);
+
+            ExhRoom.ExhibitionRoom = Exh;
+
+            return View(ExhRoom);
         }
     }
 }
