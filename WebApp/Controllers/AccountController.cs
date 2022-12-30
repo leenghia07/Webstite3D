@@ -24,6 +24,7 @@ namespace WebApp.Controllers
             _roleManager = roleManager;
             _userManager = userManager;
             _usercontext = usercontext;
+
         }
         [Authorize(Roles = Permission.Manager)]
         public async Task<IActionResult> Index()
