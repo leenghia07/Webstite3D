@@ -22,16 +22,13 @@ namespace WebApp.Controllers
             var DetailArtifact = new VMArtifact();
             var Artifact = _context.Aritifact.SingleOrDefault(i => i.Id == id);
             DetailArtifact.Artifact = Artifact;
-
             return View(DetailArtifact);
         }
         public async Task<IActionResult> EditRoom(Guid id)
         {
             var ExhRoom = new VMExhibitionRoom();
             var Exh = _context.ExhibitionRoom.SingleOrDefault(i => i.Id == id);
-
             ExhRoom.ExhibitionRoom = Exh;
-
             return View(ExhRoom);
         }
     }

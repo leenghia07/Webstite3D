@@ -81,36 +81,59 @@ namespace WebApp.Controllers
              var File = HttpContext.Request.Form.Files;
             
              string PathImage = Path.Combine(wwwPath, "images");
-             if (!Directory.Exists(PathImage))
-             {
-                 Directory.CreateDirectory(PathImage);
-             }
-             string FileNameImage = Path.GetFileName(File[0].FileName);
-             using (FileStream stream = new FileStream(Path.Combine(PathImage, FileNameImage), FileMode.Create))
-             {
-                File[0].CopyTo(stream);
-             }
-
-            string Path3D = Path.Combine(wwwPath, "File3D");
-            if (!Directory.Exists(Path3D))
+             string Path3D = Path.Combine(wwwPath, "File3D");
+            if (File.Count > 0)
             {
-                Directory.CreateDirectory(Path3D);
-            }
-            if (File[1] != null)
-            {
-                string FileName3D = Path.GetFileName(File[1].FileName);
-                using (FileStream stream = new FileStream(Path.Combine(Path3D, FileName3D), FileMode.Create))
+                if (!Directory.Exists(PathImage))
                 {
-                    File[1].CopyTo(stream);
+                    Directory.CreateDirectory(PathImage);
                 }
-                artifact.File3D = FileName3D;
-
+                if (File.Count == 1)
+                {
+                    string FileName = Path.GetFileName(File[0].FileName);
+                    switch (File[0].Name)
+                    {
+                        case "File":
+                            using (FileStream stream = new FileStream(Path.Combine(PathImage, FileName), FileMode.Create))
+                            {
+                                File[0].CopyTo(stream);
+                            }
+                            artifact.Image = FileName;
+                            artifact.File3D = null;
+                            break;
+                        case "File3D":
+                            using (FileStream stream = new FileStream(Path.Combine(Path3D, FileName), FileMode.Create))
+                            {
+                                File[0].CopyTo(stream);
+                            }
+                            artifact.Image = null;
+                            artifact.File3D = FileName;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if (File.Count == 2)
+                {
+                    string FileNameImage = Path.GetFileName(File[0].FileName);
+                    string FileName3D = Path.GetFileName(File[1].FileName);
+                    using (FileStream stream = new FileStream(Path.Combine(PathImage, FileNameImage), FileMode.Create))
+                    {
+                        File[0].CopyTo(stream);
+                    }
+                    artifact.Image = FileNameImage;
+                    using (FileStream stream = new FileStream(Path.Combine(Path3D, FileName3D), FileMode.Create))
+                    {
+                        File[1].CopyTo(stream);
+                    }
+                    artifact.File3D = FileName3D;
+                }
             }
             else
             {
+                artifact.Image =null;
                 artifact.File3D = null;
             }
-            artifact.Image = FileNameImage;
             _context.Add(artifact);
              await _context.SaveChangesAsync();
             TempData["success"] = "Thêm thành công";
@@ -127,6 +150,7 @@ namespace WebApp.Controllers
             if(File.Count > 0)
             {
                 string PathImage = Path.Combine(wwwPath, "images");
+                string Path3D = Path.Combine(wwwPath, "File3D");
                 if (!Directory.Exists(PathImage))
                 {
                     Directory.CreateDirectory(PathImage);
@@ -134,19 +158,25 @@ namespace WebApp.Controllers
                 if(File.Count == 1)
                 {
                     string FileName = Path.GetFileName(File[0].FileName);
-                    using (FileStream stream = new FileStream(Path.Combine(PathImage, FileName), FileMode.Create))
-                    {
-                        File[0].CopyTo(stream);
-                    }
                     switch (File[0].Name)
                     {
                         case "FileImage":
+                            using (FileStream stream = new FileStream(Path.Combine(PathImage, FileName), FileMode.Create))
+                            {
+                                File[0].CopyTo(stream);
+                            }
                             artifact.Image = FileName;
                             artifact.File3D = GetArtifact.File3D;
                             break;
                         case "File3D":
+                            using (FileStream stream = new FileStream(Path.Combine(Path3D, FileName), FileMode.Create))
+                            {
+                                File[0].CopyTo(stream);
+                            }
                             artifact.Image = GetArtifact.Image;
                             artifact.File3D = FileName;
+                            TempData["Id_Artifact"] = "1";
+                            TempData["Id"] = artifact.Id;
                             break;
                         default:
                             break;
@@ -155,37 +185,19 @@ namespace WebApp.Controllers
                 if(File.Count == 2)
                 {
                     string FileNameImage = Path.GetFileName(File[0].FileName);
-                    if (!string.IsNullOrEmpty(FileNameImage))
-                    {
-                        using (FileStream stream = new FileStream(Path.Combine(PathImage, FileNameImage), FileMode.Create))
-                        {
-                            File[0].CopyTo(stream);
-                        }
-                        artifact.Image = FileNameImage;
-                    }
-                    else
-                    {
-                        artifact.Image = GetArtifact.Image;
-                    }
-                    string Path3D = Path.Combine(wwwPath, "File3D");
-                    if (!Directory.Exists(Path3D))
-                    {
-                        Directory.CreateDirectory(Path3D);
-                    }
                     string FileName3D = Path.GetFileName(File[1].FileName);
-                    if (!string.IsNullOrEmpty(FileName3D))
+                    using (FileStream stream = new FileStream(Path.Combine(PathImage, FileNameImage), FileMode.Create))
                     {
-                        using (FileStream stream = new FileStream(Path.Combine(Path3D, FileName3D), FileMode.Create))
-                        {
-                            File[1].CopyTo(stream);
-                        }
-                        artifact.Image = GetArtifact.Image;
-                        artifact.File3D = FileName3D;
+                        File[0].CopyTo(stream);
                     }
-                    else
+                    using (FileStream stream = new FileStream(Path.Combine(Path3D, FileName3D), FileMode.Create))
                     {
-                        artifact.File3D = GetArtifact.File3D;
+                        File[1].CopyTo(stream);
                     }
+                    artifact.Image = FileNameImage;
+                    artifact.File3D = FileName3D;
+                    TempData["Id_Artifact"] = "1";
+                    TempData["Id"] = artifact.Id;
                 }
             }
             else
@@ -203,6 +215,9 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var Artifact = await _context.Aritifact.FindAsync(id);
+            var ArtifactOld = await _context.Aritifact.FindAsync(id);
+            TempData["Id_Artifact"] = "1";
+            TempData["Id"] = ArtifactOld.Id;
             _context.Aritifact.Remove(Artifact);
             await _context.SaveChangesAsync();
             TempData["success"] = "Xóa hiện vật thành công";

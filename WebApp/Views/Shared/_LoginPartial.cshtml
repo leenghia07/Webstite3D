@@ -45,7 +45,7 @@
                       <div class="row">
                         <i class="icon-user mt-3"></i>
                         <form id="logoutForm" class="form-inline" asp-controller="Account" asp-action="ProFile">
-                            <button class="nav-link btn btn-link text-dark"><span class="small">Profile</span></button>
+                            <button class="nav-link btn btn-link text-dark"><span class="small">Trang cá nhân</span></button>
                         </form>
                     </div>
                 </div>
@@ -58,9 +58,9 @@
                 <div class="dropdown-item">
                     <div class="row">
                         <div class=" d-flex">
-                            <i class="icon-key mt-3"></i>
+                            <i class="fa fa-sign-out mt-3" aria-hidden="true"></i>
                             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                <button id="logout" type="submit" class="nav-link btn btn-link text-dark"><span class="small">Logout</span></button>
+                                <button id="logout" type="submit" class="nav-link btn btn-link text-dark"><span class="small">Đăng xuất</span></button>
                             </form>
                         </div>
                     </div>

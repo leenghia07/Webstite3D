@@ -44,89 +44,70 @@ namespace WebApp.Controllers
             return View(exhibitionRoomVM);
         }
         [HttpPost]
-        public async Task<IActionResult> Create(ExhibitionRoom exhibitionRoom)
+        public async Task<IActionResult> Create(VMExhibitionRoom vmExhibitionRoom)
         {
-            if(ModelState.IsValid)
+            var exhibitionRoom = vmExhibitionRoom.ExhibitionRoom;
+            string wwwPath = _environment.WebRootPath;
+            string ContentPath = _environment.ContentRootPath;
+            var File = HttpContext.Request.Form.Files;
+            string PathImage = Path.Combine(wwwPath, "images");
+            string Path3D = Path.Combine(wwwPath, "File3D");
+            if (File.Count > 0)
             {
-                string wwwPath = _environment.WebRootPath;
-                string ContentPath = _environment.ContentRootPath;
-                var File = HttpContext.Request.Form.Files;
-                if (File.Count > 0)
+                if (!Directory.Exists(PathImage))
                 {
-                    string PathImage = Path.Combine(wwwPath, "images");
-                    if (!Directory.Exists(PathImage))
+                    Directory.CreateDirectory(PathImage);
+                }
+                if (File.Count == 1)
+                {
+                    string FileName = Path.GetFileName(File[0].FileName);
+                    switch (File[0].Name)
                     {
-                        Directory.CreateDirectory(PathImage);
-                    }
-                    if (File.Count == 1)
-                    {
-                        string FileName = Path.GetFileName(File[0].FileName);
-                        using (FileStream stream = new FileStream(Path.Combine(PathImage, FileName), FileMode.Create))
-                        {
-                            File[0].CopyTo(stream);
-                        }
-                        switch (File[0].Name)
-                        {
-                            case "FileImage":
-                                exhibitionRoom.Image = FileName;
-                                exhibitionRoom.File3D = null;
-                                break;
-                            case "File3D":
-                                exhibitionRoom.Image = null;
-                                exhibitionRoom.File3D = FileName;
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    if (File.Count == 2)
-                    {
-                        string FileNameImage = Path.GetFileName(File[0].FileName);
-                        if (!string.IsNullOrEmpty(FileNameImage))
-                        {
-                            using (FileStream stream = new FileStream(Path.Combine(PathImage, FileNameImage), FileMode.Create))
+                        case "File":
+                            using (FileStream stream = new FileStream(Path.Combine(PathImage, FileName), FileMode.Create))
                             {
                                 File[0].CopyTo(stream);
                             }
-                            exhibitionRoom.Image = FileNameImage;
-                        }
-                        else
-                        {
-                            exhibitionRoom.Image = null;
-                        }
-                        string Path3D = Path.Combine(wwwPath, "File3D");
-                        if (!Directory.Exists(Path3D))
-                        {
-                            Directory.CreateDirectory(Path3D);
-                        }
-                        string FileName3D = Path.GetFileName(File[1].FileName);
-                        if (!string.IsNullOrEmpty(FileName3D))
-                        {
-                            using (FileStream stream = new FileStream(Path.Combine(Path3D, FileName3D), FileMode.Create))
+                            exhibitionRoom.Image = FileName;
+                            exhibitionRoom.File3D = null;
+                            break;
+                        case "File3D":
+                            using (FileStream stream = new FileStream(Path.Combine(Path3D, FileName), FileMode.Create))
                             {
-                                File[1].CopyTo(stream);
+                                File[0].CopyTo(stream);
                             }
                             exhibitionRoom.Image = null;
-                            exhibitionRoom.File3D = FileName3D;
-                        }
-                        else
-                        {
-                            exhibitionRoom.File3D = null;
-                        }
+                            exhibitionRoom.File3D = FileName;
+                            break;
+                        default:
+                            break;
                     }
                 }
-                else
+                if (File.Count == 2)
                 {
-                    exhibitionRoom.Image = null;
-                    exhibitionRoom.File3D = null;
+                    string FileNameImage = Path.GetFileName(File[0].FileName);
+                    string FileName3D = Path.GetFileName(File[1].FileName);
+                    using (FileStream stream = new FileStream(Path.Combine(PathImage, FileNameImage), FileMode.Create))
+                    {
+                        File[0].CopyTo(stream);
+                    }
+                    using (FileStream stream = new FileStream(Path.Combine(Path3D, FileName3D), FileMode.Create))
+                    {
+                        File[1].CopyTo(stream);
+                    }
+                    exhibitionRoom.Image = FileNameImage;
+                    exhibitionRoom.File3D = FileName3D;
                 }
-                _context.Add(exhibitionRoom);
-                await _context.SaveChangesAsync();
-                TempData["success"] = "Thêm thành công";
-                return RedirectToAction(nameof(Index));
             }
-            TempData["Error"] = "Thêm không thành công";
-            return View(exhibitionRoom);
+            else
+            {
+                exhibitionRoom.Image = null;
+                exhibitionRoom.File3D = null;
+            }
+            _context.Add(exhibitionRoom);
+            await _context.SaveChangesAsync();
+            TempData["success"] = "Thêm thành công";
+            return RedirectToAction(nameof(Index));
         }
         [HttpPost]
         public async Task<IActionResult> Update(ExhibitionRoom exhibitionRoom)
@@ -140,6 +121,7 @@ namespace WebApp.Controllers
             if (File.Count > 0)
             {
                 string PathImage = Path.Combine(wwwPath, "images");
+                string Path3D = Path.Combine(wwwPath, "File3D");
                 if (!Directory.Exists(PathImage))
                 {
                     Directory.CreateDirectory(PathImage);
@@ -147,19 +129,25 @@ namespace WebApp.Controllers
                 if (File.Count == 1)
                 {
                     string FileName = Path.GetFileName(File[0].FileName);
-                    using (FileStream stream = new FileStream(Path.Combine(PathImage, FileName), FileMode.Create))
-                    {
-                        File[0].CopyTo(stream);
-                    }
                     switch (File[0].Name)
                     {
                         case "FileImage":
+                            using (FileStream stream = new FileStream(Path.Combine(PathImage, FileName), FileMode.Create))
+                            {
+                                File[0].CopyTo(stream);
+                            }
                             exhibitionRoom.Image = FileName;
                             exhibitionRoom.File3D = GetExhRoom.File3D;
                             break;
                         case "File3D":
+                            using (FileStream stream = new FileStream(Path.Combine(Path3D, FileName), FileMode.Create))
+                            {
+                                File[0].CopyTo(stream);
+                            }
                             exhibitionRoom.Image = GetExhRoom.Image;
                             exhibitionRoom.File3D = FileName;
+                            TempData["Id_Exh"] = "1";
+                            TempData["Id"] = GetExhRoom.Id;
                             break;
                         default:
                             break;
@@ -168,44 +156,25 @@ namespace WebApp.Controllers
                 if (File.Count == 2)
                 {
                     string FileNameImage = Path.GetFileName(File[0].FileName);
-                    if (!string.IsNullOrEmpty(FileNameImage))
-                    {
-                        using (FileStream stream = new FileStream(Path.Combine(PathImage, FileNameImage), FileMode.Create))
-                        {
-                            File[0].CopyTo(stream);
-                        }
-                        exhibitionRoom.Image = FileNameImage;
-                    }
-                    else
-                    {
-                        exhibitionRoom.Image = GetExhRoom.Image;
-                    }
-                    string Path3D = Path.Combine(wwwPath, "File3D");
-                    if (!Directory.Exists(Path3D))
-                    {
-                        Directory.CreateDirectory(Path3D);
-                    }
                     string FileName3D = Path.GetFileName(File[1].FileName);
-                    if (!string.IsNullOrEmpty(FileName3D))
+                    using (FileStream stream = new FileStream(Path.Combine(PathImage, FileNameImage), FileMode.Create))
                     {
-                        using (FileStream stream = new FileStream(Path.Combine(Path3D, FileName3D), FileMode.Create))
-                        {
-                            File[1].CopyTo(stream);
-                        }
-                        exhibitionRoom.Image = GetExhRoom.Image;
-                        exhibitionRoom.File3D = FileName3D;
+                        File[0].CopyTo(stream);
                     }
-                    else
+                    using (FileStream stream = new FileStream(Path.Combine(Path3D, FileName3D), FileMode.Create))
                     {
-                        exhibitionRoom.File3D = GetExhRoom.File3D;
+                        File[1].CopyTo(stream);
                     }
+                    exhibitionRoom.Image = FileNameImage;
+                    exhibitionRoom.File3D = FileName3D;
+                    TempData["Id_Exh"] = "1";
+                    TempData["Id"] = GetExhRoom.Id;
                 }
             }
             else
             {
                 exhibitionRoom.Image = GetExhRoom.Image;
                 exhibitionRoom.File3D = GetExhRoom.File3D;
-                exhibitionRoom.MuseumId = GetExhRoom.MuseumId;
             }
             _context.Update(exhibitionRoom);
             await _context.SaveChangesAsync();
@@ -216,6 +185,9 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Delete(Guid Id)
         {
             var GetExRoom = await _context.ExhibitionRoom.FindAsync(Id);
+            var ExRoomOld = await _context.ExhibitionRoom.FindAsync(Id);
+            TempData["Id_Exh"] = "1";
+            TempData["Id"] = ExRoomOld.Id;
             _context.ExhibitionRoom.Remove(GetExRoom);
             await _context.SaveChangesAsync();
             TempData["success"] = "Xóa phòng trưng bày thành công";

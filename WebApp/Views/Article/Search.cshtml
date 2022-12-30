@@ -1,0 +1,381 @@
+﻿@model WebApp.Models.ViewModel.VMArticle
+@{
+    var Articles = Model.Articles;
+    string YearNow = DateTime.Now.ToString("yyyy");
+    int Year = Int32.Parse(YearNow);
+    int stt = 0;
+    int TenYearAgo = Year - 10;
+    var article = Model.Article;
+    var TypeArticles = Model.TypeOfArticles.ToList();
+    var ExhibitionRooms = Model.ExhibitionRooms;
+    var Artifacts = Model.Artifacts;
+    string AFD = "3f716e7b-ebf6-4452-b9ba-45f5c189507f";
+    string Main = "ed76dd39-1861-4260-940f-7e1d76ade15e";
+    string EXR = "56ea9add-0d90-4a1d-8c8f-fe66258655ae";
+    Guid idAFD = new Guid(AFD);
+    Guid idMain = new Guid(Main);
+    Guid idEXR = new Guid(EXR);
+
+}
+
+ <style>
+     .an {
+    display: block;
+  	display: -webkit-box;
+  	line-height: 1.9;
+  	-webkit-line-clamp: 3;  /* số dòng hiển thị */
+  	-webkit-box-orient: vertical;
+  	overflow: hidden;
+  	/* text-overflow: ellipsis; */
+}
+ </style>
+ @if(TempData["Error"] != null)
+{
+    <div class="alert mb-3 alert-danger solid alert-dismissible fade show">
+        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+        </button>
+        <strong>@TempData["Error"]</strong>
+    </div>   
+}
+@if(TempData["success"] != null)
+{
+    <div class="alert mb-3 alert-primary solid alert-right-icon alert-dismissible fade show">
+        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+        </button>
+        <strong>@TempData["success"]</strong>
+    </div>  
+}
+<div class="row"> 
+    <div class="col-lg-12">
+        <form asp-action="Search">
+            <div class=" row page-titles shadow-lg mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <h3 style="color:#673BB7;">Bài viết</h3>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a href="">Danh sách</a></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="card shadow-lg mt-4">
+                <div class="card-body d-flex flex-row ">
+                   @* <div class="col-lg-2">  
+                        <select  class="form-control" asp-for="@Model.Month" required>
+                            <option asp-for="@Model.Month">@Model.Month</option>
+                            <option  value=""  >Chọn tháng</option> 
+                            @for (var i = 1; i <= 12 ; i++)
+                            {
+                                <option  value="@i">Tháng @i</option> 
+                            }
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <select class="form-control" asp-for="@Model.Year" required>
+                            <option asp-for="@Model.Year">@Model.Year</option> 
+                            <option  value="">Chọn năm</option>
+                                @for (var i = @Year; i >= TenYearAgo; i--)
+                                {
+                                    <option  value="@i">Năm @i</option> 
+                                }
+                        </select>
+                    </div>*@
+                     <div class="col-lg-2">
+                        <select class="form-control" asp-for="@Model.TypeOfArticle" required>
+                         @*   @foreach (var item in TypeOfArtifacts)
+                            {
+                                @if(item.Id == @Model.TypeOfArtifact)
+                                {
+                                    <option  value="@item.Id">@item.NameTypeArtifact</option> 
+                                            
+                                }
+                            }*@
+                            <option  value="">Chọn loại bài viết</option>
+                            @foreach (var item in @Model.TypeOfArticles)
+                            {
+                                <option  value="@item.Id">@item.NameType</option> 
+                            }
+                        </select>
+                    </div>
+                    <div class="col-lg-5">
+                        <button type="submit" style="width:200px;height:50px;font-size: 20px;" class="btn btn-secondary">Tìm kiếm</button>
+                        <button type="submit" data-toggle="modal" data-target="#modalCreate" style="width:200px;height:50px;font-size: 20px;" class="btn btn-secondary">Tạo</button>
+                    </div>
+                    @*Start model thêm bài viết*@
+                        <div class="w-50 d-flex justify-content-end">
+                            <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
+                                    <form  asp-action="Create">
+                                            <div class="modal-content p-3" style="width: 550px;">
+                                                <div class="flex-row d-flex justify-content-center mb-2">
+                                                    <h2 class="text-info">Tạo bài viết</h2>
+                                                </div>
+                                                <div class="d-flex flex-column w-auto mt-3">
+                                                <div class="d-flex text-left mb-2 align-items-center">
+                                                    <div class="w-25 pl-2 mr-2">
+                                                        <label class="my-auto" asp-for="@Model.Article.TypeOfArticle"></label>
+                                                    </div>
+                                                    <div class="w-75">
+                                                       <select id="checkType" class="form-control" asp-for="@Model.Article.TypeOfArticleId"  id="remain-open">
+                                                           <option>Chọn loại bài viết</option>
+                                                           @foreach (var item in TypeArticles)
+                                                           {
+                                                               <option value="@item.Id">@item.NameType</option>
+                                                           }
+                                                       </select>
+                                                    </div>
+                                                </div>
+                                                <div id="artifact">
+                                                    <div class="d-flex text-left mb-2 align-items-center">
+                                                        <div class="w-25 pl-2 mr-2">
+                                                            <label class="my-auto" asp-for="@Model.Article.Artifact"></label>
+                                                        </div>
+                                                        <div class="w-75">
+                                                           <select class="form-control" asp-for="@Model.Article.ArtifactId" id="artifact1">
+                                                               <option>Chọn hiện vật</option>
+                                                               @foreach (var item in Artifacts)
+                                                               {
+                                                                   <option value="@item.Id">@item.NameArtifact</option>
+                                                               }
+                                                           </select>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                                <div id="exh">
+                                                    <div class="d-flex text-left mb-2 align-items-center">
+                                                        <div class="w-25 pl-2 mr-2">
+                                                            <label class="my-auto" asp-for="@Model.Article.ExhibitionRoom"></label>
+                                                        </div>
+                                                        <div class="w-75">
+                                                           <select class="form-control" asp-for="@Model.Article.ExhibitionRoomId" id="exh1">
+                                                               <option>Chọn phòng trưng bày</option>
+                                                               @foreach (var item in ExhibitionRooms)
+                                                               {
+                                                                   <option value="@item.Id">@item.NameRoom</option>
+                                                               }
+                                                           </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex text-left mb-2 align-items-center">
+                                                    <div class="w-25 pl-2 mr-2">
+                                                        <label class="my-auto" asp-for="@Model.Article.Number"></label>
+                                                    </div>
+                                                    <div class="w-75">
+                                                        <input type="number" class="form-control" asp-for="@Model.Article.Number"/>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-row justify-content-end my-0 mt-4">
+                                                    <div class="w-25 mr-2"></div>
+                                                    <div class="w-75 d-flex">
+                                                        <input type="submit" name="btn" class="btn btn-success w-40" value="Tạo bài viết">
+                                                        <input type="submit" class="btn btn-info w-40 mr-2 ml-5" data-dismiss="modal" value="Đóng">
+                                                        <!-- <button id= "btnCreate" type="submit" class="btn btn-primary w-50" onclick="return validateInput()">Thêm</button> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @*End model thêm bài viết*@
+                </div>
+            </div>
+        </form>
+     </div>
+     <div class="col-lg-12">
+         <div class="card shadow-lg">
+             <div class="card-header">Kết quả</div>
+             <div class="card-body">
+                  <table class="table table-striped table-bordered w-auto" style="width:100%">
+                        <thead class="text-center text-nowrap"  style="background-color:#dbd8d8">
+                            <tr>
+                                <td class="w-5">
+                                    STT
+                                </td>
+                                <td class="w-15">
+                                    Hình ảnh    
+                                </td>
+                                <td class="w-20">
+                                    Hiện vật
+                                </td>
+                                <td class="w-5">
+                                    vị trí
+                                </td>
+                                    <td class="w-5">
+                                    Trạng thái
+                                </td>
+                                <td class="w-5">
+                                            
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int stthienvat = 0;
+                            }
+                            @foreach (var item in Articles)
+                            {
+                                if(item.ArtifactId != null && item.TypeOfArticleId == idAFD)
+                                {
+                                    article = item;
+                                    stthienvat++;
+                                    <tr>
+                                        <td class="text-center">
+                                            @stthienvat
+                                        </td>
+                                        <td class="text-center">
+                                            <img height="150" width="250" src="~/Images/@item.Artifact.Image">
+                                        </td>
+                                        <td class="text-left">
+                                            <a asp-controller="Artifact" asp-action="Detail" asp-route-id="@item.ArtifactId" style="color:blue;font-size:17px;">@item.Artifact.NameArtifact</a>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>@item.Number</p>
+                                        </td>
+                                        <td class="text-center">
+                                            @if(item.State == true)
+                                            {
+                                                <span class="badge badge-pill badge-success text-white" style="font-size:0.8rem;">Đang trưng bày</span> 
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-pill badge-danger text-white"style="font-size:0.8rem;">dừng trưng bày</span>   
+                                            }
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="dropdown dropdown-action">
+                                                <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-center">
+                                                    <button class="btn btn-success w-70 mt-2 ml-4" data-toggle="modal" data-target="#ModalA_@item.Id"><i class="fa fa-trash-o m-r-5"></i> Sửa</button>
+                                                    <form asp-action="Delete" asp-route-id="@item.Id">
+                                                        <button class="btn btn-danger w-70 mt-2 ml-4"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @*Start model Trưng bày chính*@
+                                    <div class="w-50 d-flex justify-content-end">
+                                        <div class="modal fade" id="ModalA_@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
+                                                <form  asp-action="Update">
+                                                    <input asp-for="@article.Id" hidden />
+                                                    <div class="modal-content p-3" style="width: 550px;">
+                                                        <div class="flex-row d-flex justify-content-center mb-2">
+                                                            <h2 class="text-info">Sửa bài viết</h2>
+                                                        </div>
+                                                        <div class="d-flex flex-column w-auto mt-3">
+                                                        <div class="d-flex text-left mb-2 align-items-center">
+                                                            <div class="w-25 pl-2 mr-2">
+                                                                <label class="my-auto" asp-for="@Model.Article.TypeOfArticle"></label>
+                                                            </div>
+                                                            <div class="w-75">
+                                                                <select class="form-control" asp-for="@article.TypeOfArticleId"  id="remain-open">
+                                                                    <option value="@item.TypeOfArticleId">@item.TypeOfArticle.NameType</option>
+                                                                    <option>Chọn loại bài viết</option>
+                                                                    @foreach (var itemAl in TypeArticles)
+                                                                    {
+                                                                        <option value="@itemAl.Id">@itemAl.NameType</option>
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex text-left mb-2 align-items-center">
+                                                            <div class="w-25 pl-2 mr-2">
+                                                                <label class="my-auto" asp-for="@Model.Artifact"></label>
+                                                            </div>
+                                                            <div class="w-75">
+                                                                <select class="form-control" asp-for="@article.ArtifactId" id="remain-open">
+                                                                    <option value="@item.ArtifactId">@item.Artifact.NameArtifact</option>
+                                                                </select>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="d-flex text-left mb-2 align-items-center">
+                                                            <div class="w-25 pl-2 mr-2">
+                                                                <label class="my-auto" asp-for="@article.Number"></label>
+                                                            </div>
+                                                            <div class="w-75">
+                                                                <input type="number" class="form-control" asp-for="@article.Number"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex text-left mb-2 align-items-center">
+                                                            <div class="w-25 pl-2 mr-2">
+                                                                <label class="my-auto" asp-for="@article.State"></label>
+                                                            </div>
+                                                            <div class="w-75">
+                                                                @if(article.State == true)
+                                                                {
+                                                                    <input  type="checkbox" checked asp-for="@article.State"/>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="checkbox"  asp-for="@article.State"/>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex flex-row justify-content-end my-0 mt-4">
+                                                            <div class="w-25 mr-2"></div>
+                                                            <div class="w-75 d-flex">
+                                                                <input type="submit" name="btn" class="btn btn-success w-40" value="Sửa bài viết">
+                                                                <input type="submit" class="btn btn-info w-40 mr-2 ml-5" data-dismiss="modal" value="Đóng">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*End model Trưng bày hiện vật*@
+                                }
+                            }
+                        </tbody>
+                    </table>
+             </div>
+         </div>
+     </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() { 
+    var e = document.getElementById("checkType");
+    var i = document.getElementById("artifact1");
+    var k = document.getElementById("exh1");
+   document.getElementById("artifact").style.display = 'none';
+   document.getElementById("exh").style.display = 'none';
+    function onChange() {
+      var value = e.value;
+      var text = e.options[e.selectedIndex].text;
+        if (text == "Chính") {
+            document.getElementById("artifact").style.display = 'block';
+            document.getElementById("exh").style.display = 'block';
+            console.log(i.options[i.selectedIndex].text);
+            console.log(k.options[k.selectedIndex].text);
+             if (i.options[i.selectedIndex].text != "Chọn hiện vật") {
+                document.getElementById("exh").style.display = 'none';
+            }
+            if(k.options[k.selectedIndex].text != "Chọn phòng trưng bày")
+            {
+                document.getElementById("artifact").style.display = 'none';
+            }
+        }
+        else if (text == "Trưng bày hiện vật") {
+            document.getElementById("artifact").style.display = 'block'
+            document.getElementById("exh").style.display = 'none';
+        }
+        else if (text == "Phòng trưng bày thường xuyên") {
+            document.getElementById("artifact").style.display = 'none'
+            document.getElementById("exh").style.display = 'block';
+        }
+        else {
+            document.getElementById("artifact").style.display = 'none'
+            document.getElementById("exh").style.display = 'none';
+        }
+    }
+    e.onchange = onChange;
+    i.onchange = onChange;
+    k.onchange = onChange;
+    onChange();
+});
+</script>

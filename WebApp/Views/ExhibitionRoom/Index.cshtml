@@ -4,9 +4,13 @@
     var Museums = Model.Museums; 
 
 }
+
 <div class="row">
     <div class="col-lg-12">
         <div class=" row page-titles shadow-lg mx-0">
+            @*<div class="col-sm-1 p-md-0">
+                <a href="#" onclick="history.back()"> <i class="mdi mdi-arrow-left-bold-circle-outline" style="font-size: 3em;color:#230c4e;"></i></a>
+            </div>*@
             <div class="col-sm-6 p-md-0">
                 <h3 style="color:#673BB7;">Phòng trưng bày</h3>
             </div>
@@ -23,6 +27,11 @@
                 </button>
                 <strong>@TempData["success"]</strong>
             </div>  
+        }
+        @if(TempData["Id_Exh"] != null)
+        {
+            <input id="checkExh" hidden="hidden" value="@TempData["Id_Exh"]">
+            <input id="idExh" hidden="hidden" value="@TempData["Id"]">
         }
         @if(TempData["Error"] != null)
         {
@@ -44,7 +53,7 @@
                         </div>
                     </div>
                     <div id="active-header_collapseOne" class="collapse accordion__body show" data-parent="#accordion-nine">
-                        <form asp-controller="ExhibitionRoom" asp-action="Create">
+                        <form asp-controller="ExhibitionRoom" asp-action="Create" enctype="multipart/form-data">
                             <div class="accordion__body--text"> 
                                 <div class="form-row">
                                     <div class="col-md-12">
@@ -57,15 +66,14 @@
                                     <div class="col-md-6">
                                         <label class="textColor">Ngày</label>
                                         <input type="date" asp-for="@Model.ExhibitionRoom.Date"  class="form-control">
-                                        @*<span class="mt-2 mb-2 ml-2" asp-validation-for="@Model.NameRoom" style="color:red">test</span>*@
                                     </div>
-                                     <div class="col-md-6">
-                                        <label class="textColor">Bảo tàng</label>
+                                    <div class="col-md-6">
+                                        <label class="textColor" asp-for="@Model.ExhibitionRoom.Museum"></label>
                                         <select class="form-control" asp-for="@Model.ExhibitionRoom.MuseumId">
-                                            <option >Chọn bảo tàng</option>
+                                            <option>--- Chọn bảo tàng ---</option>
                                             @foreach (var item in Museums)
                                             {
-                                                <option asp-for="@item.Id"> @item.MuseumName</option>
+                                               <option value="@item.Id">@item.MuseumName</option> 
                                             }
                                         </select>
                                     </div>
@@ -73,11 +81,11 @@
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <label class="textColor">File ảnh</label>
-                                        <input type="file" asp-for="@Model.ExhibitionRoom.Image" dirname="FileImage" class="form-control" name="File" >
+                                        <input class="form-control" name="File"   type="file" accept=".jpeg,.png,.gif,.tiff,.psd,.svg,.heic,.raw" >
                                     </div>
                                     <div class="col-md-6">
                                         <label class="textColor">File 3D phòng</label>
-                                        <input type="file" asp-for="@Model.ExhibitionRoom.File3D" name="File3D" class="form-control">
+                                        <input class="form-control" name="File3D" type="file" accept=".gltf,.glb" >
                                     </div>
                                 </div>  
                                 <div class="form-row">
@@ -111,10 +119,10 @@
                                 <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
                                 <div class="dropdown-menu dropdown-menu-center">
                                     <form asp-controller="ExhibitionRoom" asp-action="Edit" asp-route-id="@item.Id">
-                                        <button class="btn btn-success w-70 mt-2 ml-4"><i class="fa fa-pencil m-r-5"></i> Sửa thông tin</button>
+                                        <button class="btn btn-success w-85 ml-3 mt-2 "><i class="fa fa-pencil m-r-5"></i> Sửa thông tin</button>
                                     </form>                          
-                                    <a class="btn btn-info w-70 mt-2 ml-4" asp-controller="Editor" asp-action="EditRoom" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa chi tiết 3D</a>
-                                    <button class="btn btn-danger w-70 mt-2 ml-4" data-toggle="modal" data-target="#delete-test"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
+                                    <a class="btn btn-info w-85 mt-2 ml-3" asp-controller="Editor" asp-action="EditRoom" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa chi tiết 3D</a>
+                                    <button class="btn btn-danger w-85 mt-2 ml-3" data-toggle="modal" data-target="#delete-test"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
                                 </div>
                                  <!-- START MODEL DELETE PHÒNG TRƯNG BÀY-->
                                     <div class="w-50 d-flex justify-content-end">
@@ -123,15 +131,18 @@
                                                 <form asp-controller="ExhibitionRoom" asp-action="Delete" asp-route-id="@item.Id">
                                                     <div class="modal-content p-3" style="width: auto;">
                                                         <div class="flex-row d-flex justify-content-center mb-2">
-                                                            <h2 class="text-danger">Bạn có chắc xóa nhân viên</h2>
-                                                        </div>  
-                                                        <div class="row">
-                                                       
+                                                           <img src="~/Images/xoa.png" height="100" width="100">
                                                         </div>
-                                                        <div class="d-flex flex-row justify-content-end my-0 mt-5 ">
-                                                            <div class="w-75 d-flex">
-                                                                <input type="submit"  name="btn" class="btn btn-danger w-40" value="Xóa" >
-                                                                <input type="submit" class="btn btn-info w-40 mr-2 ml-5 text-white" data-dismiss="modal" value="Đóng">
+                                                         <div class="flex-row d-flex justify-content-center mb-2">
+                                                           <h3 style="color:#636363;">Bạn có chắc chắn muốn xóa?</h3>
+                                                        </div>
+                                                        <div class="flex-row d-flex justify-content-center mb-2">
+                                                           <p style="color:#918a8a;">Nếu bạn bấm vào nút xóa thì sẽ xóa căn phòng này.</p>
+                                                        </div>
+                                                        <div class="d-flex flex-row justify-content-end my-0 mt-3 ">
+                                                            <div class="w-100 d-flex">
+                                                                <input type="submit" class="btn btn-secondary w-40 text-white ml-4" data-dismiss="modal" value="Đóng">
+                                                                <input type="submit"  name="btn" class="btn btn-danger w-40 ml-2" value="Xóa" >
                                                             </div>
                                                         </div>
                                                     </div>
@@ -139,7 +150,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                        @* END MODAL  *@
+                                  @* END MODAL  *@
                             </div>
                        </div>
                    </div>
@@ -162,3 +173,23 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var checkExh = $('#checkExh').val();
+    var idExh = $('#idExh').val();
+    if (checkExh == "1") {
+        const request = indexedDB.open("threejs-editor");
+	    request.onsuccess = function ( event ) 
+        {
+            const database = event.target.result;
+            const transaction = database.transaction( [ 'states'  ], 'readwrite' );
+	        const objectStore = transaction.objectStore('states' );
+	        const request = objectStore.get(idExh);
+	        request.onsuccess = function ( event ) {
+                const request = objectStore.delete(idExh);
+                request.onsuccess = function(event) {
+                    console.log("thanh cong")
+                }
+	        };
+	    };
+    }
+</script>

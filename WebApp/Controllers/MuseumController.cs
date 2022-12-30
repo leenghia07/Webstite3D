@@ -60,7 +60,7 @@ namespace WebApp.Controllers
         }
         public int TotalArtifact(string name)
         {
-            var Museums = _MuseumDataContext.Museum.Where( i =>i.MuseumName.Equals(name));
+            var Museums = _MuseumDataContext.Aritifact.Where( i =>i.Museum.MuseumName.Equals(name));
             int Total = Museums.Count();
             return Total;
         }

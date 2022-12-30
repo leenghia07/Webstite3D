@@ -153,52 +153,55 @@
                                                             <div class="modal fade" id="delete-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
                                                                     <form asp-action="Delete" asp-route-id="@item.Id">
-                                                                        <div class="modal-content p-3" style="width: auto;">
-                                                                            <div class="flex-row d-flex justify-content-center mb-2">
-                                                                                <h2 class="text-danger">Bạn có chắc xóa nhân viên</h2>
-                                                                            </div>  
-                                                                            <div class="row">
-                                                                                <div class="col d-flex flex-row-reverse">
-                                                                                    @if(item.Image != null)
-                                                                                    {
-                                                                                        <img class="ml-5" style="border-radius: 50px" height="100" width="100" src="~/Images/@item.Image">
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        <img class="ml-5" style="border-radius: 50px" height="100" width="100" src="~/Images/hinhanhnull.jpg">   
-                                                                                    }
-                                                                                </div>
-                                                                                <div class="col my-auto">
-                                                                                    <div class="row">
-                                                                                        <dt style="font-size:15px;">@item.FirstName @item.LastName</dt>
-                                                                                    </div>
-                                                                                    <div class="row mt-2">
-                                                                                          @if (item.PerMission == "Manager")
-                                                                                           {
-                                                                                               <span style="font-size:15px" class="badge badge-pill badge-success text-white">Quản trị viên</span>
-                                                                                           }
-                                                                                           @if (item.PerMission == "Employee")
-                                                                                           {
-                                                                                               <span style="font-size:15px" class="badge badge-pill badge-info text-white">Nhân viên</span>
-                                                                                           }
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="d-flex flex-row justify-content-end my-0 mt-5 ">
-                                           
-                                                                                <div class="w-75 d-flex">
-                                                                                    @{
-                                                                                        var disable = "";
-                                                                                        if (item.PerMission == "Manager")
+                                                                           <div class="modal-content p-3" style="width: auto;">
+                                                                                <div class="row justify-content-center mb-2">
+                                                                                    <div class="col d-flex flex-row-reverse">
+                                                                                        @if(item.Image != null)
                                                                                         {
-                                                                                            disable = "disabled";
+                                                                                            <img class="ml-5" style="border-radius: 50px" height="100" width="100" src="~/Images/@item.Image">
                                                                                         }
-                                                                                    }
-                                                                                    <input type="submit"  name="btn" class="btn btn-danger w-40" value="Xóa" @disable>
-                                                                                    <input type="submit" class="btn btn-info w-40 mr-2 ml-5 text-white" data-dismiss="modal" value="Đóng">
+                                                                                        else
+                                                                                        {
+                                                                                            <img class="ml-5" style="border-radius: 50px" height="100" width="100" src="~/Images/hinhanhnull.jpg">   
+                                                                                        }
+                                                                                    </div>
+                                                                                    <div class="col my-auto">
+                                                                                        <div class="row">
+                                                                                            <dt style="font-size:15px;">@item.FirstName @item.LastName</dt>
+                                                                                        </div>
+                                                                                        <div class="row mt-2">
+                                                                                              @if (item.PerMission == "Manager")
+                                                                                               {
+                                                                                                   <span style="font-size:15px" class="badge badge-pill badge-success text-white">Quản trị viên</span>
+                                                                                               }
+                                                                                               @if (item.PerMission == "Employee")
+                                                                                               {
+                                                                                                   <span style="font-size:15px" class="badge badge-pill badge-info text-white">Nhân viên</span>
+                                                                                               }
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                 <div class="flex-row d-flex justify-content-center mb-2">
+                                                                                   <h3 style="color:#636363;">Bạn có chắc xóa nhân viên?</h3>
+                                                                                </div>
+                                                                                <div class="flex-row d-flex justify-content-center mb-2">
+                                                                                   <p style="color:#918a8a;">Nếu bạn bấm vào nút xóa thì sẽ xóa nhân viên này.</p>
+                                                                                </div>
+                                                                             
+                                                                                <div class="d-flex flex-row justify-content-end my-0 mt-3 ">
+                                                                                    <div class="w-100 d-flex">
+                                                                                        @{
+                                                                                            var disable = "";
+                                                                                            if (item.PerMission == "Manager")
+                                                                                            {
+                                                                                                disable = "disabled";
+                                                                                            }
+                                                                                        }
+                                                                                        <input type="submit" class="btn btn-secondary w-40 text-white ml-4" data-dismiss="modal" value="Đóng">
+                                                                                        <input type="submit"  name="btn" class="btn btn-danger w-40 ml-2" value="Xóa" @disable>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
                                                                     </form>
                                                                  </div>
                                                              </div>
@@ -315,52 +318,55 @@
                                                             <div class="modal fade" id="delete-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
                                                                     <form asp-action="Delete" asp-route-id="@item.Id">
-                                                                        <div class="modal-content p-3" style="width: auto;">
-                                                                            <div class="flex-row d-flex justify-content-center mb-2">
-                                                                                <h2 class="text-danger">Bạn có chắc xóa nhân viên</h2>
-                                                                            </div>  
-                                                                            <div class="row">
-                                                                                <div class="col d-flex flex-row-reverse">
-                                                                                    @if(item.Image != null)
-                                                                                    {
-                                                                                        <img class="ml-5" style="border-radius: 50px" height="100" width="100" src="~/Images/@item.Image">
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        <img class="ml-5" style="border-radius: 50px" height="100" width="100" src="~/Images/hinhanhnull.jpg">   
-                                                                                    }
-                                                                                </div>
-                                                                                <div class="col my-auto">
-                                                                                    <div class="row">
-                                                                                        <dt style="font-size:15px;">@item.FirstName @item.LastName</dt>
-                                                                                    </div>
-                                                                                    <div class="row mt-2">
-                                                                                          @if (item.PerMission == "Manager")
-                                                                                           {
-                                                                                               <span style="font-size:15px" class="badge badge-pill badge-success text-white">Quản trị viên</span>
-                                                                                           }
-                                                                                           @if (item.PerMission == "Employee")
-                                                                                           {
-                                                                                               <span style="font-size:15px" class="badge badge-pill badge-info text-white">Nhân viên</span>
-                                                                                           }
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="d-flex flex-row justify-content-end my-0 mt-5 ">
-                                           
-                                                                                <div class="w-75 d-flex">
-                                                                                    @{
-                                                                                        var disable = "";
-                                                                                        if (item.PerMission == "Manager")
+                                                                         <div class="modal-content p-3" style="width: auto;">
+                                                                                <div class="row justify-content-center mb-2">
+                                                                                    <div class="col d-flex flex-row-reverse">
+                                                                                        @if(item.Image != null)
                                                                                         {
-                                                                                            disable = "disabled";
+                                                                                            <img class="ml-5" style="border-radius: 50px" height="100" width="100" src="~/Images/@item.Image">
                                                                                         }
-                                                                                    }
-                                                                                    <input type="submit"  name="btn" class="btn btn-danger w-40" value="Xóa" @disable>
-                                                                                    <input type="submit" class="btn btn-info w-40 mr-2 ml-5 text-white" data-dismiss="modal" value="Đóng">
+                                                                                        else
+                                                                                        {
+                                                                                            <img class="ml-5" style="border-radius: 50px" height="100" width="100" src="~/Images/hinhanhnull.jpg">   
+                                                                                        }
+                                                                                    </div>
+                                                                                    <div class="col my-auto">
+                                                                                        <div class="row">
+                                                                                            <dt style="font-size:15px;">@item.FirstName @item.LastName</dt>
+                                                                                        </div>
+                                                                                        <div class="row mt-2">
+                                                                                              @if (item.PerMission == "Manager")
+                                                                                               {
+                                                                                                   <span style="font-size:15px" class="badge badge-pill badge-success text-white">Quản trị viên</span>
+                                                                                               }
+                                                                                               @if (item.PerMission == "Employee")
+                                                                                               {
+                                                                                                   <span style="font-size:15px" class="badge badge-pill badge-info text-white">Nhân viên</span>
+                                                                                               }
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                 <div class="flex-row d-flex justify-content-center mb-2">
+                                                                                   <h3 style="color:#636363;">Bạn có chắc xóa nhân viên?</h3>
+                                                                                </div>
+                                                                                <div class="flex-row d-flex justify-content-center mb-2">
+                                                                                   <p style="color:#918a8a;">Nếu bạn bấm vào nút xóa thì sẽ xóa nhân viên này.</p>
+                                                                                </div>
+                                                                             
+                                                                                <div class="d-flex flex-row justify-content-end my-0 mt-3 ">
+                                                                                    <div class="w-100 d-flex">
+                                                                                        @{
+                                                                                            var disable = "";
+                                                                                            if (item.PerMission == "Manager")
+                                                                                            {
+                                                                                                disable = "disabled";
+                                                                                            }
+                                                                                        }
+                                                                                        <input type="submit" class="btn btn-secondary w-40 text-white ml-4" data-dismiss="modal" value="Đóng">
+                                                                                        <input type="submit"  name="btn" class="btn btn-danger w-40 ml-2" value="Xóa" @disable>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
                                                                     </form>
                                                                  </div>
                                                              </div>

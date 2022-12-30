@@ -17,7 +17,8 @@
         <div class="row page-titles shadow-lg mx-0">
             <div class="col-sm-6 p-md-0">
                 <div style="display:flex;">
-                    <h3 style="color:#673BB7;"> Sửa thông tin phòng trưng bày</h3>
+                     <a href="#" onclick="history.back()"> <i class="mdi mdi-arrow-left-bold-circle-outline" style="font-size: 3em;color:#230c4e;"></i></a>  
+                    <h3 style="color:#673BB7;" class="ml-2 mt-3"> Sửa thông tin phòng trưng bày</h3>
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -46,17 +47,17 @@
                             <label class="textColor">Ngày</label>
                             <input asp-for="@Model.ExhibitionRoom.Date" asp-format="{0:yyyy-MM-dd}" class="form-control" required /> 
                             @*<span class="mt-2 mb-2 ml-2" asp-validation-for="@Model.NameRoom" style="color:red">test</span>*@
-                        </div>
-                        <div class="col-md-6">
-                            <label class="textColor">Bảo tàng</label>
+                        </div>  
+                        <div class="col-md-6 mb-3">
+                            <label class="textColor" asp-for="@Model.ExhibitionRoom.Museum"></label>
                             <select class="form-control" asp-for="@Model.ExhibitionRoom.MuseumId">
-                                <option asp-for="@Model.ExhibitionRoom.MuseumId">@ExhRoom.Museum.MuseumName</option>
-                                <option >Chọn bảo tàng</option>
-                                @foreach (var item in Museums)
-                                {
-                                    <option asp-for="@item.Id"> @item.MuseumName</option>
-                                }
-                            </select>
+                            <option asp-for="@Model.ExhibitionRoom.MuseumId"> @Model.ExhibitionRoom.Museum.MuseumName</option>
+                            <option>--- Chọn bảo tàng ---</option>
+                            @foreach (var item in Museums)
+                            {
+                                <option value="@item.Id">@item.MuseumName</option> 
+                            }
+                        </select>
                         </div>
                     </div>
                     <div class="form-row">

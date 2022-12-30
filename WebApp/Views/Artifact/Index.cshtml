@@ -29,6 +29,11 @@
         <strong>@TempData["Error"]</strong>
     </div>   
 }
+@if(TempData["Id_Artifact"] != null)
+{
+    <input id="checkArtifact" hidden="hidden" value="@TempData["Id_Artifact"]">
+    <input id="idArtifact"  hidden="hidden" value="@TempData["Id"]">
+}
 @if(TempData["success"] != null)
 {
     <div class="alert mb-3 alert-primary solid alert-right-icon alert-dismissible fade show">
@@ -148,11 +153,11 @@
                                 <div class="form-row">
                                     <div class="col-md-6 mb-3">
                                         <label class="textColor" asp-for="@Artifact.Image"></label>
-                                        <input class="form-control" name="File"   type="file" accept=".jpeg,.png,.gif,.tiff,.psd,.svg,.heic,.raw" required>
+                                        <input class="form-control" name="File"   type="file" accept=".jpeg,.png,.gif,.tiff,.psd,.svg,.heic,.raw" >
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="textColor" asp-for="@Artifact.File3D" ></label>
-                                        <input class="form-control" asp-for="@Artifact.File3D" name="File3D" type="file" accept=".gltf,.glb" required>
+                                        <input class="form-control" asp-for="@Artifact.File3D" name="File3D" type="file" accept=".gltf,.glb" >
                                     </div>
                                 </div>
                                     <div class="form-row">
@@ -230,15 +235,43 @@
                                             <td class="text-center">
                                                 <div class="dropdown dropdown-action">
                                                     <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-center">
-                                                        <a class="btn btn-success w-70 ml-4" asp-controller="Artifact" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa</a>                              
-                                                        <a class="btn btn-info w-70 mt-2 ml-4" asp-controller="Editor" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa chi tiết 3D</a>  
-                                                        <form asp-action="Delete" asp-route-id="@item.Id">
-                                                            <button class="btn btn-danger w-70 mt-2 ml-4"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
+                                                    <div class="dropdown-menu dropdown-menu-center" >
+                                                        <a class="btn btn-success w-85 ml-3" asp-controller="Artifact" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa</a>                              
+                                                        <a class="btn btn-info w-85  mt-2 ml-3" asp-controller="Editor" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa chi tiết 3D</a>  
+                                                        <form asp-controller="Artifact" asp-action="Delete" asp-route-id="@item.Id">
+                                                            <button class="btn btn-danger w-85  mt-2 ml-3"  ><i class="fa fa-trash-o m-r-5"></i> Xóa</button
                                                         </form>
+                                                       @*  <button class="btn btn-danger w-85  mt-2 ml-3" data-toggle="modal" data-target="#delete-2" ><i class="fa fa-trash-o m-r-5"></i> Xóa</button*@
                                                     </div>
                                                 </div>
                                             </td>
+                                             @* START MODEL DELETE*@
+                                                @*<div class="w-50 d-flex justify-content-end">
+                                                    <div class="modal fade" id="delete-2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
+                                                          <form asp-controller="Artifact" asp-action="Delete" asp-route-id="@item.Id">
+                                                                <div class="modal-content p-3" style="width: auto;">
+                                                                    <div class="flex-row d-flex justify-content-center mb-2">
+                                                                       <img src="~/Images/xoa.png" height="100" width="100">
+                                                                    </div>
+                                                                     <div class="flex-row d-flex justify-content-center mb-2">
+                                                                       <h3 style="color:#636363;">Bạn có chắc chắn muốn xóa?</h3>
+                                                                    </div>
+                                                                    <div class="flex-row d-flex justify-content-center mb-2">
+                                                                       <p style="color:#918a8a;">Nếu bạn bấm vào nút xóa thì sẽ xóa hiện vật này.</p>
+                                                                    </div>
+                                                                    <div class="d-flex flex-row justify-content-end my-0 mt-3 ">
+                                                                        <div class="w-100 d-flex">
+                                                                            <input type="submit" class="btn btn-secondary w-40 text-white ml-4" data-dismiss="modal" value="Đóng">
+                                                                            <input type="submit"  name="btn" class="btn btn-danger w-40 ml-2" value="Xóa" >
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>*@
+                                                @* END MODAL  *@
                                         </tr>
                                         }
                                     </tbody>
@@ -257,29 +290,33 @@
                            <div class="col-lg-12 d-flex flex-row-reverse">
                                 <div class=" dropdown dropdown-action">
                                     <a href="#"  style="color: black;font-size: 30px;" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-center">
-                                        <form asp-controller="Artifact" asp-action="Edit" asp-route-id="@item.Id" >
-                                            <button class="btn btn-success w-70 mt-2 ml-4"><i class="fa fa-pencil m-r-5"></i> Sửa</button>
-                                        </form>
-                                        <a class="btn btn-info w-70 mt-2 ml-4" asp-controller="Editor" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa chi tiết 3D</a>  
-                                        <button class="btn btn-danger w-70 mt-2 ml-4" data-toggle="modal" data-target="#delete-test"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
+                                    <div class="dropdown-menu dropdown-menu-center" >
+                                        <a class="btn btn-success w-85 ml-3" asp-controller="Artifact" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa</a>                              
+                                        <a class="btn btn-info w-85  mt-2 ml-3" asp-controller="Editor" asp-action="Edit" asp-route-id="@item.Id" style="cursor: pointer;"><i class="fa fa-pencil m-r-5"></i> Sửa chi tiết 3D</a>  
+                                           <form asp-controller="Artifact" asp-action="Delete" asp-route-id="@item.Id">
+                                                <button class="btn btn-danger w-85  mt-2 ml-3"  ><i class="fa fa-trash-o m-r-5"></i> Xóa</button
+                                            </form>
+                           @*             <button  class="btn btn-danger w-85  mt-2 ml-3" data-toggle="modal" data-target="#delete-test"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>*@
                                     </div>
                                    @* START MODEL DELETE*@
                                     <div class="w-50 d-flex justify-content-end">
                                         <div class="modal fade" id="delete-test" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
-                                                <form  asp-action="Delete" asp-route-id="@item.Id">
+                                              <form asp-controller="Artifact" asp-action="Delete" asp-route-id="@item.Id">
                                                     <div class="modal-content p-3" style="width: auto;">
                                                         <div class="flex-row d-flex justify-content-center mb-2">
-                                                            <h2 class="text-danger">Bạn muốn xóa hiện vật này?</h2>
-                                                        </div>  
-                                                        <div class="row">
-                                                       
+                                                           <img src="~/Images/xoa.png" height="100" width="100">
                                                         </div>
-                                                        <div class="d-flex flex-row justify-content-end my-0 mt-5 ">
-                                                            <div class="w-75 d-flex">
-                                                                <input type="submit"  name="btn" class="btn btn-danger w-40" value="Xóa" >
-                                                                <input type="submit" class="btn btn-info w-40 mr-2 ml-5 text-white" data-dismiss="modal" value="Đóng">
+                                                         <div class="flex-row d-flex justify-content-center mb-2">
+                                                           <h3 style="color:#636363;">Bạn có chắc chắn muốn xóa?</h3>
+                                                        </div>
+                                                        <div class="flex-row d-flex justify-content-center mb-2">
+                                                           <p style="color:#918a8a;">Nếu bạn bấm vào nút xóa thì sẽ xóa hiện vật này.</p>
+                                                        </div>
+                                                        <div class="d-flex flex-row justify-content-end my-0 mt-3 ">
+                                                            <div class="w-100 d-flex">
+                                                                <input type="submit" class="btn btn-secondary w-40 text-white ml-4" data-dismiss="modal" value="Đóng">
+                                                                <input type="submit"  name="btn" class="btn btn-danger w-40 ml-2" value="Xóa" >
                                                             </div>
                                                         </div>
                                                     </div>
@@ -314,3 +351,23 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var checkArtifact = $('#checkArtifact').val();
+    var idArtifact = $('#idArtifact').val();
+    if (checkArtifact == "1") {
+        const request = indexedDB.open("threejs-editor");
+	    request.onsuccess = function ( event ) 
+        {
+            const database = event.target.result;
+            const transaction = database.transaction( [ 'states'  ], 'readwrite' );
+	        const objectStore = transaction.objectStore('states' );
+	        const request = objectStore.get(idArtifact);
+	        request.onsuccess = function ( event ) {
+                const request = objectStore.delete(idArtifact);
+                request.onsuccess = function(event) {
+                    console.log("thanh cong")
+                }
+	        };
+	    };
+    }
+</script>

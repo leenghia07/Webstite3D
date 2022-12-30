@@ -40,7 +40,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label>Loại bài viết</label>
-                                    <input asp-for="@TypeOfArticle.NameType" class="form-control"  placeholder="Loại bài viết">
+                                    <input asp-for="@TypeOfArticle.NameType" class="form-control" required  placeholder="Loại bài viết">
                                 </div> 
                                  <div class="form-group col-md-12">
                                     <span asp-validation-for="@TypeOfArticle.NameType" class="text-danger"></span>
@@ -90,12 +90,40 @@
                                         <td class="text-center">
                                             <div class="d-flex">
                                                 <button data-toggle="modal" data-target="#modalEdit-@item.Id" class=" btn btn-success"><i class="fa fa-pencil m-r-5"></i> <span class="text-white">Sửa</span></button>
-                                                <form asp-action="Delete" asp-route-id="@item.Id">
+                                                @*<form asp-action="Delete" asp-route-id="@item.Id">
                                                     <button class="ml-2 btn btn-danger"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
-                                                </form>
+                                                </form>*@
+                                                <button class="ml-2 btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="fa fa-trash-o m-r-5"></i> Xóa</button>
                                             </div>
                                         </td>
                                     </tr>
+                                      @* START MODEL DELETE*@
+                                        <div class="w-50 d-flex justify-content-end">
+                                            <div class="modal fade" id="delete-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered justify-content-center w-auto">
+                                                   <form asp-action="Delete" asp-route-id="@item.Id">
+                                                        <div class="modal-content p-3" style="width: auto;">
+                                                            <div class="flex-row d-flex justify-content-center mb-2">
+                                                                <img src="~/Images/xoa.png" height="100" width="100">
+                                                            </div>
+                                                                <div class="flex-row d-flex justify-content-center mb-2">
+                                                                <h3 style="color:#636363;">Bạn có chắc chắn muốn xóa?</h3>
+                                                            </div>
+                                                            <div class="flex-row d-flex justify-content-center mb-2">
+                                                                <p style="color:#918a8a;">Nếu bạn bấm vào nút xóa thì sẽ xóa loại bài viết này.</p>
+                                                            </div>
+                                                            <div class="d-flex flex-row justify-content-end my-0 mt-3 ">
+                                                                <div class="w-100 d-flex">
+                                                                    <input type="submit" class="btn btn-secondary w-40 text-white ml-4" data-dismiss="modal" value="Đóng">
+                                                                    <input type="submit"  name="btn" class="btn btn-danger w-40 ml-2" value="Xóa" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @* END MODAL  *@
                                     @*Start model*@
                                     <div class="w-50 d-flex justify-content-end">
                                         <div class="modal fade" id="modalEdit-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

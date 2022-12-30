@@ -94,7 +94,39 @@ namespace WebApp.Controllers
         }
       /*  public async Task<IActionResult> Search(VMArticle vmArticle)
         {
-            return
+            VMArticle article = new VMArticle();
+            string data = vmArticle.Year + '/' + vmArticle.Month + '/' + 01;
+            DateTime myDate = DateTime.Parse(data);
+            var Month = new DateTime(myDate.Year, myDate.Month, 01);
+            var FistDatOfMonth = Month.ToString("yyyy/MM/dd");
+            var lastDayOfMonth = Month.AddMonths(1).AddSeconds(-1).ToString("yyyy/MM/dd");
+            DateTime FistDate = DateTime.Parse(FistDatOfMonth);
+            DateTime LastDate = DateTime.Parse(lastDayOfMonth);
+            var ListTypeOfArticle = _context.TypeOfArticle.ToList();
+            foreach (var item in ListTypeOfArticle)
+            {
+                if(item.Id == vmArticle.TypeOfArticle)
+                {
+
+                    if()
+                    {
+                        article.Articles = 
+                    }
+                    else
+                    {
+
+                    }
+                     Articles = _context.Aritifact.Where(i => i.DiscoveryDate >= FistDate)
+                                          .Where(t => t.DiscoveryDate <= LastDate)
+                                          .Where(y => y.TypeOfArtifactId == vmArtifact.TypeOfArtifact)
+                                          .OrderByDescending(i => i.DiscoveryDate);
+                    break;
+                }
+            }
+            article.Month = vmArticle.Month;
+            article.Year = vmArticle.Year;
+            article.TypeOfArticles = ListTypeOfArticle;
+            return View(article);
         }*/
 
     }

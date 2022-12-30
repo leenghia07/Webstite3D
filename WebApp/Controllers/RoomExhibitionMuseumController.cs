@@ -17,7 +17,7 @@ namespace WebApp.Controllers
         {
             VMRoomExhibitionMuseum roomEM=new VMRoomExhibitionMuseum();
             var roomEMs = await _context.ExhibitionRoom
-                                        .AsNoTracking()
+                                        .Include(i => i.Museum)
                                         .ToListAsync();
             roomEM.ExhibitionRooms = roomEMs;
             return View(roomEM);

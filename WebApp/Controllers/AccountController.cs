@@ -87,6 +87,7 @@ namespace WebApp.Controllers
             Guid guid = Guid.NewGuid();
             applicationUser.Id = guid.ToString();
             applicationUser.FisrtName = vmAccount.Account.FisrtName;
+            applicationUser.Image = vmAccount.Account.Image;
             applicationUser.LastName = vmAccount.Account.LastName;
             applicationUser.BirthDate = vmAccount.Account.BirthDate;
             applicationUser.PhoneNumber = vmAccount.Account.PhoneNumber;

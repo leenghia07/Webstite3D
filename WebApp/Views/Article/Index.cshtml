@@ -46,7 +46,18 @@
 }
 <div class="row"> 
     <div class="col-lg-12">
-        <form asp-action="Search">
+        <div class=" row page-titles shadow-lg mx-0">
+            <div class="col-sm-6 p-md-0">
+                <h3 class="mt-2" style="color:#673BB7;">Bài viết</h3>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <button type="submit" data-toggle="modal" data-target="#modalCreate" style="width:200px;height:50px;font-size: 20px;color:white;margin-right:10rem;" class="btn btn-secondary">Tạo bài viết</button>
+                    <li class="breadcrumb-item active mt-2"><a href="">Danh sách</a></li>
+                </ol>
+            </div>
+        </div>
+      @*  <form asp-action="Search">
             <div class=" row page-titles shadow-lg mx-0">
                 <div class="col-sm-6 p-md-0">
                     <h3 style="color:#673BB7;">Bài viết</h3>
@@ -57,9 +68,9 @@
                     </ol>
                 </div>
             </div>
-            <div class="card shadow-lg mt-4">
+              <div class="card shadow-lg mt-4">
                 <div class="card-body d-flex flex-row ">
-                    <div class="col-lg-2">  
+                  <div class="col-lg-2">  
                         <select  class="form-control" asp-for="@Model.Month" required>
                             <option  value=""  >Chọn tháng</option> 
                             @for (var i = 1; i <= 12 ; i++)
@@ -92,7 +103,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </form>*@
         @*Start model thêm bài viết*@
         <div class="w-50 d-flex justify-content-end">
             <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
